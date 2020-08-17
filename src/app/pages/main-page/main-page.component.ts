@@ -65,17 +65,20 @@ export class MainPageComponent implements OnInit {
   }
 
   getNextRace(){
+    let nextRaceData:NextRaceModel=new NextRaceModel();
     this.webService.getNextRace().subscribe(res=>{
       console.log("res",res);
       let data=res.MRData.RaceTable.Races[0];
-      this.nextRaceData.raceName=data.raceName;
-      this.nextRaceData.date=data.date;
-      this.nextRaceData.time=data.time;
-      this.nextRaceData.season=data.season;
-      this.nextRaceData.round=data.round;
-      this.nextRaceData.country=data.Circuit.Location.country;
-      this.nextRaceData.circuitName=data.Circuit.circuitName;
-    })
+      nextRaceData.raceName=data.raceName;
+      nextRaceData.date=data.date;
+      nextRaceData.time=data.time;
+      nextRaceData.season=data.season;
+      nextRaceData.round=data.round;
+      nextRaceData.country=data.Circuit.Location.country;
+      nextRaceData.circuitName=data.Circuit.circuitName;
+
+      this.nextRaceData=nextRaceData;
+    });
   }
 
 }

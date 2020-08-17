@@ -1,10 +1,18 @@
 <div class="NextRace">
-    <div>{{data.raceName}}</div>
-    <div>{{data.date}}</div>
-    <div>{{data.time}}</div>
-    <div>{{data.season}}</div>
-    <div>{{data.round}}</div>
-    <div>{{data.country}}</div>
-    <div>{{data.circuitName}}</div>
+    <div>
+        <div class="NextRace__RaceName">{{data.raceName}}</div>
+        <div>Date: {{data.date}} {{data.time}}</div>
+        <div>Starts in: {{remainingTime}}</div>
+    </div>
+    <div style="display: flex;">
+        <div>Season: {{data.season}}</div>
+        <div>Round: {{data.round}}</div>
+    </div>
+   <div style="display: flex;">
+       <div>Location:</div>
+       <div>{{data.country}}</div>
+       <div>{{data.circuitName}}</div>
+   </div>
+ 
 
 </div>
