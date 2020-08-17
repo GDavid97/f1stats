@@ -7,13 +7,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { SeasonPageComponent } from './pages/season-page/season-page.component';
 import { BubbleChartComponent } from './charts/bubble-chart/bubble-chart.component';
+import { NextRaceComponent } from './components/next-race/next-race.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
     SeasonPageComponent,
-    BubbleChartComponent
+    BubbleChartComponent,
+    NextRaceComponent
   ],
   imports: [
     BrowserModule,

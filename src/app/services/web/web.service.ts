@@ -31,7 +31,7 @@ export class WebService {
     )
   }
 
-  getDrivers(limit:number=Number.MAX_SAFE_INTEGER,offset:number=0): Observable<any> {
+  getDrivers(limit:number=1000,offset:number=0): Observable<any> {
   
     return this.http.get<any>(
       'https://cors-anywhere.herokuapp.com/http://ergast.com/api/f1/drivers.json?limit='+limit+'&offset='+offset,
@@ -47,11 +47,17 @@ export class WebService {
     )
   }
 
-  getAllWins(limit:number=Number.MAX_SAFE_INTEGER,offset:number=0):Observable<any>{
+  getAllWins(limit:number=1000,offset:number=0):Observable<any>{
     return this.http.get<any>(
       'https://cors-anywhere.herokuapp.com/http://ergast.com/api/f1/results/1.json?limit='+limit+'&offset='+offset,
       httpOptions
-    )
-  
+    ) 
+  }
+
+  getNextRace():Observable<any>{
+    return this.http.get<any>(
+      'https://cors-anywhere.herokuapp.com/http://ergast.com/api/f1/current/next.json',
+      httpOptions
+    )  
   }
 }
