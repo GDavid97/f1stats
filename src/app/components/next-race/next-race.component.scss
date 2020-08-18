@@ -1,7 +1,24 @@
 .NextRace {
+    font-size:16px;
+    color: black;
     &__RaceName {
         font-size: 22px;
         font-weight: bold;
-        color: black;
+       
+    }
+
+    &__Row{
+        text-align: center;
+        margin:auto;
+    }
+    &__Countdown{
+        font-weight: bold;
+        font-size:20px;
+    }
+
+    &__Title{
+        font-size: 26px;
+        font-weight: bold;
+        text-decoration:underline;
     }
 }

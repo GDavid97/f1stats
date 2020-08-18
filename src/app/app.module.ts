@@ -8,6 +8,10 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { SeasonPageComponent } from './pages/season-page/season-page.component';
 import { BubbleChartComponent } from './charts/bubble-chart/bubble-chart.component';
 import { NextRaceComponent } from './components/next-race/next-race.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { CircuitsPageComponent } from './pages/circuits-page/circuits-page.component';
+import { TeamsPageComponent } from './pages/teams-page/teams-page.component';
+import { DriversPageComponent } from './pages/drivers-page/drivers-page.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +19,11 @@ import { NextRaceComponent } from './components/next-race/next-race.component';
     MainPageComponent,
     SeasonPageComponent,
     BubbleChartComponent,
-    NextRaceComponent
+    NextRaceComponent,
+    NavbarComponent,
+    CircuitsPageComponent,
+    TeamsPageComponent,
+    DriversPageComponent
   ],
   imports: [
     BrowserModule,

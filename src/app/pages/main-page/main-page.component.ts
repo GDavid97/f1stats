@@ -15,6 +15,7 @@ export class MainPageComponent implements OnInit {
   nextRaceData:NextRaceModel=new NextRaceModel();
 
   areBubblesLoading=true;
+  isNextRaceLoading=true;
 
   constructor(private dataService:DataService, private webService:WebService) { }
 
@@ -67,7 +68,6 @@ export class MainPageComponent implements OnInit {
   getNextRace(){
     let nextRaceData:NextRaceModel=new NextRaceModel();
     this.webService.getNextRace().subscribe(res=>{
-      console.log("res",res);
       let data=res.MRData.RaceTable.Races[0];
       nextRaceData.raceName=data.raceName;
       nextRaceData.date=data.date;
@@ -76,8 +76,8 @@ export class MainPageComponent implements OnInit {
       nextRaceData.round=data.round;
       nextRaceData.country=data.Circuit.Location.country;
       nextRaceData.circuitName=data.Circuit.circuitName;
-
       this.nextRaceData=nextRaceData;
+      this.isNextRaceLoading=false;
     });
   }
 

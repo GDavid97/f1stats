@@ -1,18 +1,17 @@
 <div class="NextRace">
-    <div>
+    <div class="NextRace__Title">Next race:</div>
+    <div class="NextRace__Row">
         <div class="NextRace__RaceName">{{data.raceName}}</div>
-        <div>Date: {{data.date}} {{data.time}}</div>
-        <div>Starts in: {{remainingTime}}</div>
+        <img style="margin-bottom:12px" height="40" width="40" src="assets/flags/{{data.country | lowercase}}.png" >
+        <div><img height="16" width="16" src="assets/icons/calendar.png" > {{localDate | date:'long'}}</div>
+        <div class="NextRace__Countdown"><img height="16" width="16" src="assets/icons/hourglass.png" > {{remainingTime}}</div>
     </div>
-    <div style="display: flex;">
-        <div>Season: {{data.season}}</div>
-        <div>Round: {{data.round}}</div>
+    <div class="NextRace__Row">
+        Season: {{data.season}} Round: {{data.round}}
     </div>
-   <div style="display: flex;">
-       <div>Location:</div>
-       <div>{{data.country}}</div>
-       <div>{{data.circuitName}}</div>
-   </div>
- 
+    <div class="NextRace__Row">
+        Circuit: {{data.circuitName}}
+    </div>
+
 
 </div>

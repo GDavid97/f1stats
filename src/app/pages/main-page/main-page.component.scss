@@ -8,25 +8,15 @@
 }
 
 .MainPage {
-    &__Title {
-        color: #020202;
-        font-size: 140px;
+
+    &__MainSection{
         position: absolute;
         top: 50%;
-        background-color: rgb(187 180 98 / 64%);
+        background-color: rgb(255 252 212 / 64%);
         width: 100%;
         text-align: center;
         transform: translateY(-50%);
-        text-shadow: 1px 1px 1px 1px yellow;
-        text-shadow: 1px 1px #a58c8c;
     }
-
-    &__NavButtons {
-        position: absolute;
-        top: 0;
-        padding: 10px;
-    }
-
     &__SubTitle{
         font-size: 48px;
         margin-top: 36px;

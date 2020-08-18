@@ -13,6 +13,7 @@ export class NextRaceComponent implements OnInit, OnChanges, OnDestroy {
   data: NextRaceModel
 
   remainingTime: string;
+  localDate:Date;
 
   timerSubscription:Subscription;
 
@@ -21,22 +22,23 @@ export class NextRaceComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit() { 
     this.timerSubscription = timer(0,1000)
     .subscribe((val) => {
-      if(this.data && this.data.date && this.data.time){
-        this.getCountdown(this.data.date,this.data.time);
+      if(this.localDate){
+        this.getCountdown(this.localDate);
       }     
     });   
   }
 
   ngOnChanges(changes:SimpleChanges){  
+    if(changes.data && changes.data.currentValue){
+      this.localDate=new Date(`${this.data.date} ${this.data.time}`);
+    }
   }
 
 
 
-  getCountdown(date: string, time: string) {
-    let raceTime = new Date(`${date} ${time}`);
-    let current = new Date();
-    let eventEndTime = new Date(raceTime);
-    let diff = (eventEndTime.valueOf() - current.valueOf());
+  getCountdown(raceTime:Date) {    
+    let current = new Date();  
+    let diff = (raceTime.valueOf() - current.valueOf());
     let days=Math.floor(diff/(1000*60*60*24));
     diff-=days*(1000*60*60*24);
     let hours=Math.floor(diff/(1000*60*60));
