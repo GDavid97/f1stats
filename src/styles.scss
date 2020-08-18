@@ -27,7 +27,7 @@ html{
     transition: cubic-bezier(0, 0.41, 0.76, 0.79) all 0.1s;
     &:focus{
         outline: none;
-        background-color: rgb(204, 204, 204);
+        background-color: white;
         color:black;
       
     }
