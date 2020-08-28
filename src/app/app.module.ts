@@ -12,6 +12,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CircuitsPageComponent } from './pages/circuits-page/circuits-page.component';
 import { TeamsPageComponent } from './pages/teams-page/teams-page.component';
 import { DriversPageComponent } from './pages/drivers-page/drivers-page.component';
+import { DriverTileComponent } from './components/driver-tile/driver-tile.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DriversPageComponent } from './pages/drivers-page/drivers-page.componen
     NavbarComponent,
     CircuitsPageComponent,
     TeamsPageComponent,
-    DriversPageComponent
+    DriversPageComponent,
+    DriverTileComponent
   ],
   imports: [
     BrowserModule,

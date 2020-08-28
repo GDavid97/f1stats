@@ -1,1 +1,25 @@
-<p>drivers-page works!</p>
+<div class="page">
+    <h1 class="Drivers__Title">Drivers in</h1>
+    
+    <div style="display: flex;" >
+        <div class="Drivers__ButtonContainer">
+            <input [disabled]="prevButtonDisabled" type="image" class="Drivers__NavigationIcon" 
+            (click)="prevSeason()" 
+            src="assets/icons/left-arrow.png" 
+            width="30" 
+            height="30"/>
+            <h1 class="Drivers__Season">{{season}}</h1>
+            <input [disabled]="nextButtonDisabled" type="image" class="Drivers__NavigationIcon" (click)="nextSeason()" src="assets/icons/right-arrow.png" width="30" height="30"/>
+        </div>
+    
+    </div>
+    <div class="Drivers__Tiles">        
+        <div *ngIf="isDriverGridLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        <div *ngIf="!isDriverGridLoading" class="Drivers__Grid">
+            <driver-tile *ngFor="let driver of drivers" [driver]="driver"></driver-tile>
+        </div>
+    </div>
+
+</div>

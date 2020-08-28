@@ -1,0 +1,7 @@
+<div class="DriverTile">  
+    <div class="DriverTile__Image" [style.background-image]="'url(assets/drivers/'+driver.driverId+'.jpg)'"></div>
+    <a [href]="driver.url" class="DriverTile__Name">{{driver.givenName}} {{driver.familyName}}</a>    
+    <div *ngIf="driver.permanentNumber" class="DriverTile__Number">#{{driver.permanentNumber}}</div>   
+</div>
+
+

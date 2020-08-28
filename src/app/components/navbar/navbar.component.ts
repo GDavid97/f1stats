@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Input } from '@angular/core';
 
 @Component({
   selector: 'navbar',
@@ -6,6 +6,9 @@ import { Component, OnInit, HostListener } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+
+  @Input()
+  isOpacityOnDefault:boolean;
 
   scrolled: boolean = false;
 
@@ -22,6 +25,10 @@ export class NavbarComponent implements OnInit {
     else {
       this.scrolled = false;
     }
+  }
+
+  removeFocus(){
+    (<HTMLElement>document.activeElement).blur();
   }
 
 }
