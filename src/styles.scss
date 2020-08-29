@@ -2,6 +2,9 @@
 @import url('https://fonts.googleapis.com/css?family=Baloo+2&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
+$S_MAX:600px;
+$M_MIN:601px;
+
 body{
     height: 100%;
     width: 100%;
@@ -45,7 +48,7 @@ html{
     margin: 0% 15%;
     padding-top: 59px;
 
-    @media  screen and (max-width: 600px) {
+    @media  screen and (max-width: $S_MAX) {
         margin:0%;
     }
 }

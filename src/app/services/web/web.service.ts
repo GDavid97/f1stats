@@ -41,9 +41,12 @@ export class WebService {
       ).pipe(map(res=>res.MRData.StandingsTable.StandingsLists[0].DriverStandings
         .sort((a,b)=>{return a.position-b.position;})
         .map(e=>
-        {
+        {       
+       
           let driver:Driver=e.Driver;
-          driver.team=e.Constructors[0].name;          
+          driver.team=e.Constructors[0].name;      
+          driver.teamId=e.Constructors[0].constructorId;  
+          driver.season=res.MRData.StandingsTable.StandingsLists[0].season;    
           return driver;          
         }        
         )));

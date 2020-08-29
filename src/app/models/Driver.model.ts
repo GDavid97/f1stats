@@ -8,4 +8,6 @@ export class Driver {
     permanentNumber?: number;
     url: string;
     team:string;
+    season:number;
+    teamId:string;
 }
