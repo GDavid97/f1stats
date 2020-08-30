@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,6 +13,7 @@ import { CircuitsPageComponent } from './pages/circuits-page/circuits-page.compo
 import { TeamsPageComponent } from './pages/teams-page/teams-page.component';
 import { DriversPageComponent } from './pages/drivers-page/drivers-page.component';
 import { DriverTileComponent } from './components/driver-tile/driver-tile.component';
+
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { DriverTileComponent } from './components/driver-tile/driver-tile.compon
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
