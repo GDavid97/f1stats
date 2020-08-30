@@ -3,6 +3,7 @@ import { BubbleChartModel } from 'src/app/charts/bubble-chart/models';
 import { DataService } from 'src/app/services/data/data.service';
 import { WebService } from 'src/app/services/web/web.service';
 import { NextRaceModel } from 'src/app/components/next-race/models';
+import { Standing } from 'src/app/models/Standing.model';
 
 @Component({
   selector: 'app-main-page',
@@ -13,16 +14,19 @@ export class MainPageComponent implements OnInit {
 
   bubbleChartData:BubbleChartModel[]=[];
   nextRaceData:NextRaceModel=new NextRaceModel();
+  driverStanding:Standing[];
 
   areBubblesLoading=true;
   isNextRaceLoading=true;
+  isDriverStandingLoading=true;
+
 
   constructor(private dataService:DataService, private webService:WebService) { }
 
   ngOnInit() {
     this.getWinnersForBubbleChart();
     this.getNextRace();
-    this.webService.getAllDrivers('').subscribe(res=>{console.log(res)})
+    this.getCurrentDriverStanding();
   }
 
   getWinnersForBubbleChart(){
@@ -61,12 +65,19 @@ export class MainPageComponent implements OnInit {
         else{
           results.set(name,1);
         }
-    }
-    
+    }  
  
   }
 
-  getNextRace(){
+  private getCurrentDriverStanding(){
+    this.isDriverStandingLoading=true;
+    this.webService.getDriverStanding('current').subscribe(res=>{
+      this.isDriverStandingLoading=false;
+      this.driverStanding=res;
+    })
+  }
+
+  private getNextRace(){
     let nextRaceData:NextRaceModel=new NextRaceModel();
     this.webService.getNextRace().subscribe(res=>{
       let data=res.MRData.RaceTable.Races[0];

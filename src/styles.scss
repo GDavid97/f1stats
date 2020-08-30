@@ -1,23 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css?family=Baloo+2&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Baloo+2&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
-$S_MAX:600px;
-$M_MIN:601px;
+$S_MAX: 600px;
+$M_MIN: 601px;
 
-body{
+body {
     height: 100%;
     width: 100%;
-    font-family: 'Baloo 2', cursive !important;
+    font-family: "Baloo 2", cursive !important;
     margin: 0;
 }
 
-html{
+html {
     height: 100%;
     width: 100%;
 }
 
-.nav-link{
+.nav-link {
     color: white;
     background: none;
     border: none;
@@ -29,32 +29,38 @@ html{
     padding: 4px 14px;
     border: 2px solid transparent;
     transition: cubic-bezier(0, 0.41, 0.76, 0.79) all 0.1s;
-    &:focus{
+    &:focus {
         outline: none;
         background-color: white;
-        color:black;
-      
+        color: black;
     }
 
-    &:hover{
+    &:hover {
         border: 2px solid black;
         background-color: white;
-        color:black;
-     
+        color: black;
     }
 }
 
-.page{
+.page {
     margin: 0% 15%;
     padding-top: 59px;
 
-    @media  screen and (max-width: $S_MAX) {
-        margin:0%;
+    @media screen and (max-width: $S_MAX) {
+        margin: 0%;
     }
 }
 
-@keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+.spinner-middle {
+    margin: 24px auto;
+    display: block;
 }
 
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

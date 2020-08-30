@@ -13,6 +13,7 @@ import { CircuitsPageComponent } from './pages/circuits-page/circuits-page.compo
 import { TeamsPageComponent } from './pages/teams-page/teams-page.component';
 import { DriversPageComponent } from './pages/drivers-page/drivers-page.component';
 import { DriverTileComponent } from './components/driver-tile/driver-tile.component';
+import { StandingComponent } from './components/standing/standing.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { DriverTileComponent } from './components/driver-tile/driver-tile.compon
     CircuitsPageComponent,
     TeamsPageComponent,
     DriversPageComponent,
-    DriverTileComponent
+    DriverTileComponent,
+    StandingComponent
   ],
   imports: [
     BrowserModule,

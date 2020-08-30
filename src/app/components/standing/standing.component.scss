@@ -1,0 +1,34 @@
+.Standing{
+    max-width: 600px;
+    margin: auto;
+    font-weight: bold;
+    &__Header{
+        margin-bottom: 12px;
+        font-size: 20px;      
+        border-bottom: 2px solid black;
+    }
+
+    &__Row{
+        display: flex;
+    }
+    &__Column{
+        align-self: center;
+    }
+
+    &__Highlighted{
+    font-size: 22px;   
+    }
+
+    &__DriverPhoto{
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 80px;
+        width: 60px;
+        margin-right: 12px;
+    }
+
+    
+
+ 
+}

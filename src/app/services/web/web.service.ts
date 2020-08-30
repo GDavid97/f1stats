@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import {Driver} from '../../models/Driver.model';
+import { Standing } from 'src/app/models/Standing.model';
 
 const proxy="https://cors-anywhere.herokuapp.com/";
 const httpOptions = {
@@ -24,29 +25,6 @@ export class WebService {
 
   constructor(private http: HttpClient) { }
 
-  
-  getData(): Observable<any> {
-  
-    return this.http.get<any>(
-      proxy+'http://ergast.com/api/f1/2008.json',
-      httpOptions
-    )
-  }
-
-  getAllDrivers(season:string,limit:number=1000,offset:number=0): Observable<any> {
-    return this.http.get<any>(
-      proxy+'http://ergast.com/api/f1/drivers.json?limit='+limit+'&offset='+offset,
-      httpOptions
-    ).pipe(map(res=>{
-      let resu=[];
-      res.MRData.DriverTable.Drivers.forEach(element => {
-          resu.push({name:element.driverId,full:element.givenName+' '+element.familyName});
-      });
-
-      return resu;
-    }))
-  };
-
   getDrivers(season:string,limit:number=1000,offset:number=0): Observable<Driver[]> {
   
     return this.http.get<any>(
@@ -67,11 +45,22 @@ export class WebService {
   }
 
   
-  getDriverStanding(season:string,limit:number=1000,offset:number=0): Observable<any> {
+  getDriverStanding(season:string,limit:number=1000,offset:number=0): Observable<Standing[]> {
     return this.http.get<any>(
       `${proxy}http://ergast.com/api/f1/${season}/driverStandings.json?limit=${limit}&offset=${offset}`,
       httpOptions
-    ).pipe(map(res=>res.MRData.StandingsTable.StandingsLists[0].DriverStandings.map(e=>e.Driver)));
+    ).pipe(map(res=>{
+      let stArr:Standing[]=[];
+      for(let item of res.MRData.StandingsTable.StandingsLists[0].DriverStandings){
+        stArr.push({
+          name:`${item.Driver.givenName} ${item.Driver.familyName}`,
+          photo:`${item.Driver.driverId}.jpg`,
+          points:item.points,
+          team:item.Constructors[item.Constructors.length-1].name,
+        })
+      }
+      return  stArr;
+    }));
   }
 
 
