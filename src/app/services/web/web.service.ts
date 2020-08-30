@@ -33,6 +33,20 @@ export class WebService {
     )
   }
 
+  getAllDrivers(season:string,limit:number=1000,offset:number=0): Observable<any> {
+    return this.http.get<any>(
+      proxy+'http://ergast.com/api/f1/drivers.json?limit='+limit+'&offset='+offset,
+      httpOptions
+    ).pipe(map(res=>{
+      let resu=[];
+      res.MRData.DriverTable.Drivers.forEach(element => {
+          resu.push({name:element.driverId,full:element.givenName+' '+element.familyName});
+      });
+
+      return resu;
+    }))
+  };
+
   getDrivers(season:string,limit:number=1000,offset:number=0): Observable<Driver[]> {
   
     return this.http.get<any>(

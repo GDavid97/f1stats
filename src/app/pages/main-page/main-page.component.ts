@@ -22,9 +22,7 @@ export class MainPageComponent implements OnInit {
   ngOnInit() {
     this.getWinnersForBubbleChart();
     this.getNextRace();
-    this.webService.getDriverStanding('2020').subscribe(res=>{
-      console.log(res);
-    })
+    this.webService.getAllDrivers('').subscribe(res=>{console.log(res)})
   }
 
   getWinnersForBubbleChart(){
