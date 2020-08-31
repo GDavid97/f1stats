@@ -1,5 +1,6 @@
-<div class="DriverTile">  
+<div class="DriverTile" [style.background-color]="backgroundColor">  
     <div [ngbTooltip]="driver.team" class="DriverTile__TeamImage" [style.background-image]="'url(assets/teams/'+driver.season+'/'+driver.teamId+'.jpg)'"></div>
+    <div *ngIf="fastestLap" class="DriverTile__FastestLap">Fastest Lap</div>
     <div class="DriverTile__Image" [style.background-image]="'url(assets/drivers/'+driver.driverId+'.jpg)'"></div>
     <a [href]="driver.url" class="DriverTile__Name">{{driver.givenName}} {{driver.familyName}}</a>    
     <div>{{driver.nationality}}</div>   

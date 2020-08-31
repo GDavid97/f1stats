@@ -1,0 +1,40 @@
+<div class="RaceData">
+    <div class="RaceData__Main">{{data.round}}. round of {{data.season}}</div>
+    <div class="RaceData__Main">{{data.raceName}} {{data.circuit}}</div>
+    <div class="RaceData__Date">{{data.date}}</div>
+    <div class="RaceData__Podium">
+        <div class="RaceData__Second">
+            <driver-tile 
+            [driver]="data.drivers[1]" 
+            [backgroundColor]="'silver'"
+            [fastestLap]="data.drivers[0].fastestLap"
+            ></driver-tile>
+        </div>
+        <div class="RaceData__First">
+            <driver-tile 
+            [driver]="data.drivers[0]"
+            [backgroundColor]="'gold'"
+            [fastestLap]="data.drivers[0].fastestLap"
+            ></driver-tile>
+        </div>
+        <div class="RaceData__Third">
+            <driver-tile 
+            [driver]="data.drivers[2]" 
+            [backgroundColor]="'#cd7f32'"
+            [fastestLap]="data.drivers[0].fastestLap"
+            ></driver-tile>
+        </div>
+    </div>
+    <div class="RaceData__DriversTable">
+        <div *ngFor="let driver of data.drivers | slice:3; let i=index" 
+        [ngClass]="{'RaceData__DriverTop10':i<7}" 
+        class="RaceData__Driver"
+        [style.color]="driver.fastestLap?'#5d21c7':'black'"
+        [ngbTooltip]="driver.fastestLap?'Fastest Lap':''"
+        >
+            <div class="RaceData__DriverPosition">{{driver.positionText}}.</div>
+            <div class="RaceData__DriverName">{{driver.givenName}} {{driver.familyName}}</div>
+            <div class="RaceData__DriverTeam">{{driver.team}}</div>
+        </div>
+    </div>
+</div>

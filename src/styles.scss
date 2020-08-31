@@ -4,6 +4,8 @@
 
 $S_MAX: 600px;
 $M_MIN: 601px;
+$M_MAX: 1300px;
+$L_MIN: 1301px;
 
 body {
     height: 100%;
@@ -45,7 +47,7 @@ html {
 .page {
     margin: 0% 15%;
     padding-top: 59px;
-
+    margin-bottom: 36px;
     @media screen and (max-width: $S_MAX) {
         margin: 0%;
     }

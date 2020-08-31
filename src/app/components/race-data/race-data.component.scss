@@ -1,0 +1,83 @@
+@import "../../../styles.scss";
+
+.RaceData {
+    &__Main {
+        margin: auto;
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+
+    }
+
+    &__Date {
+        margin: auto;
+        text-align: center;
+        font-size: 22px;
+    }
+
+    &__Podium {
+        display: flex;
+        width: fit-content;
+        margin: 24px auto;
+
+        @media screen and (max-width: $M_MAX) {
+            flex-direction: column;
+        }
+    }
+
+    &__First {
+        margin: 0px 30px;
+        @media screen and (max-width: $M_MAX) {
+            margin: auto;
+            order: 1;
+        }
+    }
+
+    &__Second {
+        margin-top: 60px;
+
+        @media screen and (max-width: $M_MAX) {
+            margin: 15px auto;
+            order: 2;
+        }
+    }
+
+    &__Third {
+        margin-top: 120px;
+        @media screen and (max-width: $M_MAX) {
+            margin: auto;
+            order: 3;
+        }
+    }
+
+    &__DriversTable {
+        max-width: 500px;
+        margin: auto;
+        padding: 0px 14px;
+        border-left: 2px solid black;
+        border-radius: 2px solid black;
+        border-right: 2px solid black;
+    }
+
+    &__Driver {
+        display: flex;
+        
+        font-size: 16px;
+
+        &Top10{
+            font-weight: bold;
+        }
+
+        &Position {
+            flex: 1;
+        }
+
+        &Name {
+            flex: 3;
+        }
+
+        &Team {
+            flex: 3;
+        }
+    }
+}

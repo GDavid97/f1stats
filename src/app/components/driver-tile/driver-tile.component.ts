@@ -10,6 +10,12 @@ export class DriverTileComponent implements OnInit {
 
   @Input()
   driver:Driver;
+  
+  @Input()
+  backgroundColor:string="white";
+
+  @Input()
+  fastestLap:boolean;
 
   constructor() { }
 
