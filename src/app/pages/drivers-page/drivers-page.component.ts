@@ -9,15 +9,13 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './drivers-page.component.html',
   styleUrls: ['./drivers-page.component.scss']
 })
-export class DriversPageComponent implements OnInit, OnDestroy {
+export class DriversPageComponent implements OnInit {
 
   drivers: Driver[];
   isDriverGridLoading: boolean = true;
   season: number = new Date().getFullYear();
   nextButtonDisabled: boolean = true;
   prevButtonDisabled: boolean = true;
-
-  private driverSubscription: Subscription;
 
   constructor(private webService: WebService, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
@@ -57,12 +55,9 @@ export class DriversPageComponent implements OnInit, OnDestroy {
   }
 
   getData(season: string) {
-    if (this.driverSubscription) {
-      this.driverSubscription.unsubscribe();
-    }
     this.drivers = [];
     this.isDriverGridLoading = true;
-    this.driverSubscription = this.webService.getDrivers(season).subscribe(res => {
+    this.webService.getDrivers(season).subscribe(res => {
       this.isDriverGridLoading = false;
       this.drivers = res;
     });
@@ -106,10 +101,6 @@ export class DriversPageComponent implements OnInit, OnDestroy {
 
     }
     this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season } });
-  }
-
-  ngOnDestroy() {
-    this.driverSubscription.unsubscribe();
   }
 
 }

@@ -14,6 +14,7 @@ import { TeamsPageComponent } from './pages/teams-page/teams-page.component';
 import { DriversPageComponent } from './pages/drivers-page/drivers-page.component';
 import { DriverTileComponent } from './components/driver-tile/driver-tile.component';
 import { StandingComponent } from './components/standing/standing.component';
+import { TeamTileComponent } from './components/team-tile/team-tile.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { StandingComponent } from './components/standing/standing.component';
     TeamsPageComponent,
     DriversPageComponent,
     DriverTileComponent,
-    StandingComponent
+    StandingComponent,
+    TeamTileComponent
   ],
   imports: [
     BrowserModule,

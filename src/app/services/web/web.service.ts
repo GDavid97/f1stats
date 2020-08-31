@@ -4,6 +4,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import {Driver} from '../../models/Driver.model';
 import { Standing } from 'src/app/models/Standing.model';
+import { Team } from 'src/app/models/Team.model';
 
 const proxy="https://cors-anywhere.herokuapp.com/";
 const httpOptions = {
@@ -42,6 +43,28 @@ export class WebService {
         }        
         )));
   }
+  getTeams(season:string,limit:number=1000,offset:number=0): Observable<Team[]> {
+  
+    return this.http.get<any>(
+      `${proxy}http://ergast.com/api/f1/${season}/constructorStandings.json?limit=${limit}&offset=${offset}`,
+      httpOptions
+      ).pipe(map(res=>res.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
+        .sort((a,b)=>{return a.position-b.position;})
+        .map(e=>
+        {              
+          let team:Team=new Team();
+          team.name=e.Constructor.name;      
+          team.constructorId=e.Constructor.constructorId
+          team.nationality=e.Constructor.nationality;  
+          team.url=e.Constructor.url;    
+          team.photo=`${res.MRData.StandingsTable.StandingsLists[0].season}/${team.constructorId}`;
+
+          return team;          
+        }        
+        )));
+  }
+
+ 
 
   
   getDriverStanding(season:string,limit:number=1000,offset:number=0): Observable<Standing[]> {
