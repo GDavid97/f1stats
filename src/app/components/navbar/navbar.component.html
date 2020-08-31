@@ -7,10 +7,10 @@
     routerLink="/">
       <img height="35" width="35" src="assets/icons/f1.png"/>
     </a>
-    <div class="Navbar__MobileNav nav-link">
-      <div class="Navbar__MobileMenuIcon"></div>
-      <div class="Navbar__MobileMenuIcon"></div>
-      <div class="Navbar__MobileMenuIcon"></div>
+    <div class="Navbar__MobileNav nav-link" (click)="toggleMobileMenu()" [style.background-color]="isMobileMenuOpened?'white':'black'">
+      <div class="Navbar__MobileMenuIcon" [style.background-color]="isMobileMenuOpened?'black':'white'"></div>
+      <div class="Navbar__MobileMenuIcon" [style.background-color]="isMobileMenuOpened?'black':'white'"></div>
+      <div class="Navbar__MobileMenuIcon" [style.background-color]="isMobileMenuOpened?'black':'white'"></div>
     </div>
     <div class="Navbar__Links">
       <a routerLink="/drivers" class="nav-link">Drivers</a>
@@ -19,7 +19,16 @@
       <a routerLink="/circuits" class="nav-link">Circuits</a>
       <a routerLink="/todo" class="nav-link">You might not know...</a>
     </div>
+
+  
     
  
   
+  </div>
+  <div class="Navbar__MobileLinks" *ngIf="isMobileMenuOpened">
+    <a routerLink="/drivers" class="nav-link">Drivers</a>
+    <a routerLink="/teams" class="nav-link">Teams</a>
+    <a routerLink="/seasons" class="nav-link">Seasons</a>
+    <a routerLink="/circuits" class="nav-link">Circuits</a>
+    <a routerLink="/todo" class="nav-link">You might not know...</a>
   </div>

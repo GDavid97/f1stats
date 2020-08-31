@@ -12,6 +12,8 @@ export class NavbarComponent implements OnInit {
 
   scrolled: boolean = false;
 
+  isMobileMenuOpened:boolean;
+
   constructor() { }
 
   ngOnInit() {
@@ -25,6 +27,23 @@ export class NavbarComponent implements OnInit {
     else {
       this.scrolled = false;
     }
+  }
+
+  toggleMobileMenu(){
+    if(this.isMobileMenuOpened){
+      this.closeMobileMenu();
+    }
+    else{
+      this.openMobileMenu();
+    }
+  }
+
+  openMobileMenu(){
+    this.isMobileMenuOpened=true;
+  }
+
+  closeMobileMenu(){
+    this.isMobileMenuOpened=false;
   }
 
   removeFocus(){
