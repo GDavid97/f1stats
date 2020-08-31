@@ -15,10 +15,12 @@ export class MainPageComponent implements OnInit {
   bubbleChartData:BubbleChartModel[]=[];
   nextRaceData:NextRaceModel=new NextRaceModel();
   driverStanding:Standing[];
+  teamStanding:Standing[];
 
   areBubblesLoading=true;
   isNextRaceLoading=true;
   isDriverStandingLoading=true;
+  isTeamStandingLoading=true;
 
 
   constructor(private dataService:DataService, private webService:WebService) { }
@@ -27,6 +29,7 @@ export class MainPageComponent implements OnInit {
     this.getWinnersForBubbleChart();
     this.getNextRace();
     this.getCurrentDriverStanding();
+    this.getCurrentTeamStanding();
   }
 
   getWinnersForBubbleChart(){
@@ -74,7 +77,15 @@ export class MainPageComponent implements OnInit {
     this.webService.getDriverStanding('current').subscribe(res=>{
       this.isDriverStandingLoading=false;
       this.driverStanding=res;
-    })
+    });
+  }
+
+  private getCurrentTeamStanding(){
+    this.isDriverStandingLoading=true;
+    this.webService.getTeamStanding('current').subscribe(res=>{
+      this.isTeamStandingLoading=false;
+      this.teamStanding=res;
+    });
   }
 
   private getNextRace(){

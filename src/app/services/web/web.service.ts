@@ -33,8 +33,7 @@ export class WebService {
       ).pipe(map(res=>res.MRData.StandingsTable.StandingsLists[0].DriverStandings
         .sort((a,b)=>{return a.position-b.position;})
         .map(e=>
-        {       
-       
+        {              
           let driver:Driver=e.Driver;
           driver.team=e.Constructors[0].name;      
           driver.teamId=e.Constructors[0].constructorId;  
@@ -54,9 +53,28 @@ export class WebService {
       for(let item of res.MRData.StandingsTable.StandingsLists[0].DriverStandings){
         stArr.push({
           name:`${item.Driver.givenName} ${item.Driver.familyName}`,
-          photo:`${item.Driver.driverId}.jpg`,
+          photo:`drivers/${item.Driver.driverId}.jpg`,
           points:item.points,
           team:item.Constructors[item.Constructors.length-1].name,
+        })
+      }
+      return  stArr;
+    }));
+  }
+
+  getTeamStanding(season:string,limit:number=1000,offset:number=0): Observable<Standing[]> {
+    return this.http.get<any>(
+      `${proxy}http://ergast.com/api/f1/${season}/constructorStandings.json?limit=${limit}&offset=${offset}`,
+      httpOptions
+    ).pipe(map(res=>{
+      let stArr:Standing[]=[];
+      let year=season=='current'?res.MRData.StandingsTable.season:season;
+      for(let item of res.MRData.StandingsTable.StandingsLists[0].ConstructorStandings){
+        stArr.push({
+          name: item.Constructor.name,
+          photo:`teams/${year}/${item.Constructor.constructorId}.jpg`,
+          points:item.points,
+          team:'',
         })
       }
       return  stArr;

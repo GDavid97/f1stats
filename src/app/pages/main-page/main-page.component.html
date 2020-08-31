@@ -9,15 +9,24 @@
 <div class="page">
 
 
+
   <div *ngIf="isDriverStandingLoading" class="spinner-grow text-info spinner-middle"
     role="status">
     <span class="sr-only">Loading...</span>
   </div>
   <ng-container *ngIf="!isDriverStandingLoading">
-    <div class="MainPage__SubTitle">Driver's Table</div>
+    <div class="MainPage__SubTitle">Drivers Table</div>
     <standing [data]="driverStanding"></standing>
   </ng-container>
 
+  <div *ngIf="isTeamStandingLoading" class="spinner-grow text-info spinner-middle"
+    role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <ng-container *ngIf="!isDriverStandingLoading">
+    <div class="MainPage__SubTitle">Teams Table</div>
+    <standing [data]="teamStanding"></standing>
+  </ng-container>
 
   <div *ngIf="areBubblesLoading" class="spinner-grow text-info spinner-middle" role="status">
     <span class="sr-only">Loading...</span>
