@@ -2,13 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WebService } from 'src/app/services/web/web.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Team } from 'src/app/models/Team.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'teams-page',
   templateUrl: './teams-page.component.html',
   styleUrls: ['./teams-page.component.scss']
 })
-export class TeamsPageComponent implements OnInit {
+export class TeamsPageComponent implements OnInit, OnDestroy {
 
   teams: Team[];
   
@@ -16,6 +17,8 @@ export class TeamsPageComponent implements OnInit {
   season: number = new Date().getFullYear();
   nextButtonDisabled: boolean = true;
   prevButtonDisabled: boolean = true;
+
+  private teamsSubscription:Subscription;
 
   constructor(private webService: WebService, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
@@ -58,7 +61,11 @@ export class TeamsPageComponent implements OnInit {
     this.teams = [];
     this.isTeamGridLoading = true;
 
-    this.webService.getTeams(season).subscribe(res => {      
+    if(this.teamsSubscription){
+      this.teamsSubscription.unsubscribe();
+    }
+
+    this.teamsSubscription=this.webService.getTeams(season).subscribe(res => {      
       this.isTeamGridLoading = false;
       this.teams=res;
   
@@ -103,6 +110,10 @@ export class TeamsPageComponent implements OnInit {
 
     }
     this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season } });
+  }
+
+  ngOnDestroy(){
+    this.teamsSubscription.unsubscribe();
   }
 
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { Driver } from '../../models/Driver.model';
 import { Standing } from 'src/app/models/Standing.model';
 import { Team } from 'src/app/models/Team.model';
@@ -25,6 +25,7 @@ const httpOptionsWithToken = {
 })
 export class WebService {
 
+  protected ngUnsubscribe: Subject<void> = new Subject<void>();
   constructor(private http: HttpClient) { }
 
   getDrivers(season: string, limit: number = 1000, offset: number = 0): Observable<Driver[]> {
