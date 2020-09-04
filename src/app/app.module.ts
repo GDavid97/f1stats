@@ -16,7 +16,8 @@ import { DriverTileComponent } from './components/driver-tile/driver-tile.compon
 import { StandingComponent } from './components/standing/standing.component';
 import { TeamTileComponent } from './components/team-tile/team-tile.component';
 import { RaceDataComponent } from './components/race-data/race-data.component';
-
+import { MultiLineChartComponent } from './charts/multi-line-chart/multi-line-chart.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -32,13 +33,16 @@ import { RaceDataComponent } from './components/race-data/race-data.component';
     DriverTileComponent,
     StandingComponent,
     TeamTileComponent,
-    RaceDataComponent
+    RaceDataComponent,
+    MultiLineChartComponent,
+   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

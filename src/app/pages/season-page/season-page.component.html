@@ -1,1 +1,17 @@
-<p>season-page works!</p>
+<div class="page">
+    <h1 class="Seasons__Title">Season</h1>
+    <div style="display: flex;" >
+        <div class="Seasons__ButtonContainer">
+            <input [disabled]="prevButtonDisabled" type="image" class="Seasons__NavigationIcon" 
+            (click)="prevSeason()" 
+            src="assets/icons/left-arrow.png" 
+            width="30" 
+            height="30"/>
+            <h1 class="Seasons__Season">{{season}}</h1>
+            <input [disabled]="nextButtonDisabled" type="image" class="Seasons__NavigationIcon" (click)="nextSeason()" src="assets/icons/right-arrow.png" width="30" height="30"/>
+        </div>
+    
+    </div>
+    <multi-line-chart [data]="driversPointsForChart"></multi-line-chart>
+
+</div>
