@@ -144,11 +144,13 @@ export class WebService {
     }))
   }
 
-  getDriverResults(season:string,limit: number = 1000, offset: number = 0): Observable<any> {   
+  getDriverResults(season:string,limit: number = 1000, offset: number = 0): Observable<any[]> {   
     return this.http.get<any>(
       proxy + `http://ergast.com/api/f1/${season}/results.json?limit=${limit}&offset=${offset}`,
       httpOptions
-    )
+    ).pipe(map(res=>{
+      return res.MRData.RaceTable.Races;
+    }));
   }
 
 

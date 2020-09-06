@@ -1,4 +1,5 @@
 export class LineChartData{
     public text:string;
-    public values:number[];
+    public id:string;
+    public values:Map<string,number>;
 }

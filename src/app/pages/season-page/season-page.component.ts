@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class SeasonPageComponent implements OnInit {
 
-  driversPointsForChart:LineChartData[];
+  driversPointsForChart: LineChartData[];
   season: number = new Date().getFullYear();
   nextButtonDisabled: boolean = true;
   prevButtonDisabled: boolean = true;
@@ -20,13 +20,13 @@ export class SeasonPageComponent implements OnInit {
   constructor(private webService: WebService, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
       if (params && params.season) {
-        if(params.season>=1950 && params.season<=new Date().getFullYear()){
+        if (params.season >= 1950 && params.season <= new Date().getFullYear()) {
           this.season = params.season;
         }
-        else{
+        else {
           this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: new Date().getFullYear() } });
         }
-      
+
       }
       else {
         this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season } });
@@ -58,7 +58,7 @@ export class SeasonPageComponent implements OnInit {
   prevSeason() {
     if (this.season > 1950) {
       this.season--;
-     
+
       this.nextButtonDisabled = false;
       this.prevButtonDisabled = false;
       if (this.season == 1950) {
@@ -79,7 +79,7 @@ export class SeasonPageComponent implements OnInit {
   nextSeason() {
     const currentYear = new Date().getFullYear();
     if (this.season < currentYear) {
-      this.season++;    
+      this.season++;
 
       if (this.season == currentYear) {
         this.nextButtonDisabled = true;
@@ -94,15 +94,55 @@ export class SeasonPageComponent implements OnInit {
     this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season } });
   }
 
-  getDriverResults(){   
+  getDriverResults() {
     this.driverResultsSubscription?.unsubscribe();
-  
-    this.driverResultsSubscription=this.webService.getDriverResults(this.season.toString()).subscribe(res=>{
-      console.log(res);
+    let pointResult: LineChartData[] = [];
+
+    this.driverResultsSubscription = this.webService.getDriverResults(this.season.toString()).subscribe(res => {
+
+      //fill all drivers who participated in the season
+      for (let race of res) {
+        for (let result of race.Results) {
+          let lineChartData = pointResult.find(e => e.id == result.Driver.driverId);
+          if (!lineChartData) {
+            pointResult.push({
+              id: result.Driver.driverId,
+              text: `${result.Driver.givenName} ${result.Driver.familyName}`,
+              values: null
+            });
+          }
+        }
+      }
+
+      for (let race of res) {
+        
+        for (let result of race.Results) {
+          let lineChartData = pointResult.find(e => e.id == result.Driver.driverId);
+          if (!lineChartData.values) {
+            let valueMap = new Map<string, number>();
+            valueMap.set(race.raceName, parseInt(result.points));
+            lineChartData.values=valueMap;            
+          }
+          else {
+            let points: number = parseInt(result.points);
+            const getLastValueInMap = (map) => [...map][map.size - 1][1];
+            let newPoints: number = points + getLastValueInMap(lineChartData.values);           
+    
+            lineChartData.values.set(race.raceName, newPoints);
+            
+          }
+        }
+      }
+
+
+
+
+      this.driversPointsForChart = pointResult;
+      console.log(this.driversPointsForChart);
     })
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.driverResultsSubscription.unsubscribe();
   }
 

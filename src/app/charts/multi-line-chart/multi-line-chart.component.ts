@@ -17,6 +17,7 @@ export class MultiLineChartComponent implements OnInit, OnChanges {
   public lineChartLabels: Label[] = [];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
+   
     elements:{
       line:{
         fill: false,
@@ -30,33 +31,12 @@ export class MultiLineChartComponent implements OnInit, OnChanges {
           id: 'y-axis-0',
           position: 'left',
         },
-        {
-          id: 'y-axis-1',
-          position: 'right',
-          gridLines: {
-            color: 'rgba(255,0,0,0.3)',
-          },
-          ticks: {
-            fontColor: 'black',
-          }
-        }
+       
       ]
     },
     annotation: {
       annotations: [
-        {
-          type: 'line',
-          mode: 'vertical',
-          scaleID: 'x-axis-0',
-          value: 'March',
-          borderColor: 'orange',
-          borderWidth: 2,
-          label: {
-            enabled: true,
-            fontColor: 'orange',
-            content: 'LineAnno'
-          }
-        },
+        
       ],
     },
   };
@@ -73,12 +53,21 @@ export class MultiLineChartComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes:SimpleChanges){
     if(changes.data &&changes.data.currentValue){
+   
       this.lineChartData=[];
-      this.lineChartLabels=[];
+      this.lineChartLabels=[];  
+      let labels:Set<string>=new Set();
       this.data.forEach(element => {
-          this.lineChartData.push( { data:element.values, label: element.text });          
-      });
-      //this.lineChartLabels
+        let vals:number[]=[];        
+      
+        for (const [key, value] of element.values.entries()) {
+          vals.push(value);          
+          labels.add(key);
+        }        
+          this.lineChartData.push( { data:vals, label: element.text, pointRadius:5, lineTension:0 });                 
+        });
+
+      this.lineChartLabels=[...labels];
     }
   }
 
