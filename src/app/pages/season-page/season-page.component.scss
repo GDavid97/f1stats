@@ -1,3 +1,4 @@
+@import "../../../styles.scss";
 .Seasons {
 
   &__Title {
@@ -8,35 +9,49 @@
     align-self: center;
   }
 
-  &__ButtonContainer{
+  &__ButtonContainer {
     display: flex;
     margin: auto;
-}
+  }
 
-&__NavigationIcon{
+  &__NavigationIcon {
     align-self: center;
-    cursor:pointer;
+    cursor: pointer;
     padding: 1px;
     border-radius: 18px;
 
-    &:focus{
-        outline:none;
+    &:focus {
+      outline: none;
     }
 
-    &:hover{
-        background-color: #80808059;
+    &:hover {
+      background-color: #80808059;
     }
-    &:disabled{
-        cursor:not-allowed;
-        background-color: white;
-        opacity: 0.5;
-    }
-}
 
-&__Season{
-    margin:auto;
+    &:disabled {
+      cursor: not-allowed;
+      background-color: white;
+      opacity: 0.5;
+    }
+  }
+
+  &__Season {
+    margin: auto;
     text-align: center;
     font-weight: bold;
     align-self: center;
-}
+  }
+
+  &__DriversChartSection {
+    margin-top: 40px;
+  }
+
+  &__Standings{
+    display: flex;
+    @media screen and (max-width: $M_MAX) {
+      display:block;
+  }
+
+  }
+
 }

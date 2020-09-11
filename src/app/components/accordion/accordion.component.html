@@ -1,0 +1,9 @@
+<div class="Accordion" [style.border-bottom]="isOpened?'1px solid #607D8B':'none'">    
+    <div class="Accordion__Row">
+        <div class="Accordion__Expand" (click)="toggle()">
+            <img [src]="isOpened?'assets/icons/collapse.png':'assets/icons/expand.png'" height="30" width="30">
+        </div>
+        <div class="Accordion__Name">{{title}}</div>  
+    </div>
+    <ng-content *ngIf="isOpened"></ng-content>
+</div>

@@ -1,0 +1,35 @@
+.Circuit {
+    display: flex;
+    padding: 6px 4px;
+    border: 2px solid black;
+    margin: 4px;
+    width: auto;
+    background-color: #eaeaea;
+    border-radius: 12px;    
+    cursor: pointer;
+    &:hover{
+        background-color: #b8b2b2;
+    }
+
+  &__RaceName {
+    align-self: center;
+    font-weight: bold;
+    margin-right: 12px;
+
+  }
+
+  &__Name {
+    align-self: center;
+    margin-right: 20px;
+  }
+
+  &__Flag {
+    margin-right: 12px;
+  }
+
+  &__Date{
+    align-self: center;
+    font-size: 15px;
+    text-decoration: underline;
+  }
+}

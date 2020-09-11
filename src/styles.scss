@@ -71,4 +71,16 @@ img{
     }
 }
 
+.hidden-s{
+    @media screen and (max-width: $S_MAX) {
+        display: none;
+    }
+}
+
+.hidden-m{
+    @media screen and (max-width: $M_MAX) {
+        display: none;
+    }
+}
+
 

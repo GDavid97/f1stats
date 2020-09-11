@@ -6,6 +6,7 @@ import { Driver } from '../../models/Driver.model';
 import { Standing } from 'src/app/models/Standing.model';
 import { Team } from 'src/app/models/Team.model';
 import { RaceResult, DriverResult } from 'src/app/models/RaceResult.model';
+import {  RaceEvent } from 'src/app/models/RaceEvent.model';
 
 const proxy = "https://cors-anywhere.herokuapp.com/";
 const httpOptions = {
@@ -169,6 +170,29 @@ export class WebService {
       proxy + 'http://ergast.com/api/f1/current/next.json',
       httpOptions
     )
+  }
+
+  getCircuits(season:string,limit: number = 1000, offset: number = 0):Observable<RaceEvent[]>{
+    return this.http.get<any>(
+      `${proxy}http://ergast.com/api/f1/${season}.json?limit=${limit}&offset=${offset}`,
+      httpOptions
+    ).pipe(map(res => {     
+      let result:RaceEvent[]=[];
+      for(let race of res.MRData.RaceTable.Races){
+        let circuit=race.Circuit;
+        result.push({
+          raceName:race.raceName,
+          circuitId:circuit.circuitId,
+          circuitName:circuit.circuitName,
+          circuitUrl:circuit.url,
+          country:circuit.Location.country,
+          date:new Date(race.date).toString()
+        })
+      }
+      return result;
+      }
+      ));
+   
   }
 
 }

@@ -1,4 +1,5 @@
 <div class="page">
+    
     <h1 class="Seasons__Title">Season</h1>
     <div style="display: flex;" >
         <div class="Seasons__ButtonContainer">
@@ -12,6 +13,50 @@
         </div>
     
     </div>
-    <multi-line-chart [data]="driversPointsForChart"></multi-line-chart>
+
+    <section class="Seasons__DriversChartSection hidden-s">
+        <accordion [title]="'Drivers points'">
+            <div *ngIf="isDriverPointsLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            <multi-line-chart *ngIf="!isDriverPointsLoading" [data]="driversPointsForChart"></multi-line-chart>
+        </accordion>
+    </section>
+
+    <section class="Seasons__DriversChartSection">
+        <accordion [title]="'Driver & Team standing'">
+            <div class="Seasons__Standings">
+                <div style="flex:1">
+                    <div *ngIf="isDriverStandingLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    <standing *ngIf="!isDriverStandingLoading" [data]="driverStanding"></standing>
+                </div>
+                <div style="flex:1"> 
+                    <div *ngIf="isTeamStandingLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    <standing *ngIf="!isTeamStandingLoading" [data]="teamStanding"></standing>
+                </div>
+            </div>
+       
+        </accordion>
+    </section>
+    
+
+
+    <section class="Seasons__DriversChartSection">
+        <accordion [title]="'Calendar'">
+            <div *ngIf="isCircuitsLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>              
+                <circuit *ngFor="let circuit of circuits" [data]="circuit"></circuit>
+                          
+        </accordion>
+    </section>
+
+    
+   
+  
 
 </div>

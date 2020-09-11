@@ -18,6 +18,8 @@ import { TeamTileComponent } from './components/team-tile/team-tile.component';
 import { RaceDataComponent } from './components/race-data/race-data.component';
 import { MultiLineChartComponent } from './charts/multi-line-chart/multi-line-chart.component';
 import { ChartsModule } from 'ng2-charts';
+import { AccordionComponent } from './components/accordion/accordion.component';
+import { CircuitComponent } from './components/circuit/circuit.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { ChartsModule } from 'ng2-charts';
     TeamTileComponent,
     RaceDataComponent,
     MultiLineChartComponent,
+    AccordionComponent,
+    CircuitComponent,
    
   ],
   imports: [
