@@ -29,35 +29,41 @@
         </div>    
     </div>
     
+    <div class="GP__Section" *ngIf="!isDriverStandingLoading && driverStanding.length===0">
+        <h1 style="text-align: center;">This race hasn't started yet.</h1>
+    </div>
 
-    <section class="GP__Section">
-        <h1 class="GP__Subtitle">Race result</h1>
-        <div *ngIf="isRaceResultLoading" class="spinner-grow text-info spinner-middle"
-        role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-        <race-data *ngIf="!isRaceResultLoading" [data]="raceResult"></race-data >
-    </section>
-
-    <section class="GP__Section">
-        <accordion [title]="'Driver & Team standing after the race'">
-            <div class="GP__Standings">     
-                <div class="GP__DriverStandings" >
-                    <div class="GP__StandingsTitle">Drivers</div>
-                    <div *ngIf="isDriverStandingLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                    <standing *ngIf="!isDriverStandingLoading" [data]="driverStanding"></standing>
+    <ng-container *ngIf="isDriverStandingLoading || driverStanding.length!==0">
+        <section class="GP__Section">
+            <h1 class="GP__Subtitle">Race result</h1>
+            <div *ngIf="isRaceResultLoading" class="spinner-grow text-info spinner-middle"
+            role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+            <race-data *ngIf="!isRaceResultLoading" [data]="raceResult"></race-data >
+        </section>
+    
+        <section class="GP__Section">
+            <accordion [title]="'Driver & Team standing after the race'">
+                <div class="GP__Standings">     
+                    <div class="GP__DriverStandings" >
+                        <div class="GP__StandingsTitle">Drivers</div>
+                        <div *ngIf="isDriverStandingLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        <standing *ngIf="!isDriverStandingLoading" [data]="driverStanding"></standing>
+                    </div>
+                    <div class="GP__TeamStandings">
+                        <div class="GP__StandingsTitle">Teams</div>
+                        <div *ngIf="isTeamStandingLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        <standing *ngIf="!isTeamStandingLoading" [data]="teamStanding"></standing>
+                    </div>
                 </div>
-                <div class="GP__TeamStandings">
-                    <div class="GP__StandingsTitle">Teams</div>
-                    <div *ngIf="isTeamStandingLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                    <standing *ngIf="!isTeamStandingLoading" [data]="teamStanding"></standing>
-                </div>
-            </div>
-       
-        </accordion>
-    </section>
+           
+            </accordion>
+        </section>
+    </ng-container>
+    
 </div>

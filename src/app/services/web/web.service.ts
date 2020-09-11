@@ -74,6 +74,9 @@ export class WebService {
       httpOptions
     ).pipe(map(res => {
       let stArr: Standing[] = [];
+      if(!res.MRData.StandingsTable.StandingsLists[0]){
+        return [];
+      }
       for (let item of res.MRData.StandingsTable.StandingsLists[0].DriverStandings) {
         stArr.push({
           name: `${item.Driver.givenName} ${item.Driver.familyName}`,
@@ -93,6 +96,9 @@ export class WebService {
     ).pipe(map(res => {
       let stArr: Standing[] = [];
       let year = season == 'current' ? res.MRData.StandingsTable.season : season;
+      if(!res.MRData.StandingsTable.StandingsLists[0]){
+        return [];
+      }
       for (let item of res.MRData.StandingsTable.StandingsLists[0].ConstructorStandings) {
         stArr.push({
           name: item.Constructor.name,
@@ -118,8 +124,10 @@ export class WebService {
       proxy + `http://ergast.com/api/f1/${season}/${round}/results.json?limit=${limit}&offset=${offset}`,
       httpOptions
     ).pipe(map(res => {
+      let raceResult: RaceResult
       let e = res.MRData.RaceTable.Races[0];
-      let raceResult: RaceResult = {
+      if(e){
+        raceResult= {
         circuit: e.Circuit.circuitName,
         season: e.season,
         date: `${e.date} ${e.time}`,
@@ -140,6 +148,7 @@ export class WebService {
           return newDr;
         })
       };
+    }
 
       return raceResult;
     }))
