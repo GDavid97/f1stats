@@ -68,9 +68,9 @@ export class WebService {
 
 
 
-  getDriverStanding(season: string, limit: number = 1000, offset: number = 0): Observable<Standing[]> {
+  getDriverStanding(season: string='current', round:string='last', limit: number = 1000, offset: number = 0): Observable<Standing[]> {
     return this.http.get<any>(
-      `${proxy}http://ergast.com/api/f1/${season}/driverStandings.json?limit=${limit}&offset=${offset}`,
+      `${proxy}http://ergast.com/api/f1/${season}/${round}/driverStandings.json?limit=${limit}&offset=${offset}`,
       httpOptions
     ).pipe(map(res => {
       let stArr: Standing[] = [];
@@ -86,9 +86,9 @@ export class WebService {
     }));
   }
 
-  getTeamStanding(season: string, limit: number = 1000, offset: number = 0): Observable<Standing[]> {
+  getTeamStanding(season: string='current', round:string='last', limit: number = 1000, offset: number = 0): Observable<Standing[]> {
     return this.http.get<any>(
-      `${proxy}http://ergast.com/api/f1/${season}/constructorStandings.json?limit=${limit}&offset=${offset}`,
+      `${proxy}http://ergast.com/api/f1/${season}/${round}/constructorStandings.json?limit=${limit}&offset=${offset}`,
       httpOptions
     ).pipe(map(res => {
       let stArr: Standing[] = [];
@@ -113,9 +113,9 @@ export class WebService {
     )
   }
 
-  getLastRaceResult(limit: number = Number.MAX_SAFE_INTEGER, offset: number = 0): Observable<RaceResult> {
+  getRaceResult(season:string,round:string,limit: number = Number.MAX_SAFE_INTEGER, offset: number = 0): Observable<RaceResult> {
     return this.http.get<any>(
-      proxy + 'http://ergast.com/api/f1/current/last/results.json?limit=' + limit + '&offset=' + offset,
+      proxy + `http://ergast.com/api/f1/${season}/${round}/results.json?limit=${limit}&offset=${offset}`,
       httpOptions
     ).pipe(map(res => {
       let e = res.MRData.RaceTable.Races[0];
@@ -191,8 +191,7 @@ export class WebService {
       }
       return result;
       }
-      ));
-   
+      ));   
   }
 
 }

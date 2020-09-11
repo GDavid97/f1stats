@@ -1,6 +1,5 @@
 @import "../../../styles.scss";
 .Seasons {
-
   &__Title {
     margin: auto;
     margin-top: 30px;
@@ -42,16 +41,35 @@
     align-self: center;
   }
 
-  &__DriversChartSection {
+  &__Section {
     margin-top: 40px;
   }
 
-  &__Standings{
+  &__Standings {
     display: flex;
     @media screen and (max-width: $M_MAX) {
-      display:block;
+      display: block;
+    }
   }
 
+  &__DriverStandings {
+    margin-right: 18px;
+    flex: 1;
+
+    @media screen and (max-width: $M_MAX) {
+      margin-right: 0px;
+      margin-bottom:18px;
+    }
   }
 
+  &__StandingsTitle{
+    font-size:22px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  &__TeamStandings {
+    flex: 1;
+  }
 }

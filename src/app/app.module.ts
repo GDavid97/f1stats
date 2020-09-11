@@ -20,6 +20,7 @@ import { MultiLineChartComponent } from './charts/multi-line-chart/multi-line-ch
 import { ChartsModule } from 'ng2-charts';
 import { AccordionComponent } from './components/accordion/accordion.component';
 import { CircuitComponent } from './components/circuit/circuit.component';
+import { GrandPrixPageComponent } from './pages/grand-prix-page/grand-prix-page.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { CircuitComponent } from './components/circuit/circuit.component';
     MultiLineChartComponent,
     AccordionComponent,
     CircuitComponent,
+    GrandPrixPageComponent,
    
   ],
   imports: [

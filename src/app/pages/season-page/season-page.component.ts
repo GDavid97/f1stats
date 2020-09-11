@@ -170,10 +170,9 @@ export class SeasonPageComponent implements OnInit {
     this.circuitSubscription?.unsubscribe();
     this.circuits = [];
     this.isCircuitsLoading = true;
-    this.webService.getCircuits(season).subscribe(res => {
+    this.circuitSubscription=this.webService.getCircuits(season).subscribe(res => {
       this.isCircuitsLoading = false;
       this.circuits = res;
-      console.log(res);
     });
   }
 
@@ -204,10 +203,15 @@ export class SeasonPageComponent implements OnInit {
     this.getTeamStanding(season);
   }
 
+  openGPDetails(round:number){
+    this.router.navigate(['gp'], { queryParams: { season: this.season, round: round } });
+  }
+
   ngOnDestroy() {
-    this.driverResultsSubscription.unsubscribe();
-    this.circuitSubscription.unsubscribe();
-    this.driverStandingSubscription.unsubscribe();
+    this.driverResultsSubscription?.unsubscribe();
+    this.circuitSubscription?.unsubscribe();
+    this.driverStandingSubscription?.unsubscribe();
+    this.teamStandingSubscription?.unsubscribe();
   }
 
 }

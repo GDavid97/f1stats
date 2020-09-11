@@ -1,0 +1,63 @@
+<div class="page">    
+    <h1 class="GP__Title">Grand Prix Details</h1>
+    <div style="display: flex;" >
+        <div class="GP__ButtonContainer">
+            <input [disabled]="prevSeasonButtonDisabled" type="image" class="GP__NavigationIcon" 
+            (click)="prevSeason()" 
+            src="assets/icons/left-arrow.png" 
+            width="30" 
+            height="30"/>
+            <h1 class="GP__Season">{{season}}</h1>
+            <input [disabled]="nextSeasonButtonDisabled" type="image" class="GP__NavigationIcon" (click)="nextSeason()" src="assets/icons/right-arrow.png" width="30" height="30"/>
+        </div>    
+    </div>
+
+    <div style="display: flex;" >
+        <div class="GP__ButtonContainer">
+            <input [disabled]="prevGPButtonDisabled" type="image" class="GP__NavigationIcon" 
+            (click)="prevGP()" 
+            src="assets/icons/left-arrow.png" 
+            width="30" 
+            height="30"/>
+            <div class="GP__GP">
+                <div *ngIf="isCurrentRaceLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                <circuit *ngIf="!isCurrentRaceLoading && circuitDetails && circuitDetails[round-1]" [data]="circuitDetails[round-1]"></circuit>
+            </div>
+            <input [disabled]="nextGPButtonDisabled" type="image" class="GP__NavigationIcon" (click)="nextGP()" src="assets/icons/right-arrow.png" width="30" height="30"/>
+        </div>    
+    </div>
+    
+
+    <section class="GP__Section">
+        <h1 class="GP__Subtitle">Race result</h1>
+        <div *ngIf="isRaceResultLoading" class="spinner-grow text-info spinner-middle"
+        role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+        <race-data *ngIf="!isRaceResultLoading" [data]="raceResult"></race-data >
+    </section>
+
+    <section class="GP__Section">
+        <accordion [title]="'Driver & Team standing after the race'">
+            <div class="GP__Standings">     
+                <div class="GP__DriverStandings" >
+                    <div class="GP__StandingsTitle">Drivers</div>
+                    <div *ngIf="isDriverStandingLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    <standing *ngIf="!isDriverStandingLoading" [data]="driverStanding"></standing>
+                </div>
+                <div class="GP__TeamStandings">
+                    <div class="GP__StandingsTitle">Teams</div>
+                    <div *ngIf="isTeamStandingLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    <standing *ngIf="!isTeamStandingLoading" [data]="teamStanding"></standing>
+                </div>
+            </div>
+       
+        </accordion>
+    </section>
+</div>

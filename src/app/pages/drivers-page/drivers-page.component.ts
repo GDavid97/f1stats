@@ -16,19 +16,19 @@ export class DriversPageComponent implements OnInit, OnDestroy {
   season: number = new Date().getFullYear();
   nextButtonDisabled: boolean = true;
   prevButtonDisabled: boolean = true;
-  
-  private driversSubscription:Subscription;
+
+  private driversSubscription: Subscription;
 
   constructor(private webService: WebService, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
       if (params && params.season) {
-        if(params.season>=1950 && params.season<=new Date().getFullYear()){
+        if (params.season >= 1950 && params.season <= new Date().getFullYear()) {
           this.season = params.season;
         }
-        else{
+        else {
           this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: new Date().getFullYear() } });
         }
-      
+
       }
       else {
         this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season } });
@@ -59,10 +59,9 @@ export class DriversPageComponent implements OnInit, OnDestroy {
   getData(season: string) {
     this.drivers = [];
     this.isDriverGridLoading = true;
-    if(this.driversSubscription){
-      this.driversSubscription.unsubscribe();
-    }
-    this.driversSubscription=this.webService.getDrivers(season).subscribe(res => {
+    this.driversSubscription?.unsubscribe();
+
+    this.driversSubscription = this.webService.getDrivers(season).subscribe(res => {
       this.isDriverGridLoading = false;
       this.drivers = res;
     });
@@ -108,8 +107,8 @@ export class DriversPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season } });
   }
 
-  ngOnDestroy(){
-    this.driversSubscription.unsubscribe();
+  ngOnDestroy() {
+    this.driversSubscription?.unsubscribe();
   }
 
 }

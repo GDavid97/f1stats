@@ -1,21 +1,31 @@
+@import "../../../styles.scss";
 .Circuit {
-    display: flex;
-    padding: 6px 4px;
-    border: 2px solid black;
-    margin: 4px;
-    width: auto;
-    background-color: #eaeaea;
-    border-radius: 12px;    
+  display: flex;
+  padding: 6px 4px;
+  border: 2px solid black;
+  margin: 4px;
+  width: auto;
+  background-color: #eaeaea;
+  border-radius: 12px;
+
+  @media screen and (max-width: $S_MAX) {
+    flex-direction: column;
+    text-align: center;
+    align-self: center;
+   
+  }
+
+  &__Clickable {
     cursor: pointer;
-    &:hover{
-        background-color: #b8b2b2;
+    &:hover {
+      background-color: #b8b2b2;
     }
+  }
 
   &__RaceName {
     align-self: center;
     font-weight: bold;
     margin-right: 12px;
-
   }
 
   &__Name {
@@ -25,9 +35,13 @@
 
   &__Flag {
     margin-right: 12px;
+ 
+    @media screen and (max-width: $S_MAX) {
+      margin: auto;     
+    }
   }
 
-  &__Date{
+  &__Date {
     align-self: center;
     font-size: 15px;
     text-decoration: underline;

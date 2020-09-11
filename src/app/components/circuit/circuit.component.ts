@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RaceEvent } from 'src/app/models/RaceEvent.model';
 
 @Component({
@@ -10,6 +10,12 @@ export class CircuitComponent implements OnInit {
 
   @Input()
   data:RaceEvent;
+
+  @Input()
+  enableClick:boolean;
+
+  @Output()
+  onClick:EventEmitter<void>=new EventEmitter<void>();
 
   constructor() { }
 

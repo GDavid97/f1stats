@@ -26,11 +26,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
   isTeamStandingLoading = true;
   isLastRaceResultLoading = true;
 
-  private nextRaceSubscription:Subscription;
-  private winnersForBubleChartSubscription:Subscription;
-  private currentDriverStandingSubscription:Subscription;
-  private currentTeamStandingSubscription:Subscription;
-  private lastRaceSubscription:Subscription;
+  private nextRaceSubscription: Subscription;
+  private winnersForBubleChartSubscription: Subscription;
+  private currentDriverStandingSubscription: Subscription;
+  private currentTeamStandingSubscription: Subscription;
+  private lastRaceSubscription: Subscription;
 
 
   constructor(private dataService: DataService, private webService: WebService) { }
@@ -45,11 +45,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   getWinnersForBubbleChart() {
     let results: Map<string, number> = new Map<string, number>();
-    if(this.winnersForBubleChartSubscription){
-      this.winnersForBubleChartSubscription.unsubscribe();
-    }
-    this.areBubblesLoading = true;    
-    this.winnersForBubleChartSubscription=this.webService.getAllWins().subscribe(res => {
+
+    this.winnersForBubleChartSubscription?.unsubscribe();
+    this.areBubblesLoading = true;
+    this.winnersForBubleChartSubscription = this.webService.getAllWins().subscribe(res => {
       this.fetchBubbleData(res.MRData.RaceTable.Races, results);
 
       this.webService.getAllWins(1000, 1000).subscribe(res => {
@@ -87,22 +86,20 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   private getCurrentDriverStanding() {
-    if(this.currentDriverStandingSubscription){
-      this.currentDriverStandingSubscription.unsubscribe();
-    }
+
+    this.currentDriverStandingSubscription?.unsubscribe();
+
     this.isDriverStandingLoading = true;
-    this.currentDriverStandingSubscription=this.webService.getDriverStanding('current').subscribe(res => {
+    this.currentDriverStandingSubscription = this.webService.getDriverStanding('current').subscribe(res => {
       this.isDriverStandingLoading = false;
       this.driverStanding = res;
     });
   }
 
   private getCurrentTeamStanding() {
-    if(this.currentTeamStandingSubscription){
-      this.currentTeamStandingSubscription.unsubscribe();
-    }
+    this.currentTeamStandingSubscription?.unsubscribe();
     this.isTeamStandingLoading = true;
-    this.currentTeamStandingSubscription=this.webService.getTeamStanding('current').subscribe(res => {
+    this.currentTeamStandingSubscription = this.webService.getTeamStanding('current').subscribe(res => {
       this.isTeamStandingLoading = false;
       this.teamStanding = res;
     });
@@ -110,22 +107,18 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
 
   private getLastRaceResult() {
-    if(this.lastRaceSubscription){
-      this.lastRaceSubscription.unsubscribe();
-    }
+    this.lastRaceSubscription?.unsubscribe();
     this.isLastRaceResultLoading = true;
-    this.lastRaceSubscription=this.webService.getLastRaceResult().subscribe(res => {
+    this.lastRaceSubscription = this.webService.getRaceResult('current','last').subscribe(res => {
       this.isLastRaceResultLoading = false;
       this.lastRaceResult = res;
     });
   }
 
   private getNextRace() {
-    if(this.nextRaceSubscription){
-      this.nextRaceSubscription.unsubscribe();
-    }
+    this.nextRaceSubscription?.unsubscribe();
     let nextRaceData: NextRaceModel = new NextRaceModel();
-    this.nextRaceSubscription=this.webService.getNextRace().subscribe(res => {
+    this.nextRaceSubscription = this.webService.getNextRace().subscribe(res => {
       let data = res.MRData.RaceTable.Races[0];
       nextRaceData.raceName = data.raceName;
       nextRaceData.date = data.date;
@@ -139,12 +132,12 @@ export class MainPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(){
-    this.lastRaceSubscription.unsubscribe();
-    this.nextRaceSubscription.unsubscribe();
-    this.currentTeamStandingSubscription.unsubscribe();
-    this.currentDriverStandingSubscription.unsubscribe();
-    this.winnersForBubleChartSubscription.unsubscribe();
+  ngOnDestroy() {
+    this.lastRaceSubscription?.unsubscribe();
+    this.nextRaceSubscription?.unsubscribe();
+    this.currentTeamStandingSubscription?.unsubscribe();
+    this.currentDriverStandingSubscription?.unsubscribe();
+    this.winnersForBubleChartSubscription?.unsubscribe();
   }
 
 }

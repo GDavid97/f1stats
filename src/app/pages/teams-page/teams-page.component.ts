@@ -12,24 +12,24 @@ import { Subscription } from 'rxjs';
 export class TeamsPageComponent implements OnInit, OnDestroy {
 
   teams: Team[];
-  
+
   isTeamGridLoading: boolean = true;
   season: number = new Date().getFullYear();
   nextButtonDisabled: boolean = true;
   prevButtonDisabled: boolean = true;
 
-  private teamsSubscription:Subscription;
+  private teamsSubscription: Subscription;
 
   constructor(private webService: WebService, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
       if (params && params.season) {
-        if(params.season>=1950 && params.season<=new Date().getFullYear()){
+        if (params.season >= 1950 && params.season <= new Date().getFullYear()) {
           this.season = params.season;
         }
-        else{
+        else {
           this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: new Date().getFullYear() } });
         }
-      
+
       }
       else {
         this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season } });
@@ -57,18 +57,14 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  getData(season: string) {    
+  getData(season: string) {
     this.teams = [];
     this.isTeamGridLoading = true;
-
-    if(this.teamsSubscription){
-      this.teamsSubscription.unsubscribe();
-    }
-
-    this.teamsSubscription=this.webService.getTeams(season).subscribe(res => {      
+    this.teamsSubscription?.unsubscribe();
+    this.teamsSubscription = this.webService.getTeams(season).subscribe(res => {
       this.isTeamGridLoading = false;
-      this.teams=res;
-  
+      this.teams = res;
+
     });
   }
 
@@ -112,8 +108,8 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season } });
   }
 
-  ngOnDestroy(){
-    this.teamsSubscription.unsubscribe();
+  ngOnDestroy() {
+    this.teamsSubscription?.unsubscribe();
   }
 
 }
