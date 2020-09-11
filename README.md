@@ -1,4 +1,6 @@
-# F1
+# F1 Stats
+
+Deployed applicaion URL: https://f1-stats-b7db7.web.app/
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
 
