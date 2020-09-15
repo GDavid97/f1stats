@@ -86,7 +86,7 @@
         margin: auto;
     }
 
-    &__TeamTile{
+    &__TeamTile {
         margin: 10px;
     }
 
@@ -98,7 +98,6 @@
             width: fit-content;
             margin: auto;
         }
-
     }
     &__TeamImage {
         margin: auto;
@@ -116,5 +115,35 @@
     }
     &__TeamPeriod {
         text-align: center;
+    }
+
+    &__DriverResultTile {
+        margin: 10px;
+    }
+
+    &__DriverResultPosition {
+        font-weight: bold;
+        font-size: 20px;
+        padding: 8px;
+
+        &First {
+            border: 1px solid black;
+            background-color: gold;
+        }
+        &Second {
+            border: 1px solid black;
+            background-color: silver;
+        }
+        &Third {
+            border: 1px solid black;
+            background-color: #cd7f32;
+        }
+    }
+
+    &__DriverResultSeason {
+        font-weight: bold;
+    }
+
+    &__DriverResultPoints {
     }
 }

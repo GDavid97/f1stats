@@ -250,9 +250,16 @@ export class WebService {
     return this.http.get<any>(
       `${proxy}http://ergast.com/api/f1/drivers/${driverId}/driverStandings.json?limit=${limit}&offset=${offset}`,
       httpOptions
-    ).pipe(map(res => {     
-      console.log("res",res)
-      return [];      
+    ).pipe(map(res => {  
+      let result:DriverPosition[]=[];
+      for(let standing of res.MRData.StandingsTable.StandingsLists){
+        result.push({
+          position:standing.DriverStandings[0].position,
+          points:standing.DriverStandings[0].points,
+          season:standing.season,
+        });
+      }      
+      return result;      
     })
     );
   }

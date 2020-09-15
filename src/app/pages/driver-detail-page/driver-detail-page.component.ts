@@ -91,7 +91,7 @@ export class DriverDetailPageComponent implements OnInit {
 
   private getDriverPositions(driverId:string){
     this.webService.getDriverChampionshipPositions(driverId).subscribe(res=>{
-      console.log(res);
+      this.championshipResults=res;
     })
   }
 
