@@ -1,9 +1,11 @@
-<div class="MainBg"></div>
+<div class="MainBg">
+  <img class="MainPage__Slide" src="assets/icons/slide.png" height="55" width="55" (click)="scrolldown()"/>
+</div>
 <div class="MainPage__MainSection">
   <div *ngIf="isNextRaceLoading"  class="spinner-grow text-info spinner-middle" role="status">
     <span class="sr-only">Loading...</span>
   </div>
-  <next-race *ngIf="!isNextRaceLoading" [data]="nextRaceData"></next-race>
+  <next-race *ngIf="!isNextRaceLoading" [data]="nextRaceData"></next-race> 
 </div>
 
 <div class="page">
@@ -15,7 +17,7 @@
 </div>
 <ng-container *ngIf="!isLastRaceResultLoading">
  
-  <race-data [data]="lastRaceResult"></race-data >
+  <race-data [data]="lastRaceResult" (onDriverClicked)="openDriverDetail($event)"></race-data >
 </ng-container>
 
 

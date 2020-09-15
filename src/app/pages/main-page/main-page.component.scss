@@ -5,12 +5,10 @@
     background-position: center;
     background-size: cover;
     opacity: 0.95;
-    
 }
 
 .MainPage {
-
-    &__MainSection{
+    &__MainSection {
         position: absolute;
         top: 50%;
         background-color: rgb(255 252 212 / 64%);
@@ -18,10 +16,27 @@
         text-align: center;
         transform: translateY(-50%);
     }
-    &__SubTitle{
+    &__SubTitle {
         font-size: 36px;
         margin-top: 50px;
         font-weight: bold;
         text-align: center;
+    }
+
+    &__Slide {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 30px;
+        cursor: pointer;
+        background-color: #73737329;
+        padding: 6px;
+        border-radius: 30px;
+        transition: all 1s;
+        &:hover{
+            background-color: #272424da;
+            transform: scale(1.2) translateX(-50%);
+            
+        }
     }
 }

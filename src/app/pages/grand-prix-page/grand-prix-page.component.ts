@@ -224,6 +224,10 @@ isTeamStandingLoading:boolean=true;
     this.getRaceResult(season,round);
   }
 
+  openDriverDetail(driverId:string){
+    this.router.navigate(['driverdetail'], { queryParams: { id: driverId } });
+  }
+
   ngOnDestroy(){
     this.circuitSubscripton?.unsubscribe();
     this.raceResultSubscription?.unsubscribe();

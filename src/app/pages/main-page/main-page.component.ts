@@ -6,6 +6,7 @@ import { NextRaceModel } from 'src/app/components/next-race/models';
 import { Standing } from 'src/app/models/Standing.model';
 import { RaceResult } from 'src/app/models/RaceResult.model';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -33,7 +34,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
   private lastRaceSubscription: Subscription;
 
 
-  constructor(private dataService: DataService, private webService: WebService) { }
+  constructor(
+    private webService: WebService,
+    private router: Router) { }
 
   ngOnInit() {
     this.getWinnersForBubbleChart();
@@ -109,7 +112,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   private getLastRaceResult() {
     this.lastRaceSubscription?.unsubscribe();
     this.isLastRaceResultLoading = true;
-    this.lastRaceSubscription = this.webService.getRaceResult('current','last').subscribe(res => {
+    this.lastRaceSubscription = this.webService.getRaceResult('current', 'last').subscribe(res => {
       this.isLastRaceResultLoading = false;
       this.lastRaceResult = res;
     });
@@ -130,6 +133,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
       this.nextRaceData = nextRaceData;
       this.isNextRaceLoading = false;
     });
+  }
+
+  openDriverDetail(driverId: string) {
+    this.router.navigate(['driverdetail'], { queryParams: { id: driverId } });
+  }
+
+  scrolldown(){
+    window.scroll(0,window.innerHeight);
   }
 
   ngOnDestroy() {

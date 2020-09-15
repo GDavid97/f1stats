@@ -40,7 +40,7 @@
             role="status">
             <span class="sr-only">Loading...</span>
           </div>
-            <race-data *ngIf="!isRaceResultLoading" [data]="raceResult"></race-data >
+            <race-data *ngIf="!isRaceResultLoading" [data]="raceResult" (onDriverClicked)="openDriverDetail($event)"></race-data >
         </section>
     
         <section class="GP__Section">

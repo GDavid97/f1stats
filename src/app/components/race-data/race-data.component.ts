@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RaceResult } from 'src/app/models/RaceResult.model';
 
 @Component({
@@ -10,6 +10,10 @@ export class RaceDataComponent implements OnInit {
 
   @Input()
   data:RaceResult;
+
+  @Output()
+  onDriverClicked:EventEmitter<string>=new EventEmitter<string>();
+
 
   constructor() { }
 
