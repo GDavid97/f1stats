@@ -1,0 +1,37 @@
+<div class="page">
+    <div *ngIf="isLoading" style="margin: auto; margin-top:40px; display: block;" class="spinner-grow text-info" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <section class="DriverDetail__Content" *ngIf="!isLoading">          
+            <div class="DriverDetail__Image" [style.background-image]="'url(assets/drivers/'+results[0].driverId+'.jpg)'"></div>    
+          <div class="DriverDetail__DriverName">{{results[0].givenName+' '+results[0].familyName}}</div>
+          <div class="DriverDetail__Career">
+              <div class="DriverDetail__CareerStart">
+                  <div class="DriverDetail__CareerStartText">{{results[0].season}}</div>
+                  <div class="DriverDetail__CareerInfo">First race in</div>
+              </div>
+              <div class="DriverDetail__CareerEnd">
+                <div class="DriverDetail__CareerEndText">{{results[results.length-1].season}}</div>
+                <div class="DriverDetail__CareerInfo">Last race in</div>
+            </div>
+          </div>
+          <div class="DriverDetail__Counters">
+              <div class="DriverDetail__CounterContainer">
+                  <counter [text]="'Races'" [value]="racesCount"></counter>
+              </div>
+              <div class="DriverDetail__CounterContainer">
+                <counter [text]="'Wins'" [value]="winsCount"></counter>
+            </div>
+            <div class="DriverDetail__CounterContainer">
+                <counter [text]="'Podiums'" [value]="podiumsCount"></counter>
+            </div>
+            <div class="DriverDetail__CounterContainer">
+                <counter [text]="'Poles'" [value]="polesCount"></counter>
+            </div>
+            <div class="DriverDetail__CounterContainer">
+                <counter [text]="'Points'" [value]="points"></counter>
+            </div>
+          </div>
+      </section>
+</div>
+

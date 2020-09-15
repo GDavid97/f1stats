@@ -18,7 +18,7 @@
             <span class="sr-only">Loading...</span>
           </div>
         <div *ngIf="!isDriverGridLoading" class="Drivers__Grid">
-            <driver-tile *ngFor="let driver of drivers" [driver]="driver"></driver-tile>
+            <driver-tile *ngFor="let driver of drivers" [driver]="driver" (click)="openDriverDetail(driver.driverId)"></driver-tile>
         </div>
     </div>
 

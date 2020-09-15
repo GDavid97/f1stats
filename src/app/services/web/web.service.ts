@@ -6,9 +6,9 @@ import { Driver } from '../../models/Driver.model';
 import { Standing } from 'src/app/models/Standing.model';
 import { Team } from 'src/app/models/Team.model';
 import { RaceResult, DriverResult } from 'src/app/models/RaceResult.model';
-import {  RaceEvent } from 'src/app/models/RaceEvent.model';
+import { RaceEvent } from 'src/app/models/RaceEvent.model';
 
-const proxy = "https://cors-anywhere.herokuapp.com/";
+const proxy = "https://thingproxy.freeboard.io/fetch/" //https://cors-anywhere.herokuapp.com/";
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -68,13 +68,13 @@ export class WebService {
 
 
 
-  getDriverStanding(season: string='current', round:string='last', limit: number = 1000, offset: number = 0): Observable<Standing[]> {
+  getDriverStanding(season: string = 'current', round: string = 'last', limit: number = 1000, offset: number = 0): Observable<Standing[]> {
     return this.http.get<any>(
       `${proxy}http://ergast.com/api/f1/${season}/${round}/driverStandings.json?limit=${limit}&offset=${offset}`,
       httpOptions
     ).pipe(map(res => {
       let stArr: Standing[] = [];
-      if(!res.MRData.StandingsTable.StandingsLists[0]){
+      if (!res.MRData.StandingsTable.StandingsLists[0]) {
         return [];
       }
       for (let item of res.MRData.StandingsTable.StandingsLists[0].DriverStandings) {
@@ -89,14 +89,14 @@ export class WebService {
     }));
   }
 
-  getTeamStanding(season: string='current', round:string='last', limit: number = 1000, offset: number = 0): Observable<Standing[]> {
+  getTeamStanding(season: string = 'current', round: string = 'last', limit: number = 1000, offset: number = 0): Observable<Standing[]> {
     return this.http.get<any>(
       `${proxy}http://ergast.com/api/f1/${season}/${round}/constructorStandings.json?limit=${limit}&offset=${offset}`,
       httpOptions
     ).pipe(map(res => {
       let stArr: Standing[] = [];
       let year = season == 'current' ? res.MRData.StandingsTable.season : season;
-      if(!res.MRData.StandingsTable.StandingsLists[0]){
+      if (!res.MRData.StandingsTable.StandingsLists[0]) {
         return [];
       }
       for (let item of res.MRData.StandingsTable.StandingsLists[0].ConstructorStandings) {
@@ -119,46 +119,46 @@ export class WebService {
     )
   }
 
-  getRaceResult(season:string,round:string,limit: number = Number.MAX_SAFE_INTEGER, offset: number = 0): Observable<RaceResult> {
+  getRaceResult(season: string, round: string, limit: number = Number.MAX_SAFE_INTEGER, offset: number = 0): Observable<RaceResult> {
     return this.http.get<any>(
       proxy + `http://ergast.com/api/f1/${season}/${round}/results.json?limit=${limit}&offset=${offset}`,
       httpOptions
     ).pipe(map(res => {
       let raceResult: RaceResult
       let e = res.MRData.RaceTable.Races[0];
-      if(e){
-        raceResult= {
-        circuit: e.Circuit.circuitName,
-        season: e.season,
-        date: `${e.date} ${e.time}`,
-        raceName: e.raceName,
-        round: e.round,
-        drivers: e.Results.map(driverResult => {
-          let newDr: DriverResult=driverResult.Driver    
-          newDr.grid=driverResult.grid;
-          newDr.laps=driverResult.laps;
-          newDr.points=driverResult.points;
-          newDr.position=driverResult.position;
-          newDr.positionText=driverResult.positionText;
-          newDr.status=driverResult.status;
-          newDr.team = driverResult.Constructor.name;
-          newDr.teamId = driverResult.Constructor.constructorId;
-          newDr.season = e.season;
-          newDr.fastestLap=driverResult.FastestLap?.rank==1;
-          return newDr;
-        })
-      };
-    }
+      if (e) {
+        raceResult = {
+          circuit: e.Circuit.circuitName,
+          season: e.season,
+          date: `${e.date} ${e.time}`,
+          raceName: e.raceName,
+          round: e.round,
+          drivers: e.Results.map(driverResult => {
+            let newDr: DriverResult = driverResult.Driver
+            newDr.grid = driverResult.grid;
+            newDr.laps = driverResult.laps;
+            newDr.points = driverResult.points;
+            newDr.position = driverResult.position;
+            newDr.positionText = driverResult.positionText;
+            newDr.status = driverResult.status;
+            newDr.team = driverResult.Constructor.name;
+            newDr.teamId = driverResult.Constructor.constructorId;
+            newDr.season = e.season;
+            newDr.fastestLap = driverResult.FastestLap?.rank == 1;
+            return newDr;
+          })
+        };
+      }
 
       return raceResult;
     }))
   }
 
-  getDriverResults(season:string,limit: number = 1000, offset: number = 0): Observable<any[]> {   
+  getDriverResults(season: string, limit: number = 1000, offset: number = 0): Observable<any[]> {
     return this.http.get<any>(
       proxy + `http://ergast.com/api/f1/${season}/results.json?limit=${limit}&offset=${offset}`,
       httpOptions
-    ).pipe(map(res=>{
+    ).pipe(map(res => {
       return res.MRData.RaceTable.Races;
     }));
   }
@@ -181,26 +181,64 @@ export class WebService {
     )
   }
 
-  getCircuits(season:string,limit: number = 1000, offset: number = 0):Observable<RaceEvent[]>{
+  getCircuits(season: string, limit: number = 1000, offset: number = 0): Observable<RaceEvent[]> {
     return this.http.get<any>(
       `${proxy}http://ergast.com/api/f1/${season}.json?limit=${limit}&offset=${offset}`,
       httpOptions
-    ).pipe(map(res => {     
-      let result:RaceEvent[]=[];
-      for(let race of res.MRData.RaceTable.Races){
-        let circuit=race.Circuit;
+    ).pipe(map(res => {
+      let result: RaceEvent[] = [];
+      for (let race of res.MRData.RaceTable.Races) {
+        let circuit = race.Circuit;
         result.push({
-          raceName:race.raceName,
-          circuitId:circuit.circuitId,
-          circuitName:circuit.circuitName,
-          circuitUrl:circuit.url,
-          country:circuit.Location.country,
-          date:new Date(race.date).toString()
+          raceName: race.raceName,
+          circuitId: circuit.circuitId,
+          circuitName: circuit.circuitName,
+          circuitUrl: circuit.url,
+          country: circuit.Location.country,
+          date: new Date(race.date).toString()
         })
       }
       return result;
+    }
+    ));
+  }
+
+  getDriverRaceResults(driverId: string, limit: number = 1000, offset: number = 0): Observable<DriverResult[]> {
+    return this.http.get<any>(
+      `${proxy}http://ergast.com/api/f1/drivers/${driverId}/results.json?limit=${limit}&offset=${offset}`,
+      httpOptions
+    ).pipe(map(res => {
+      let result: DriverResult[] = [];
+      
+      for (let race of res.MRData.RaceTable.Races) {
+        result.push({
+          grid: race.Results[0].grid,
+          laps: race.Results[0].laps,
+          points: race.Results[0].points,
+          position: race.Results[0].position,
+          positionText: race.Results[0].positionText,
+          status: race.Results[0].status,
+          fastestLap: race.Results[0].FastestLap?.rank=="1",
+          code: race.Results[0].Driver.code,
+          dateOfBirth: new Date(race.Results[0].Driver.dateOfBirth),
+          driverId: race.Results[0].Driver.driverId,
+          familyName: race.Results[0].Driver.familyName,
+          givenName: race.Results[0].Driver.givenName,
+          nationality: race.Results[0].Driver.nationality,
+          team: race.Results[0].Constructor.name,
+          permanentNumber: race.Results[0].Driver.permanentNumber,
+          season: race.season,
+          teamId: race.Results[0].Constructor.constructorId,
+          url: race.Results[0].Driver.url,
+          circuit:race.Circuit.circuitName,
+          date:race.date,
+          raceName:race.raceName,
+          round:race.round
+        });
       }
-      ));   
+      return result;
+    })
+    );
   }
 
 }

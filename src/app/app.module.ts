@@ -21,6 +21,8 @@ import { ChartsModule } from 'ng2-charts';
 import { AccordionComponent } from './components/accordion/accordion.component';
 import { CircuitComponent } from './components/circuit/circuit.component';
 import { GrandPrixPageComponent } from './pages/grand-prix-page/grand-prix-page.component';
+import { DriverDetailPageComponent } from './pages/driver-detail-page/driver-detail-page.component';
+import { CounterComponent } from './components/counter/counter.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { GrandPrixPageComponent } from './pages/grand-prix-page/grand-prix-page.
     AccordionComponent,
     CircuitComponent,
     GrandPrixPageComponent,
+    DriverDetailPageComponent,
+    CounterComponent,
    
   ],
   imports: [

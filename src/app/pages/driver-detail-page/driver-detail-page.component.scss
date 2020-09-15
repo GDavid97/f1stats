@@ -1,0 +1,88 @@
+@import "../../../styles.scss";
+.DriverDetail {
+    &__Title {
+        margin: auto;
+        margin-top: 30px;
+        text-align: center;
+        font-weight: bold;
+        align-self: center;
+    }
+
+    &__Content {
+        margin-top: 40px;
+    }
+
+    &__Image {
+        margin: auto;
+    background-position: center;
+    background-size: cover;
+    width: 400px;
+    height: 450px;
+
+    @media screen and (max-width: $S_MAX) {
+        width: 200px;
+        height: 250px;
+    }
+    }
+
+    &__DriverName {
+        margin: auto;
+        font-size: 28px;
+        font-weight: bold;
+        margin-top: 24px;
+        text-align: center;
+    }
+
+    &__Career {
+        position: relative;
+        margin-top: 18px;
+        padding: 28px;
+        border: 2px solid black;
+        border-radius: 100px;
+        background: linear-gradient(to right, #57e1f37a 0%, #dac6ff 100%);
+
+        &Info {
+            font-weight: bold;
+        }
+
+        &Start {
+            &Text {
+                font-size: 32px;
+                transform: rotateZ(-35deg);
+                width: max-content;
+                font-weight: bold;
+                margin-bottom: 12px;
+                color: #292d2f;
+            }
+        }
+
+        &End {
+            position: absolute;
+            right: 28px;
+            top: 28px;
+
+            &Text {
+                font-size: 32px;
+                transform: rotateZ(35deg);
+                width: max-content;
+                font-weight: bold;
+                margin-bottom: 12px;
+                color: #292d2f;
+            }
+        }
+    }
+
+    &__Counters {
+        display: flex;
+        margin: auto;
+        margin-top: 32px;
+        @media screen and (max-width: $M_MAX) {
+            display: block;
+            width: fit-content;
+        }
+    }
+
+    &__CounterContainer {
+        margin: auto;
+    }
+}

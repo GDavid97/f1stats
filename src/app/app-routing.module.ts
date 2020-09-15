@@ -6,6 +6,7 @@ import { CircuitsPageComponent } from './pages/circuits-page/circuits-page.compo
 import { DriversPageComponent } from './pages/drivers-page/drivers-page.component';
 import { TeamsPageComponent } from './pages/teams-page/teams-page.component';
 import { GrandPrixPageComponent } from './pages/grand-prix-page/grand-prix-page.component';
+import { DriverDetailPageComponent } from './pages/driver-detail-page/driver-detail-page.component';
 
 const routes: Routes = [
   { path: 'seasons', component: SeasonPageComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'drivers', component: DriversPageComponent },
   { path: 'circuits', component: CircuitsPageComponent },
   { path: 'gp', component: GrandPrixPageComponent },
+  { path: 'driverdetail', component: DriverDetailPageComponent },
   { path: '', component: MainPageComponent },
 ];
 

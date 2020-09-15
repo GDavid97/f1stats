@@ -1,0 +1,27 @@
+.Counter{
+    width: fit-content;
+    &__Circle{
+        height: 100px;
+        width: 100px;
+        border-radius: 60px;
+        border: 4px solid black;
+        color: #292d2f;
+        background-color: #dedede;
+        display: flex;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    &__Value{
+        align-self: center;
+        margin: auto;
+    }
+
+    &__Text{
+        text-align: center;
+        margin-top: 8px;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+}

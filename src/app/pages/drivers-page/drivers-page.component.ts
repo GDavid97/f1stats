@@ -107,6 +107,10 @@ export class DriversPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season } });
   }
 
+  openDriverDetail(driverId:string){
+    this.router.navigate(['driverdetail'], { queryParams: { id: driverId } });
+  }
+
   ngOnDestroy() {
     this.driversSubscription?.unsubscribe();
   }

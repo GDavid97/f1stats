@@ -5,6 +5,13 @@
     border-radius: 3px;
     text-align: center;
     animation: fadein 2s;
+    cursor: pointer;
+
+    &:hover{
+        background-color: #c3c1c1 !important;
+        border: none;
+    }
+    
     &__Image {
         background-position: center;
         background-size: cover;
