@@ -59,7 +59,7 @@ export class DriverDetailPageComponent implements OnInit {
             constructorId: currentTeamId,
             name: currentTeamName,
             startSeason: startSeason,
-            endSeason: e.season,
+            endSeason: res.filter(d=>d.teamId==currentTeamId).sort((a,b)=>{return Number(b.season)-Number(a.season)})[0].season,
             photo: `${startSeason}/${currentTeamId}`,
           })
           currentTeamId = e.teamId;
@@ -75,7 +75,6 @@ export class DriverDetailPageComponent implements OnInit {
         endSeason: endSeason,
         photo: `${startSeason}/${currentTeamId}`,
       });
-      console.log(this.teams);
       this.webService.getDriverTitles(driverId).subscribe(res => {
         this.championshipsCount = res;
         this.isLoading = false;

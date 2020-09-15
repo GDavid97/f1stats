@@ -37,7 +37,7 @@ export class CounterComponent implements OnInit, OnChanges {
         comp.valueToDisplay=comp.value;
         clearInterval(comp.interval);
       }
-    },5)
+    },8)
   }
 
  
