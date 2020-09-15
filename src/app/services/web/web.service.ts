@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { map, takeUntil } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Driver } from '../../models/Driver.model';
 import { Standing } from 'src/app/models/Standing.model';
 import { Team } from 'src/app/models/Team.model';
@@ -240,5 +240,21 @@ export class WebService {
     })
     );
   }
+
+  getDriverStandings(driverId: string, limit: number = 1000, offset: number = 0): Observable<any> {
+    return this.http.get<any>(
+      `${proxy}http://ergast.com/api/f1/drivers/${driverId}/driverStandings.json?limit=${limit}&offset=${offset}`,
+      httpOptions
+    ).pipe(map(res => {
+      let result: any;      
+     
+      console.log(result);
+      return result;
+    })
+    );
+  }
+
+
+
 
 }

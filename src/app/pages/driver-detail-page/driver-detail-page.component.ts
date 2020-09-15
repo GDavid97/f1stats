@@ -19,6 +19,7 @@ export class DriverDetailPageComponent implements OnInit {
 
   racesCount:number;  
   points:number=0;  
+  championshipsCount:number;
   winsCount:number;
   podiumsCount:number;
   polesCount:number;
@@ -39,13 +40,18 @@ export class DriverDetailPageComponent implements OnInit {
     this.webService.getDriverRaceResults(driverId).subscribe(res => {
       this.isLoading=false;  
       this.results=res;
-      this.racesCount=res.length;
+      this.racesCount=res.length;      
       this.winsCount=res.filter(e=>e.position=="1").length;
       this.podiumsCount=res.filter(e=>(e.position=="1" || e.position=="2" || e.position=="3")).length;
       this.polesCount=res.filter(e=>e.grid=="1").length;
+      this.championshipsCount=0;
       res.forEach(e=>{
         this.points+=parseInt(e.points);
       })
+    });
+
+    this.webService.getDriverStandings(driverId).subscribe(res=>{
+      console.log(res);
     });
   }
 
