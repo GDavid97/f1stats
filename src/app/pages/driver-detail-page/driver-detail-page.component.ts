@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DriverPosition } from 'src/app/models/DriverPosition.model';
 import { DriverResult } from 'src/app/models/RaceResult.model';
 import { DrivenInTeam } from 'src/app/models/Team.model';
 import { WebService } from 'src/app/services/web/web.service';
@@ -22,11 +23,13 @@ export class DriverDetailPageComponent implements OnInit {
   podiumsCount: number;
   polesCount: number;
   teams: DrivenInTeam[];
+  championshipResults:DriverPosition[]=[];
 
   constructor(private route: ActivatedRoute, private webService: WebService) {
     this.route.queryParams.subscribe(params => {
       if (params.id) {
         this.getData(params.id);
+        this.getDriverPositions(params.id);
       }
     });
   }
@@ -84,6 +87,12 @@ export class DriverDetailPageComponent implements OnInit {
     });
 
 
+  }
+
+  private getDriverPositions(driverId:string){
+    this.webService.getDriverChampionshipPositions(driverId).subscribe(res=>{
+      console.log(res);
+    })
   }
 
 }

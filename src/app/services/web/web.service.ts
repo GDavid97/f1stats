@@ -7,18 +7,13 @@ import { Standing } from 'src/app/models/Standing.model';
 import { Team } from 'src/app/models/Team.model';
 import { RaceResult, DriverResult } from 'src/app/models/RaceResult.model';
 import { RaceEvent } from 'src/app/models/RaceEvent.model';
+import { DriverPosition } from 'src/app/models/DriverPosition.model';
 
-const proxy = "https://thingproxy.freeboard.io/fetch/" //https://cors-anywhere.herokuapp.com/";
+const proxy = "https://cors-anywhere.herokuapp.com/" //"https://cors-anywhere.herokuapp.com/"; //"https://thingproxy.freeboard.io/fetch/"
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
-  })
-};
-const httpOptionsWithToken = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + localStorage.getItem("ingatlantoken")
   })
 };
 @Injectable({
@@ -247,6 +242,17 @@ export class WebService {
       httpOptions
     ).pipe(map(res => {     
       return res.MRData.StandingsTable.StandingsLists.length;
+    })
+    );
+  }
+
+  getDriverChampionshipPositions(driverId: string, limit: number = 1000, offset: number = 0): Observable<DriverPosition[]> {
+    return this.http.get<any>(
+      `${proxy}http://ergast.com/api/f1/drivers/${driverId}/driverStandings.json?limit=${limit}&offset=${offset}`,
+      httpOptions
+    ).pipe(map(res => {     
+      console.log("res",res)
+      return [];      
     })
     );
   }

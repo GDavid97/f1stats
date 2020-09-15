@@ -38,7 +38,7 @@
 
           <section class="DriverDetail__Section">
             <accordion [title]="'Teams'">
-                <div class="DriverDetail__TeamsContainer">
+                <div class="DriverDetail__FlexContainer">
                     <div class="DriverDetail__TeamTile" *ngFor="let team of teams">
                         <div class="DriverDetail__TeamImage" [style.background-image]="'url(assets/teams/'+team.photo+'.jpg)'"></div>
                         <div class="DriverDetail__TeamName">{{team.name}}</div>
@@ -47,6 +47,21 @@
                             <ng-container *ngIf="team.startSeason!=team.endSeason">{{team.startSeason}} - {{team.endSeason}}</ng-container>                          
                         </div>
                     </div>
+                </div>
+            </accordion>
+          </section>
+          
+          <section class="DriverDetail__Section">
+            <accordion [title]="'Championship results'">
+                <div class="DriverDetail__FlexContainer">
+                    <!-- <div class="DriverDetail__TeamTile" *ngFor="let team of teams">
+                        <div class="DriverDetail__TeamImage" [style.background-image]="'url(assets/teams/'+team.photo+'.jpg)'"></div>
+                        <div class="DriverDetail__TeamName">{{team.name}}</div>
+                        <div class="DriverDetail__TeamPeriod">
+                            <ng-container *ngIf="team.startSeason==team.endSeason">{{team.startSeason}}</ng-container>
+                            <ng-container *ngIf="team.startSeason!=team.endSeason">{{team.startSeason}} - {{team.endSeason}}</ng-container>                          
+                        </div>
+                    </div> -->
                 </div>
             </accordion>
           </section>

@@ -90,7 +90,7 @@
         margin: 10px;
     }
 
-    &__TeamsContainer {
+    &__FlexContainer {
         display: flex;
         flex-wrap: wrap;
         @media screen and (max-width: $S_MAX) {
