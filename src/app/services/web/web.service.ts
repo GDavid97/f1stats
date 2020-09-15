@@ -241,15 +241,12 @@ export class WebService {
     );
   }
 
-  getDriverStandings(driverId: string, limit: number = 1000, offset: number = 0): Observable<any> {
+  getDriverTitles(driverId: string, limit: number = 1000, offset: number = 0): Observable<number> {
     return this.http.get<any>(
-      `${proxy}http://ergast.com/api/f1/drivers/${driverId}/driverStandings.json?limit=${limit}&offset=${offset}`,
+      `${proxy}http://ergast.com/api/f1/drivers/${driverId}/driverStandings/1.json?limit=${limit}&offset=${offset}`,
       httpOptions
-    ).pipe(map(res => {
-      let result: any;      
-     
-      console.log(result);
-      return result;
+    ).pipe(map(res => {     
+      return res.MRData.StandingsTable.StandingsLists.length;
     })
     );
   }
