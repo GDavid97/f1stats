@@ -2,7 +2,7 @@
     <div *ngIf="isLoading" style="margin: auto; margin-top:40px; display: block;" class="spinner-grow text-info" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-      <section class="DriverDetail__Content" *ngIf="!isLoading">          
+      <section class="DriverDetail__Section" *ngIf="!isLoading">          
             <div class="DriverDetail__Image" [style.background-image]="'url(assets/drivers/'+results[0].driverId+'.jpg)'"></div>    
           <div class="DriverDetail__DriverName">{{results[0].givenName+' '+results[0].familyName}}</div>
           <div class="DriverDetail__Career">
@@ -35,6 +35,24 @@
                 <counter [text]="'Points'" [value]="points"></counter>
             </div>
           </div>
+
+          <section class="DriverDetail__Section">
+            <accordion [title]="'Teams'">
+                <div class="DriverDetail__TeamsContainer">
+                    <div class="DriverDetail__TeamTile" *ngFor="let team of teams">
+                        <div class="DriverDetail__TeamImage" [style.background-image]="'url(assets/teams/'+team.photo+'.jpg)'"></div>
+                        <div class="DriverDetail__TeamName">{{team.name}}</div>
+                        <div class="DriverDetail__TeamPeriod">
+                            <ng-container *ngIf="team.startSeason==team.endSeason">{{team.startSeason}}</ng-container>
+                            <ng-container *ngIf="team.startSeason!=team.endSeason">{{team.startSeason}} - {{team.endSeason}}</ng-container>                          
+                        </div>
+                    </div>
+                </div>
+            </accordion>
+          </section>
+
+       
+
       </section>
 </div>
 

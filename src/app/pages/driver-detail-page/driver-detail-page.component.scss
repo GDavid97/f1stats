@@ -8,21 +8,21 @@
         align-self: center;
     }
 
-    &__Content {
+    &__Section {
         margin-top: 40px;
     }
 
     &__Image {
         margin: auto;
-    background-position: center;
-    background-size: cover;
-    width: 300px;
-    height: 420px;
+        background-position: center;
+        background-size: cover;
+        width: 300px;
+        height: 420px;
 
-    @media screen and (max-width: $S_MAX) {
-        width: 200px;
-        height: 280px;
-    }
+        @media screen and (max-width: $S_MAX) {
+            width: 200px;
+            height: 280px;
+        }
     }
 
     &__DriverName {
@@ -84,5 +84,37 @@
 
     &__CounterContainer {
         margin: auto;
+    }
+
+    &__TeamTile{
+        margin: 10px;
+    }
+
+    &__TeamsContainer {
+        display: flex;
+        flex-wrap: wrap;
+        @media screen and (max-width: $S_MAX) {
+            display: block;
+            width: fit-content;
+            margin: auto;
+        }
+
+    }
+    &__TeamImage {
+        margin: auto;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 180px;
+        height: 120px;
+        margin-bottom: 12px;
+    }
+
+    &__TeamName {
+        text-align: center;
+        font-weight: bold;
+    }
+    &__TeamPeriod {
+        text-align: center;
     }
 }
