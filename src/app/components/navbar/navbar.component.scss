@@ -7,10 +7,10 @@
   display: flex;
   z-index: 1;
   width: 100%;
-  background-color: black;
+  background-color: #081438;
 
   @media screen and (max-width: $S_MAX) {
-    background-color: black !important;
+    background-color: #081438 !important;
   }
 
   &__Links {

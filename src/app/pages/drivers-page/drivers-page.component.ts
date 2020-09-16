@@ -33,12 +33,12 @@ export class DriversPageComponent implements OnInit, OnDestroy {
       else {
         this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season } });
       }
-
+      this.getData(this.season.toString());
     });
   }
 
   ngOnInit() {
-    this.getData(this.season.toString());
+ 
     this.setDefaultNavButtons(this.season);
   }
   setDefaultNavButtons(season: number) {

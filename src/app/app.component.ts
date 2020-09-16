@@ -27,9 +27,14 @@ export class AppComponent {
       if( item.type==='driver'){
         this.router.navigate(['driverdetail'], { queryParams: { id: item.id } });
       }
-      else if(item.type==='season'){
-        console.log()
-        this.router.navigate(['seasons'], { queryParams: { season: item.id } });
+      else if(item.type==='season'){  
+        this.router.navigate(['seasons'], { queryParams: { season: item.id.split('_')[0] } });
+      }
+      else if(item.type==='driverslist'){  
+        this.router.navigate(['drivers'], { queryParams: { season: item.id.split('_')[0] } });
+      }
+      else if(item.type==='teamslist'){  
+        this.router.navigate(['teams'], { queryParams: { season: item.id.split('_')[0] } });
       }
 
     }
@@ -39,9 +44,21 @@ export class AppComponent {
     this.searchboxData = [];
     for (let i = 1950; i <= new Date().getFullYear(); i++) {
       this.searchboxData.push({
-        id: i.toString(),
+        id: i.toString()+'_season',
         name: `Season: ${i}`,
         type: 'season'
+      });
+
+      this.searchboxData.push({
+        id: i.toString()+'_drivers',
+        name: `Drivers in: ${i}`,
+        type: 'driverslist'
+      });
+
+      this.searchboxData.push({
+        id: i.toString()+'_teams',
+        name: `Teams in: ${i}`,
+        type: 'teamslist'
       });
     }
     this.webService.getDriversForSearchbox().subscribe(res => {
