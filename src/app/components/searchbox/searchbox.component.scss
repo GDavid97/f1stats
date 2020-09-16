@@ -7,7 +7,7 @@
     width: 100%;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
-    padding: 4px 8px;
+    padding: 4px 0px;
     max-height: 140px;
     overflow: auto;
     z-index: 8;
@@ -17,7 +17,7 @@
   }
 
   &__Item {
-    padding: 4px 0px;
+    padding: 4px 8px;
     cursor: pointer;
     width: 100%;
     border: none;
@@ -25,7 +25,7 @@
     text-align: left;
 
     &:hover {
-      background-color: honeydew;
+      background-color: #d6d6d6;
     }
   }
 

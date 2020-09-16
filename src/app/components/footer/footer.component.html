@@ -1,3 +1,7 @@
 <div class="Footer">
-    ads
+    <div class="Footer__Text">Data from <a href="http://ergast.com/mrd/">Ergast Developer API</a></div>
+    <div class="Footer__Text Footer__Links">
+        <img class="Footer__Link" style="margin-right: 12px;" width="25" height="25"  [ngbTooltip]="'LinkedIn'" src="assets/icons/linkedin.png" (click)="openLinkedIn()" />
+        <img class="Footer__Link" width="25" height="25" [ngbTooltip]="'Github'"  src="assets/icons/github.png" (click)="openGithub()" />
+    </div>
 </div>

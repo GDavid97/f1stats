@@ -1,6 +1,31 @@
-.Footer{
-    height: 40px;
-    color:white;
+@import "../../../styles.scss";
+.Footer {
+    height: 70px;
+    color: white;
     background-color: black;
     width: 100%;
+    display: flex;
+    padding: 4px 20px;
+
+    @media screen and (max-width: $S_MAX) {
+        display: block;
+    }
+
+    &__Text {
+        align-self: center;
+    }
+
+    &__Links {
+        position: absolute;
+        right: 20px;
+
+        @media screen and (max-width: $S_MAX) {
+           position: initial;
+       
+        }
+    }
+
+    &__Link{
+        cursor: pointer;
+    }
 }
