@@ -16,59 +16,59 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
 
   season: number = new Date().getFullYear();
   round: number = 1;
-  circuitDetails:RaceEvent[];
-  raceResult:RaceResult;
+  circuitDetails: RaceEvent[];
+  raceResult: RaceResult;
   driverStanding: Standing[];
   teamStanding: Standing[];
-  
+
   nextSeasonButtonDisabled: boolean = true;
   prevSeasonButtonDisabled: boolean = true;
   nextGPButtonDisabled: boolean = true;
   prevGPButtonDisabled: boolean = true;
-  maxRaces:number;
+  maxRaces: number;
 
-  circuitSubscripton:Subscription;
-  raceResultSubscription:Subscription;
-  driverStandingSubscription:Subscription;
-  teamStandingSubscription:Subscription;
+  circuitSubscripton: Subscription;
+  raceResultSubscription: Subscription;
+  driverStandingSubscription: Subscription;
+  teamStandingSubscription: Subscription;
 
-isCurrentRaceLoading:boolean=true;
-isRaceResultLoading:boolean=true;
-isDriverStandingLoading:boolean=true;
-isTeamStandingLoading:boolean=true;
+  isCurrentRaceLoading: boolean = true;
+  isRaceResultLoading: boolean = true;
+  isDriverStandingLoading: boolean = true;
+  isTeamStandingLoading: boolean = true;
 
   constructor(private webService: WebService, private route: ActivatedRoute, private router: Router) {
-      this.route.queryParams.subscribe(params => {
-        if (params && params.season) {
-          if (params.season >= 1950 && params.season <= new Date().getFullYear()) {
-            this.season = params.season;
-            if(params.round && params.round>=1){
-              this.round=params.round;
-              this.checkMaxNumberOfRaces(this.season.toString());   
-            }
-            else{
-              this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: this.round } });
-            }
+    this.route.queryParams.subscribe(params => {
+      if (params && params.season) {
+        if (params.season >= 1950 && params.season <= new Date().getFullYear()) {
+          this.season = params.season;
+          if (params.round && params.round >= 1) {
+            this.round = params.round;
+            this.checkMaxNumberOfRaces(this.season.toString());
           }
           else {
-            this.season = new Date().getFullYear();
             this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: this.round } });
           }
-           
         }
-        else{
+        else {
+          this.season = new Date().getFullYear();
           this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: this.round } });
         }
-        this.setDefaultGPNavButtons(this.round);   
-      
-        
-        
-      });
-  
+
+      }
+      else {
+        this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: this.round } });
+      }
+      this.setDefaultGPNavButtons(this.round);
+
+
+
+    });
+
   }
 
   ngOnInit(): void {
-    this.setDefaultSeasonNavButtons(this.season); 
+    this.setDefaultSeasonNavButtons(this.season);
   }
 
   setDefaultSeasonNavButtons(season: number) {
@@ -117,7 +117,7 @@ isTeamStandingLoading:boolean=true;
       }
     }
 
-    this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round:1 } });
+    this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: 1 } });
   }
 
   nextSeason() {
@@ -135,7 +135,7 @@ isTeamStandingLoading:boolean=true;
       }
 
     }
-    this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round:1 } });
+    this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: 1 } });
   }
 
 
@@ -153,7 +153,7 @@ isTeamStandingLoading:boolean=true;
         this.nextGPButtonDisabled = false;
         this.prevGPButtonDisabled = false;
       }
-    }    
+    }
     this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: this.round } });
   }
 
@@ -174,61 +174,61 @@ isTeamStandingLoading:boolean=true;
     this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: this.round } });
   }
 
-  checkMaxNumberOfRaces(season:string){
-    this.isCurrentRaceLoading=true;
-  
-    this.circuitSubscripton=this.webService.getCircuits(season).subscribe(res => {
-      this.maxRaces=res.length;
-      this.circuitDetails=res; 
-      if(this.round>this.maxRaces){
-        this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: season, round: 1 } });       
+  checkMaxNumberOfRaces(season: string) {
+    this.isCurrentRaceLoading = true;
+
+    this.circuitSubscripton = this.webService.getCircuits(season).subscribe(res => {
+      this.maxRaces = res.length;
+      this.circuitDetails = res;
+      if (this.round > this.maxRaces) {
+        this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: season, round: 1 } });
       }
       this.setDefaultGPNavButtons(this.round);
-      this.isCurrentRaceLoading=false;
-      this.getData(this.season.toString(),this.round.toString());    
-    });    
-  }
-
-  private getRaceResult(season:string, round:string){
-    this.raceResultSubscription?.unsubscribe();
-    this.isRaceResultLoading=true;
-    this.raceResultSubscription=this.webService.getRaceResult(season,round).subscribe(res=>{
-      this.raceResult=res;
-      this.isRaceResultLoading=false;
+      this.isCurrentRaceLoading = false;
+      this.getData(this.season.toString(), this.round.toString());
     });
   }
 
-  private getDriversStanding(season:string,round:string){
+  private getRaceResult(season: string, round: string) {
+    this.raceResultSubscription?.unsubscribe();
+    this.isRaceResultLoading = true;
+    this.raceResultSubscription = this.webService.getRaceResult(season, round).subscribe(res => {
+      this.raceResult = res;
+      this.isRaceResultLoading = false;
+    });
+  }
+
+  private getDriversStanding(season: string, round: string) {
     this.driverStandingSubscription?.unsubscribe();
     this.driverStanding = [];
     this.isDriverStandingLoading = true;
-    this.driverStandingSubscription=this.webService.getDriverStanding(season,round).subscribe(res => {
+    this.driverStandingSubscription = this.webService.getDriverStanding(season, round).subscribe(res => {
       this.isDriverStandingLoading = false;
       this.driverStanding = res;
     });
   }
 
-  private getTeamStanding(season:string,round:string) {  
+  private getTeamStanding(season: string, round: string) {
     this.teamStandingSubscription?.unsubscribe();
- 
+
     this.isTeamStandingLoading = true;
-    this.teamStandingSubscription=this.webService.getTeamStanding(season,round).subscribe(res => {
+    this.teamStandingSubscription = this.webService.getTeamStanding(season, round).subscribe(res => {
       this.isTeamStandingLoading = false;
       this.teamStanding = res;
     });
   }
 
-  private getData(season:string,round:string){
-    this.getDriversStanding(season,round);
-    this.getTeamStanding(season,round);
-    this.getRaceResult(season,round);
+  private getData(season: string, round: string) {
+    this.getDriversStanding(season, round);
+    this.getTeamStanding(season, round);
+    this.getRaceResult(season, round);
   }
 
-  openDriverDetail(driverId:string){
+  openDriverDetail(driverId: string) {
     this.router.navigate(['driverdetail'], { queryParams: { id: driverId } });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.circuitSubscripton?.unsubscribe();
     this.raceResultSubscription?.unsubscribe();
     this.driverStandingSubscription?.unsubscribe();
