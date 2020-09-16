@@ -1,2 +1,6 @@
-<navbar [isOpacityOnDefault]="currentURL==='/'"></navbar>
+<navbar
+[isOpacityOnDefault]="currentURL==='/'" 
+[searchboxData]="searchboxData"
+(onSearch)="selectItem($event)"></navbar>
 <router-outlet></router-outlet>
+<footer></footer>

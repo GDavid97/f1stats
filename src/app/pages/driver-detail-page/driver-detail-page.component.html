@@ -1,77 +1,81 @@
 <div class="page">
-    <div *ngIf="isLoading" style="margin: auto; margin-top:40px; display: block;" class="spinner-grow text-info"
-        role="status">
-        <span class="sr-only">Loading...</span>
+  <div *ngIf="isLoading" style="margin: auto; margin-top:40px; display: block;" class="spinner-grow text-info"
+    role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <section class="DriverDetail__Section" *ngIf="!isLoading">
+    <div class="DriverDetail__Image" [style.background-image]="'url(assets/drivers/'+results[0].driverId+'.jpg)'">
     </div>
-    <section class="DriverDetail__Section" *ngIf="!isLoading">
-        <div class="DriverDetail__Image" [style.background-image]="'url(assets/drivers/'+results[0].driverId+'.jpg)'">
-        </div>
-        <div class="DriverDetail__DriverName">{{results[0].givenName+' '+results[0].familyName}}</div>
-        <div class="DriverDetail__Career">
-            <div class="DriverDetail__CareerStart">
-                <div class="DriverDetail__CareerStartText">{{results[0].season}}</div>
-                <div class="DriverDetail__CareerInfo">First race in</div>
-            </div>
-            <div class="DriverDetail__CareerEnd">
-                <div class="DriverDetail__CareerEndText">{{results[results.length-1].season}}</div>
-                <div class="DriverDetail__CareerInfo">Last race in</div>
-            </div>
-        </div>
-        <div class="DriverDetail__Counters">
-            <div class="DriverDetail__CounterContainer">
-                <counter [text]="'World championships'" [value]="championshipsCount"></counter>
-            </div>
-            <div class="DriverDetail__CounterContainer">
-                <counter [text]="'Races'" [value]="racesCount"></counter>
-            </div>
-            <div class="DriverDetail__CounterContainer">
-                <counter [text]="'Wins'" [value]="winsCount"></counter>
-            </div>
-            <div class="DriverDetail__CounterContainer">
-                <counter [text]="'Podiums'" [value]="podiumsCount"></counter>
-            </div>
-            <div class="DriverDetail__CounterContainer">
-                <counter [text]="'Poles'" [value]="polesCount"></counter>
-            </div>
-            <div class="DriverDetail__CounterContainer">
-                <counter [text]="'Points'" [value]="points"></counter>
-            </div>
-        </div>
+    <div class="DriverDetail__DriverName">{{results[0].givenName+' '+results[0].familyName}}</div>
+    <div class="DriverDetail__Career">
+      <div class="DriverDetail__CareerStart">
+        <div class="DriverDetail__CareerStartText">{{results[0].season}}</div>
+        <div class="DriverDetail__CareerInfo">First race in</div>
+      </div>
+      <div class="DriverDetail__CareerEnd">
+        <div class="DriverDetail__CareerEndText">{{results[results.length-1].season}}</div>
+        <div class="DriverDetail__CareerInfo">Last race in</div>
+      </div>
+    </div>
+    <div class="DriverDetail__Counters">
+      <div class="DriverDetail__CounterContainer">
+        <counter [text]="'World championships'" [value]="championshipsCount"></counter>
+      </div>
+      <div class="DriverDetail__CounterContainer">
+        <counter [text]="'Races'" [value]="racesCount"></counter>
+      </div>
+      <div class="DriverDetail__CounterContainer">
+        <counter [text]="'Wins'" [value]="winsCount"></counter>
+      </div>
+      <div class="DriverDetail__CounterContainer">
+        <counter [text]="'Podiums'" [value]="podiumsCount"></counter>
+      </div>
+      <div class="DriverDetail__CounterContainer">
+        <counter [text]="'Poles'" [value]="polesCount"></counter>
+      </div>
+      <div class="DriverDetail__CounterContainer">
+        <counter [text]="'Points'" [value]="points"></counter>
+      </div>
+    </div>
 
-        <section class="DriverDetail__Section">
-            <accordion [title]="'Teams'">
-                <div class="DriverDetail__FlexContainer">
-                    <div class="DriverDetail__TeamTile" *ngFor="let team of teams">
-                        <div class="DriverDetail__TeamImage"
-                            [style.background-image]="'url(assets/teams/'+team.photo+'.jpg)'"></div>
-                        <div class="DriverDetail__TeamName">{{team.name}}</div>
-                        <div class="DriverDetail__TeamPeriod">
-                            <ng-container *ngIf="team.startSeason==team.endSeason">{{team.startSeason}}</ng-container>
-                            <ng-container *ngIf="team.startSeason!=team.endSeason">{{team.startSeason}} -
-                                {{team.endSeason}}</ng-container>
-                        </div>
-                    </div>
-                </div>
-            </accordion>
-        </section>
+    <section class="DriverDetail__Section">
+      <accordion [title]="'Teams'">
+        <div class="DriverDetail__FlexContainer">
+          <div class="DriverDetail__TeamTile" *ngFor="let team of teams">
+            <div class="DriverDetail__TeamImage" [style.background-image]="'url(assets/teams/'+team.photo+'.jpg)'">
+            </div>
+            <div class="DriverDetail__TeamName">{{team.name}}</div>
+            <div class="DriverDetail__TeamPeriod">
+              <ng-container *ngIf="team.startSeason==team.endSeason">{{team.startSeason}}</ng-container>
+              <ng-container *ngIf="team.startSeason!=team.endSeason">{{team.startSeason}} -
+                {{team.endSeason}}</ng-container>
+            </div>
+          </div>
+        </div>
+      </accordion>
+    </section>
 
-        <section class="DriverDetail__Section">
-            <accordion [title]="'Championship results'">
-                <div class="DriverDetail__FlexContainer">
-                    <div class="DriverDetail__DriverResultTile" *ngFor="let driverResult of championshipResults">
-                        <div class="DriverDetail__DriverResultPosition" [ngClass]="{
+    <section class="DriverDetail__Section">
+      <accordion [title]="'Championship results'">
+        <div *ngIf="isChampionshipResultLoading" style="margin: auto; margin-top:40px; display: block;"
+          class="spinner-grow text-info" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <div *ngIf="!isChampionshipResultLoading" class="DriverDetail__FlexContainer">
+          <div class="DriverDetail__DriverResultTile" *ngFor="let driverResult of championshipResults">
+            <div class="DriverDetail__DriverResultPosition" [ngClass]="{
                             'DriverDetail__DriverResultPositionFirst':driverResult.position==1,
                             'DriverDetail__DriverResultPositionSecond':driverResult.position==2,
                             'DriverDetail__DriverResultPositionThird':driverResult.position==3
                         }">{{driverResult.position}}.</div>
-                        <div class="DriverDetail__DriverResultSeason">Season: {{driverResult.season}}</div>
-                        <div class="DriverDetail__DriverResultPoints">Points: {{driverResult.points}}</div>
-                    </div>
-                </div>
-            </accordion>
-        </section>
-
-
-
+            <div class="DriverDetail__DriverResultSeason">Season: {{driverResult.season}}</div>
+            <div class="DriverDetail__DriverResultPoints">Points: {{driverResult.points}}</div>
+          </div>
+        </div>
+      </accordion>
     </section>
+
+
+
+  </section>
 </div>

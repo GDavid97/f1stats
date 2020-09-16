@@ -23,6 +23,9 @@ import { CircuitComponent } from './components/circuit/circuit.component';
 import { GrandPrixPageComponent } from './pages/grand-prix-page/grand-prix-page.component';
 import { DriverDetailPageComponent } from './pages/driver-detail-page/driver-detail-page.component';
 import { CounterComponent } from './components/counter/counter.component';
+import { SearchboxComponent } from './components/searchbox/searchbox.component';
+import { FormsModule } from '@angular/forms';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,8 @@ import { CounterComponent } from './components/counter/counter.component';
     GrandPrixPageComponent,
     DriverDetailPageComponent,
     CounterComponent,
+    SearchboxComponent,
+    FooterComponent,
    
   ],
   imports: [
@@ -52,7 +57,8 @@ import { CounterComponent } from './components/counter/counter.component';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    ChartsModule
+    ChartsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

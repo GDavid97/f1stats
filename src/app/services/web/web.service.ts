@@ -8,6 +8,7 @@ import { Team } from 'src/app/models/Team.model';
 import { RaceResult, DriverResult } from 'src/app/models/RaceResult.model';
 import { RaceEvent } from 'src/app/models/RaceEvent.model';
 import { DriverPosition } from 'src/app/models/DriverPosition.model';
+import { SearchBoxItem } from 'src/app/models/SearchboxItem.model';
 
 const proxy = "https://cors-anywhere.herokuapp.com/" //"https://cors-anywhere.herokuapp.com/"; //"https://thingproxy.freeboard.io/fetch/"
 const httpOptions = {
@@ -266,5 +267,21 @@ export class WebService {
 
 
 
-
+  getDriversForSearchbox(): Observable<SearchBoxItem[]> {
+    return this.http.get<any>(
+      `${proxy}http://ergast.com/api/f1/drivers.json?limit=1000&offset=0`,
+      httpOptions
+    ).pipe(map(res =>
+     {
+       let result:SearchBoxItem[]=[];
+       result=res.MRData.DriverTable.Drivers.map(e=>{
+         return {
+           name:`${e.givenName} ${e.familyName}`,
+           id:e.driverId,
+           type:'driver'
+         }
+       })
+      return result;
+     }     
+    ))}
 }

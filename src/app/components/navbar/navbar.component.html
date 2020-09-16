@@ -1,36 +1,45 @@
-<div class="Navbar" 
-[style.background-color]="isOpacityOnDefault && !scrolled?'rgba(0,0,0,0)':'black'"
-(click)="removeFocus()"
-> 
-    <a style="margin-right: 18px;" 
-    class="nav-link" 
-    routerLink="/">
-      <img height="35" width="35" src="assets/icons/f1.png"/>
-    </a>
-    <div class="Navbar__MobileNav nav-link" (click)="toggleMobileMenu()" [style.background-color]="isMobileMenuOpened?'white':'black'">
-      <div class="Navbar__MobileMenuIcon" [style.background-color]="isMobileMenuOpened?'black':'white'"></div>
-      <div class="Navbar__MobileMenuIcon" [style.background-color]="isMobileMenuOpened?'black':'white'"></div>
-      <div class="Navbar__MobileMenuIcon" [style.background-color]="isMobileMenuOpened?'black':'white'"></div>
-    </div>
-    <div class="Navbar__Links">
-      <a routerLink="/drivers" class="nav-link">Drivers</a>
-      <a routerLink="/teams" class="nav-link">Teams</a>
-      <a routerLink="/seasons" class="nav-link">Seasons</a>
-      <a routerLink="/gp" class="nav-link">Grand Prix</a>
-      <!-- <a routerLink="/circuits" class="nav-link">Circuits</a>
-      <a routerLink="/todo" class="nav-link">You might not know...</a> -->
-    </div>
-
-  
-    
- 
-  
+<div class="Navbar" [style.background-color]="isOpacityOnDefault && !scrolled?'rgba(0,0,0,0)':'black'"
+  (click)="removeFocus()">
+  <a style="margin-right: 18px;" class="nav-link" routerLink="/">
+    <img height="35" width="35" src="assets/icons/f1.png" />
+  </a>
+  <div class="Navbar__MobileNav nav-link" (click)="toggleMobileMenu()"
+    [style.background-color]="isMobileMenuOpened?'white':'black'">
+    <div class="Navbar__MobileMenuIcon" [style.background-color]="isMobileMenuOpened?'black':'white'"></div>
+    <div class="Navbar__MobileMenuIcon" [style.background-color]="isMobileMenuOpened?'black':'white'"></div>
+    <div class="Navbar__MobileMenuIcon" [style.background-color]="isMobileMenuOpened?'black':'white'"></div>
   </div>
-  <div class="Navbar__MobileLinks" *ngIf="isMobileMenuOpened">
+  <div class="Navbar__Links">
     <a routerLink="/drivers" class="nav-link">Drivers</a>
     <a routerLink="/teams" class="nav-link">Teams</a>
     <a routerLink="/seasons" class="nav-link">Seasons</a>
     <a routerLink="/gp" class="nav-link">Grand Prix</a>
+
+    <!-- <a routerLink="/circuits" class="nav-link">Circuits</a>
+      <a routerLink="/todo" class="nav-link">You might not know...</a> -->
+    <searchbox class="Navbar__Searchbox" (click)="stopPropagation($event)" [data]="searchboxData"
+      (onSelect)="onSearch.emit($event)"></searchbox>
+  </div>
+
+
+
+
+
+
+
+</div>
+<div class="Navbar__MobileLinks" *ngIf="isMobileMenuOpened">
+  <a routerLink="/drivers" class="nav-link">Drivers</a>
+  <a routerLink="/teams" class="nav-link">Teams</a>
+  <a routerLink="/seasons" class="nav-link">Seasons</a>
+  <a routerLink="/gp" class="nav-link">Grand Prix</a>
+ 
+
+    <div class="Navbar__Searchbox">
+      <searchbox (click)="stopPropagation($event)" [data]="searchboxData" (onSelect)="onSearch.emit($event)">
+      </searchbox>
+    </div>
+
     <!-- <a routerLink="/circuits" class="nav-link">Circuits</a>
     <a routerLink="/todo" class="nav-link">You might not know...</a> -->
   </div>

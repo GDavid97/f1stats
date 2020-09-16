@@ -1,50 +1,73 @@
 @import "../../../styles.scss";
+
 .Navbar {
-    position: fixed;
-    top: 0;
-    padding: 6px 10px;
+  position: fixed;
+  top: 0;
+  padding: 6px 10px;
+  display: flex;
+  z-index: 1;
+  width: 100%;
+  background-color: black;
+
+  @media screen and (max-width: $S_MAX) {
+    background-color: black !important;
+  }
+
+  &__Links {
     display: flex;
-    z-index: 1;
-    width: 100%;
-    background-color: black;
+    flex-wrap: wrap;
+    padding-right: 300px;
 
     @media screen and (max-width: $S_MAX) {
-        background-color: black !important;
+      display: none;
+    }
+  }
+
+  &__MobileNav {
+    display: none;
+    align-self: center;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+
+    @media screen and (max-width: $S_MAX) {
+      display: block;
     }
 
-    &__Links {
-        display: flex;
-        @media screen and (max-width: $S_MAX) {
-            display: none;
-        }
-    }
+  }
 
-    &__MobileNav {
-        display: none;
-        align-self: center;
-        cursor: pointer;
-        position: absolute;
-        right: 0;
-        @media screen and (max-width: $S_MAX) {
-            display: block;
-        }
+  &__MobileMenuIcon {
+    width: 25px;
+    height: 3px;
+    border-radius: 4px;
+    background-color: white;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
 
-    }
+  &__MobileLinks {
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+    margin-top: 58px;
+    background-color: black;
 
-    &__MobileMenuIcon {
-        width: 25px;
-        height: 3px;
-        border-radius: 4px;
-        background-color: white;
-        margin-bottom: 5px;
-        margin-top: 5px;
-    }
+    @media screen and (min-width: $M_MIN) {
+      display: none;        
+      }
+  }
 
-    &__MobileLinks {
-        position: fixed;
-        width: 100%;
-        z-index: 2;
-        margin-top: 58px;
-        background-color: black;
-    }
+  &__Searchbox {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    @media screen and (max-width: $S_MAX) {
+        position: initial;
+        transform: none;
+        margin:5px 14px;
+        
+      }
+  }
 }

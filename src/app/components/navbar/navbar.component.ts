@@ -1,4 +1,5 @@
-import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { Component, OnInit, HostListener, Input, EventEmitter, Output } from '@angular/core';
+import { SearchBoxItem } from 'src/app/models/SearchboxItem.model';
 
 @Component({
   selector: 'navbar',
@@ -10,9 +11,15 @@ export class NavbarComponent implements OnInit {
   @Input()
   isOpacityOnDefault:boolean;
 
+  @Input()
+  searchboxData:SearchBoxItem[];
+
+  @Output()
+  onSearch:EventEmitter<SearchBoxItem>=new EventEmitter<SearchBoxItem>();
+
   scrolled: boolean = false;
 
-  isMobileMenuOpened:boolean;
+  isMobileMenuOpened:boolean; 
 
   constructor() { }
 
@@ -44,6 +51,10 @@ export class NavbarComponent implements OnInit {
 
   closeMobileMenu(){
     this.isMobileMenuOpened=false;
+  }
+
+  stopPropagation(e:Event){
+    e.stopPropagation();
   }
 
   removeFocus(){

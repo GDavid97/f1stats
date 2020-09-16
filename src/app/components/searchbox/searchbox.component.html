@@ -1,0 +1,18 @@
+<div class="Searchbox">
+    <input class="Searchbox__SearchField" 
+    [ngClass]="{'Input-invalid':searchedText.length>0 && visibleData.length===0}"
+    [ngModel]="searchedText"
+     (ngModelChange)="onTyping($event)"    
+     [style.border-bottom]="activeSearch?'1px solid #ededed':''"
+     [style.border-bottom-right-radius]="activeSearch?'0px':''"
+     [style.border-bottom-left-radius]="activeSearch?'0px':''"
+
+     />
+     <img class="Searchbox__Icon" src="assets/icons/search.png" width="18" height="18"/>
+   
+    <div *ngIf="activeSearch" class="Searchbox__Body">
+        <button class="Searchbox__Item" (click)="select(d)" *ngFor="let d of visibleData">
+            {{d.name}}
+        </button>
+    </div>
+</div>
