@@ -48,13 +48,13 @@ export class SeasonPageComponent implements OnInit {
       else {
         this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season } });
       }
-
+      this.getData(this.season.toString());    
     });
   }
 
   ngOnInit() {
     this.setDefaultNavButtons(this.season);
-    this.getData(this.season.toString());    
+   
   }
 
   setDefaultNavButtons(season: number) {

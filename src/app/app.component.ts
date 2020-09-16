@@ -13,7 +13,7 @@ export class AppComponent {
   currentURL: string;
   searchboxData: SearchBoxItem[] = [];
 
-  constructor(private router: Router, private webService:WebService) {
+  constructor(private router: Router, private webService: WebService) {
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentURL = event.url;
@@ -22,17 +22,31 @@ export class AppComponent {
     this.getSearchboxData();
   }
 
-  selectItem(item:SearchBoxItem){   
-    if(item?.id){
-      this.router.navigate(['driverdetail'], { queryParams: { id: item.id } });
+  selectItem(item: SearchBoxItem) {
+    if (item?.id) {
+      if( item.type==='driver'){
+        this.router.navigate(['driverdetail'], { queryParams: { id: item.id } });
+      }
+      else if(item.type==='season'){
+        console.log()
+        this.router.navigate(['seasons'], { queryParams: { season: item.id } });
+      }
+
     }
   }
 
-  private getSearchboxData(){
-    this.searchboxData=[];
-    this.webService.getDriversForSearchbox().subscribe(res=>{
-      this.searchboxData=[...this.searchboxData,...res];
-    });    
+  private getSearchboxData() {
+    this.searchboxData = [];
+    for (let i = 1950; i <= new Date().getFullYear(); i++) {
+      this.searchboxData.push({
+        id: i.toString(),
+        name: `Season: ${i}`,
+        type: 'season'
+      });
+    }
+    this.webService.getDriversForSearchbox().subscribe(res => {
+      this.searchboxData = [...this.searchboxData, ...res];
+    });
   }
 
 
