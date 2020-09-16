@@ -70,7 +70,7 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
             constructorId: currentTeamId,
             name: currentTeamName,
             startSeason: startSeason,
-            endSeason: res.filter(d=>d.teamId==currentTeamId).sort((a,b)=>{return Number(b.season)-Number(a.season)})[0].season,
+            endSeason: endSeason,
             photo: `${endSeason}/${currentTeamId}`,
           })
           currentTeamId = e.teamId;
