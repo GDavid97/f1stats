@@ -26,6 +26,9 @@ import { CounterComponent } from './components/counter/counter.component';
 import { SearchboxComponent } from './components/searchbox/searchbox.component';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './components/footer/footer.component';
+import { DonutChartComponent } from './charts/donut-chart/donut-chart.component';
+import { ZoomableCircleChartComponent } from './charts/zoomable-circle-chart/zoomable-circle-chart.component';
+import { CareerTableComponent } from './components/career-table/career-table.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import { FooterComponent } from './components/footer/footer.component';
     CounterComponent,
     SearchboxComponent,
     FooterComponent,
+    DonutChartComponent,
+    ZoomableCircleChartComponent,
+    CareerTableComponent,
    
   ],
   imports: [

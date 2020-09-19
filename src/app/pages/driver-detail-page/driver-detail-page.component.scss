@@ -158,4 +158,23 @@
   }
 
   &__DriverResultPoints {}
+
+  &__DonutCharts{
+      display:flex;
+      flex-wrap: wrap;
+      @media screen and (max-width: $S_MAX) {
+        display: block;      
+        margin: auto;
+      }
+  }
+
+  &__DonutChart{
+      flex:1;    
+      max-width: 300px;
+      margin: auto;
+      text-align: center;
+      @media screen and (max-width: $S_MAX) {
+        margin-top: 24px;
+      }
+  }
 }

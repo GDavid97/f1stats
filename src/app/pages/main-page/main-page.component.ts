@@ -7,6 +7,7 @@ import { Standing } from 'src/app/models/Standing.model';
 import { RaceResult } from 'src/app/models/RaceResult.model';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { ZoomableCircleData } from 'src/app/charts/zoomable-circle-chart/models';
 
 @Component({
   selector: 'app-main-page',
@@ -20,6 +21,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   driverStanding: Standing[];
   teamStanding: Standing[];
   lastRaceResult: RaceResult;
+  teamsAndDrivers:ZoomableCircleData;
 
   areBubblesLoading = true;
   isNextRaceLoading = true;

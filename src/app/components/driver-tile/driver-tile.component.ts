@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Driver } from 'src/app/models/Driver.model';
 
 @Component({
@@ -6,7 +6,7 @@ import { Driver } from 'src/app/models/Driver.model';
   templateUrl: './driver-tile.component.html',
   styleUrls: ['./driver-tile.component.scss']
 })
-export class DriverTileComponent implements OnInit {
+export class DriverTileComponent implements OnInit, OnChanges {
 
   @Input()
   driver:Driver;
@@ -17,9 +17,37 @@ export class DriverTileComponent implements OnInit {
   @Input()
   fastestLap:boolean;
 
+  teamPhotoId="noimage";
+  driverPhotoId="noimage";
+
   constructor() { }
 
   ngOnInit() {
   }
+
+  ngOnChanges(changes:SimpleChanges){
+    if(changes.driver && changes.driver.currentValue){
+      this.testDriverImage(`assets/drivers/${this.driver.driverId}.jpg`);
+      this.testTeamImage(`assets/teams/${this.driver.season}/${this.driver.teamId}.jpg`);
+    }
+  }
+
+   testDriverImage(URL:string) {
+    var tester=new Image();
+    tester.onload=()=>{
+      this.driverPhotoId=`${this.driver.driverId}`;
+    };
+   
+    tester.src=URL;
+}
+
+testTeamImage(URL:string) {
+  var tester=new Image();
+  tester.onload=()=>{
+    this.teamPhotoId=`${this.driver.season}/${this.driver.teamId}`;
+  };
+ 
+  tester.src=URL;
+}
 
 }

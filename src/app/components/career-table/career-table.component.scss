@@ -1,0 +1,98 @@
+@import "../../../styles.scss";
+
+.CareerTable {
+  border-spacing: 0px;
+  border-collapse: initial;
+  margin: auto;
+
+  &__Container{
+    border: 1px solid black;
+    padding: 12px;
+    width: fit-content;
+    margin: auto;
+
+    @media screen and (max-width: $M_MAX) {
+      width: initial;
+      overflow: auto;
+     
+    }
+  }
+
+  &__HeaderCell{
+    font-size: 18px;
+    align-items: center;
+    text-align: center;
+    border: 2px solid white;
+  }
+
+  &__Row {
+    border-bottom: 1px solid black;
+  }
+
+  &__Cell {
+    margin: 0px 3px;
+    font-size: 18px;
+    text-align: center;
+    border: 2px solid white;
+    align-items: center;
+  
+  }
+
+  &__Season {
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+
+  }
+
+  &__Team {
+    font-size: 20px;
+
+  }
+
+  &__CellPosition {
+    padding: 4px 8px;
+    cursor: pointer;
+  }
+
+  &__Gold {
+    background-color: gold;
+  }
+
+  &__Silver {
+    background-color: silver;
+  }
+
+  &__Bronze {
+    background-color: #cd7f32;
+  }
+
+  &__Green {
+    background-color: rgb(78, 214, 123);
+  }
+
+  &__Lilac {
+    background-color: rgb(163, 102, 212);
+  }
+
+  &__Help{
+    display:flex;
+    flex-wrap: wrap;
+    margin-top: 18px;
+
+    &Item{
+      display: flex;
+      margin-right: 18px;
+    }
+    &Circle{
+      height:30px ;
+      width: 30px;
+      border-radius: 15px;
+      margin-right: 8px;
+    }
+
+    &Text{
+      align-self: center;
+    }
+  }
+}

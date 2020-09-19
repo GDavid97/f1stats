@@ -1,0 +1,53 @@
+<div class="CareerTable__Container">
+    <table class="CareerTable">
+        <tr  class="CareerTable__Row">
+            <th class="CareerTable__HeaderCell">Season</th>
+            <th class="CareerTable__HeaderCell">Team</th>
+            <ng-container *ngIf="data && data[0]">
+              <th class="CareerTable__HeaderCell" *ngFor="let header of getColumnData(data[0]).results; let i=index">{{i+1}}.</th>
+            </ng-container>
+           
+            <th class="CareerTable__HeaderCell">Points</th>
+        </tr>
+          <tr  *ngFor="let row of data; let last=last"  class="CareerTable__Row" [style.border-bottom]="last?'none':'1px solid black'">
+            <td class="CareerTable__Cell CareerTable__Season"  (click)="openSeason(row.season)">{{row.season}}</td>
+            <td class="CareerTable__Cell CareerTable__Team">{{row.team}}</td>
+            <td class="CareerTable__Cell" 
+            [ngClass]="{
+              'CareerTable__Gold':column.position=='1',
+              'CareerTable__Silver':column.position=='2',
+              'CareerTable__Bronze':column.position=='3',
+              'CareerTable__Green':column.position!='1' && column.position!='2' && column.position!='3' && column.points>0,
+              'CareerTable__Lilac':column.points==0
+          }"
+            *ngFor="let column of getColumnData(row).results" 
+            (click)="openRaceDetails(row.season,column.round)">
+              <div class="CareerTable__CellPosition" [style.cursor]="column.position?'pointer':'default'" [ngbTooltip]="getTooltipText(row,column)">{{column.position}}</div>
+            </td>
+            <td class="CareerTable__Cell CareerTable__SeasonPoints">{{row.points}} points</td>
+          </tr>
+      </table>
+      <div class="CareerTable__Help">
+          <div class="CareerTable__HelpItem">
+              <div class="CareerTable__HelpCircle CareerTable__Gold"></div>
+              <div class="CareerTable__HelpText">1st position</div>
+          </div>
+          <div class="CareerTable__HelpItem">
+              <div class="CareerTable__HelpCircle CareerTable__Silver"></div>
+              <div class="CareerTable__HelpText">2nd position</div>
+          </div>
+          <div class="CareerTable__HelpItem">
+              <div class="CareerTable__HelpCircle CareerTable__Bronze"></div>
+              <div class="CareerTable__HelpText">3rd position</div>
+          </div>
+          <div class="CareerTable__HelpItem">
+              <div class="CareerTable__HelpCircle CareerTable__Green"></div>
+              <div class="CareerTable__HelpText">Scoring</div>
+          </div>
+          <div class="CareerTable__HelpItem">
+              <div class="CareerTable__HelpCircle CareerTable__Lilac"></div>
+              <div class="CareerTable__HelpText">Out of scoring</div>
+          </div>
+      </div>
+</div>
+
