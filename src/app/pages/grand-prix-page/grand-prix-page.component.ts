@@ -44,7 +44,7 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
           this.season = params.season;
           if (params.round && params.round >= 1) {
             this.round = params.round;
-            this.checkMaxNumberOfRaces(this.season.toString());
+            this.getData(this.season.toString(), this.round.toString());
           }
           else {
             this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: this.round } });
@@ -68,7 +68,21 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.getGPsInSeason(this.season);
     this.setDefaultSeasonNavButtons(this.season);
+  }
+
+  private getGPsInSeason(season:number){
+    this.isCurrentRaceLoading=true;
+    this.circuitSubscripton = this.webService.getCircuits(season.toString()).subscribe(res => {
+      this.maxRaces = res.length;
+      this.circuitDetails = res;
+      if (this.round > this.maxRaces) {
+        this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: season, round: 1 } });
+      }
+      this.setDefaultGPNavButtons(this.round);
+      this.isCurrentRaceLoading = false;
+    });
   }
 
   setDefaultSeasonNavButtons(season: number) {
@@ -116,7 +130,7 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
         this.prevSeasonButtonDisabled = false;
       }
     }
-
+    this.getGPsInSeason(this.season);
     this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: 1 } });
   }
 
@@ -135,6 +149,7 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
       }
 
     }
+    this.getGPsInSeason(this.season);
     this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: 1 } });
   }
 
@@ -174,20 +189,6 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: this.round } });
   }
 
-  checkMaxNumberOfRaces(season: string) {
-    this.isCurrentRaceLoading = true;
-
-    this.circuitSubscripton = this.webService.getCircuits(season).subscribe(res => {
-      this.maxRaces = res.length;
-      this.circuitDetails = res;
-      if (this.round > this.maxRaces) {
-        this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: season, round: 1 } });
-      }
-      this.setDefaultGPNavButtons(this.round);
-      this.isCurrentRaceLoading = false;
-      this.getData(this.season.toString(), this.round.toString());
-    });
-  }
 
   private getRaceResult(season: string, round: string) {
     this.raceResultSubscription?.unsubscribe();

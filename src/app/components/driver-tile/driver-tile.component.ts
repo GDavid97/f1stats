@@ -9,45 +9,45 @@ import { Driver } from 'src/app/models/Driver.model';
 export class DriverTileComponent implements OnInit, OnChanges {
 
   @Input()
-  driver:Driver;
-  
-  @Input()
-  backgroundColor:string="white";
+  driver: Driver;
 
   @Input()
-  fastestLap:boolean;
+  backgroundColor: string = "white";
 
-  teamPhotoId="noimage";
-  driverPhotoId="noimage";
+  @Input()
+  fastestLap: boolean;
+
+  teamPhotoId = "noimage";
+  driverPhotoId = "noimage";
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  ngOnChanges(changes:SimpleChanges){
-    if(changes.driver && changes.driver.currentValue){
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.driver && changes.driver.currentValue) {
       this.testDriverImage(`assets/drivers/${this.driver.driverId}.jpg`);
       this.testTeamImage(`assets/teams/${this.driver.season}/${this.driver.teamId}.jpg`);
     }
   }
 
-   testDriverImage(URL:string) {
-    var tester=new Image();
-    tester.onload=()=>{
-      this.driverPhotoId=`${this.driver.driverId}`;
+  testDriverImage(URL: string) {
+    var tester = new Image();
+    tester.onload = () => {
+      this.driverPhotoId = `${this.driver.driverId}`;
     };
-   
-    tester.src=URL;
-}
 
-testTeamImage(URL:string) {
-  var tester=new Image();
-  tester.onload=()=>{
-    this.teamPhotoId=`${this.driver.season}/${this.driver.teamId}`;
-  };
- 
-  tester.src=URL;
-}
+    tester.src = URL;
+  }
+
+  testTeamImage(URL: string) {
+    var tester = new Image();
+    tester.onload = () => {
+      this.teamPhotoId = `${this.driver.season}/${this.driver.teamId}`;
+    };
+
+    tester.src = URL;
+  }
 
 }

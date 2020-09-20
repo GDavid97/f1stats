@@ -4,7 +4,7 @@ import { DriverPosition } from 'src/app/models/DriverPosition.model';
 import { DriverResult } from 'src/app/models/RaceResult.model';
 import { DrivenInTeam } from 'src/app/models/Team.model';
 import { WebService } from 'src/app/services/web/web.service';
-import { Subscription } from 'rxjs';
+import { Subscription, VirtualTimeScheduler } from 'rxjs';
 import { NameValue } from 'src/app/models/NameValue.model';
 import { ResultsTableRow } from 'src/app/models/ResultsTable.model';
 import { SeasonRound } from 'src/app/models/SeasonRound.model';
@@ -32,6 +32,7 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
   racesForTeamsChartData: NameValue[] = [];
   positionsChartData: NameValue[] = [];
   resultTableData:ResultsTableRow[]=[];
+  driverPhotoId="noimage";
 
   championshipResultSubscription: Subscription;
   driverRaceResultSubscription: Subscription;
@@ -62,6 +63,7 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
 
   private getData(driverId: string) {
     this.isLoading = true;
+    this.driverPhotoId="noimage";
 
     this.driverRaceResultSubscription?.unsubscribe();
     this.driverRaceResultSubscription = this.webService.getDriverRaceResults(driverId).subscribe(res => {
@@ -73,6 +75,7 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
       this.polesCount = res.filter(e => e.grid == "1").length;
       this.racesForTeamsChartData = this.fillRacesForTeamsData(res);
       this.positionsChartData = this.fillPositionsData(res);
+      this.testDriverImage(`assets/drivers/${this.results[0].driverId}.jpg`)
 
       this.teams = [];
       let currentTeamId, startSeason, currentTeamName, endSeason, tableData:ResultsTableRow[]=[];
@@ -179,6 +182,15 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
       }
     }
     return res;
+  }
+
+  private testDriverImage(URL: string) {
+    var tester = new Image();
+    tester.onload = () => {
+      this.driverPhotoId = `${this.results[0].driverId}`;
+    };
+
+    tester.src = URL;
   }
 
   ngOnDestroy() {

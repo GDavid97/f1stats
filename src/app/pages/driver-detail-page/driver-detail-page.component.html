@@ -4,7 +4,7 @@
     <span class="sr-only">Loading...</span>
   </div>
   <section class="DriverDetail__Section" *ngIf="!isLoading">
-    <div class="DriverDetail__Image" [style.background-image]="'url(assets/drivers/'+results[0].driverId+'.jpg)'">
+    <div class="DriverDetail__Image" [style.background-image]="'url(assets/drivers/'+driverPhotoId+'.jpg)'">
     </div>
     <div class="DriverDetail__DriverName">{{results[0].givenName+' '+results[0].familyName}}</div>
     <div class="DriverDetail__Career">
