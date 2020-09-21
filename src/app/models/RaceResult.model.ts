@@ -16,7 +16,7 @@ export class DriverResult extends Driver {
     position: string;
     positionText: string;
     status: string;
-    fastestLap:boolean;
+    fastestLap: boolean;
     raceName?: string;
     round?: string;
     date?: string;

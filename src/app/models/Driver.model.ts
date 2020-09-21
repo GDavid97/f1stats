@@ -7,7 +7,7 @@ export class Driver {
     nationality: string;
     permanentNumber?: number;
     url?: string;
-    team:string;
-    season?:number;
-    teamId?:string;
+    team: string;
+    season?: number;
+    teamId?: string;
 }

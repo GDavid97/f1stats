@@ -1,4 +1,4 @@
-export class ZoomableCircleData{
-    name:string;
-    children:ZoomableCircleData[];
+export class ZoomableCircleData {
+    name: string;
+    children: ZoomableCircleData[];
 }

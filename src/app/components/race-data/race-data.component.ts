@@ -9,10 +9,10 @@ import { RaceResult } from 'src/app/models/RaceResult.model';
 export class RaceDataComponent implements OnInit {
 
   @Input()
-  data:RaceResult;
+  data: RaceResult;
 
   @Output()
-  onDriverClicked:EventEmitter<string>=new EventEmitter<string>();
+  onDriverClicked: EventEmitter<string> = new EventEmitter<string>();
 
 
   constructor() { }

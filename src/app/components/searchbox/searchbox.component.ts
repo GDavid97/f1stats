@@ -10,63 +10,61 @@ import { SearchBoxItem } from 'src/app/models/SearchboxItem.model';
 export class SearchboxComponent implements OnInit, OnChanges {
 
   @Input()
-  data:SearchBoxItem[];
+  data: SearchBoxItem[];
 
   @Input()
-  selectedId:string;
+  selectedId: string;
 
   @Output()
-  onSelect:EventEmitter<SearchBoxItem>=new EventEmitter<SearchBoxItem>();
+  onSelect: EventEmitter<SearchBoxItem> = new EventEmitter<SearchBoxItem>();
 
-  searchedText:string="";
-  selectedItem:SearchBoxItem;
-  visibleData:SearchBoxItem[]=[];
-  activeSearch:boolean=false;
+  searchedText = '';
+  selectedItem: SearchBoxItem;
+  visibleData: SearchBoxItem[] = [];
+  activeSearch = false;
 
   constructor(private eRef: ElementRef) { }
 
   ngOnInit(): void {
-    
+
   }
 
-  ngOnChanges(changes:SimpleChanges){
-    if((changes.data && changes.data.currentValue && this.selectedId)
+  ngOnChanges(changes: SimpleChanges) {
+    if ((changes.data && changes.data.currentValue && this.selectedId)
     ||
-    (changes.selectedId && changes.selectedId.currentValue && this.data && this.data.length>0)
-    ){     
-      this.select(this.data.filter(e=>e.id===this.selectedId)[0]);
+    (changes.selectedId && changes.selectedId.currentValue && this.data && this.data.length > 0)
+    ) {
+      this.select(this.data.filter(e => e.id === this.selectedId)[0]);
     }
 
-    if(changes.selectedId && !changes.selectedId.currentValue){
-      this.select({id:"",name:'',type:''});
+    if (changes.selectedId && !changes.selectedId.currentValue) {
+      this.select({id: '', name: '', type: ''});
     }
   }
 
-  onTyping(text:string){
-    this.searchedText=text;
-    this.visibleData=this.data.filter(e=>e.name.toUpperCase().includes(text.toUpperCase()));
-    
-    if(this.visibleData.length>1 || (this.visibleData.length===1 && this.visibleData[0].name!==text) ){
-      this.activeSearch=true;
+  onTyping(text: string) {
+    this.searchedText = text;
+    this.visibleData = this.data.filter(e => e.name.toUpperCase().includes(text.toUpperCase()));
+
+    if (this.visibleData.length > 1 || (this.visibleData.length === 1 && this.visibleData[0].name !== text) ) {
+      this.activeSearch = true;
       this.onSelect.emit(null);
-    }
-    else if(this.visibleData.length===1 && this.visibleData[0].name===text){
-      this.activeSearch=false;
+    } else if (this.visibleData.length === 1 && this.visibleData[0].name === text) {
+      this.activeSearch = false;
       this.onSelect.emit(this.visibleData[0]);
-    }
-    else{
-      this.activeSearch=false;
+    } else {
+      this.activeSearch = false;
       this.onSelect.emit(null);
     }
-    
+
   }
 
-  select(item:SearchBoxItem){
-    setTimeout(()=>{
-      this.selectedItem=item;
-      this.searchedText=item.name;
-      this.visibleData=this.data.filter(e=>e.id==item.id);
-      this.activeSearch=false;
+  select(item: SearchBoxItem) {
+    setTimeout(() => {
+      this.selectedItem = item;
+      this.searchedText = item.name;
+      this.visibleData = this.data.filter(e => e.id == item.id);
+      this.activeSearch = false;
       this.onSelect.emit(item);
     });
 
@@ -75,8 +73,8 @@ export class SearchboxComponent implements OnInit, OnChanges {
 
   @HostListener('document:click', ['$event'])
   clickout(event) {
-    if(!this.eRef.nativeElement.contains(event.target)) {
-      this.activeSearch=false;
+    if (!this.eRef.nativeElement.contains(event.target)) {
+      this.activeSearch = false;
     }
   }
 

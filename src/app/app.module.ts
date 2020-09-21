@@ -56,7 +56,7 @@ import { CareerTableComponent } from './components/career-table/career-table.com
     DonutChartComponent,
     ZoomableCircleChartComponent,
     CareerTableComponent,
-   
+
   ],
   imports: [
     BrowserModule,

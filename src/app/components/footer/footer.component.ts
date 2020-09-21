@@ -12,12 +12,12 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openGithub(){
-    window.open("https://github.com/GDavid97/f1stats");
+  openGithub() {
+    window.open('https://github.com/GDavid97/f1stats');
   }
 
-  openLinkedIn(){
-    window.open("https://www.linkedin.com/in/dgobolyos/");
+  openLinkedIn() {
+    window.open('https://www.linkedin.com/in/dgobolyos/');
   }
 
 }

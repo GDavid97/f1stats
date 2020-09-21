@@ -9,28 +9,27 @@ import { Standing } from 'src/app/models/Standing.model';
 export class StandingComponent implements OnInit, OnChanges {
 
   @Input()
-  data:Standing[];
+  data: Standing[];
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  ngOnChanges(changes:SimpleChanges){
-    if(changes.data &&changes.data.currentValue){
-      this.data.forEach(row=>{
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.data && changes.data.currentValue) {
+      this.data.forEach(row => {
         this.testImage(row);
-      })
+      });
     }
   }
 
-  private testImage(row:Standing) {
-    var tester = new Image();
+  private testImage(row: Standing) {
+    const tester = new Image();
     tester.onerror = () => {
-      if(!row.team){
+      if (!row.team) {
         row.photo = `teams/noimage.jpg`;
-      }
-      else{
+      } else {
         row.photo = `drivers/noimage.jpg`;
       }
 

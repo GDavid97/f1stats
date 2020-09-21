@@ -19,19 +19,19 @@ export class SeasonPageComponent implements OnInit {
   teamStanding: Standing[];
 
   season: number = new Date().getFullYear();
-  nextButtonDisabled: boolean = true;
-  prevButtonDisabled: boolean = true;
-  
+  nextButtonDisabled = true;
+  prevButtonDisabled = true;
+
   driverResultsSubscription: Subscription;
   circuitSubscription: Subscription;
-  driverStandingSubscription:Subscription;
-  teamStandingSubscription:Subscription;
+  driverStandingSubscription: Subscription;
+  teamStandingSubscription: Subscription;
 
-  isDriverPointsLoading: boolean = true;
-  isCircuitsLoading: boolean = true;
-  isDriverStandingLoading:boolean=true;
-  isTeamStandingLoading:boolean=true;
- 
+  isDriverPointsLoading = true;
+  isCircuitsLoading = true;
+  isDriverStandingLoading = true;
+  isTeamStandingLoading = true;
+
 
 
   constructor(private webService: WebService, private route: ActivatedRoute, private router: Router) {
@@ -39,13 +39,11 @@ export class SeasonPageComponent implements OnInit {
       if (params && params.season) {
         if (params.season >= 1950 && params.season <= new Date().getFullYear()) {
           this.season = params.season;
-        }
-        else {
+        } else {
           this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: new Date().getFullYear() } });
         }
 
-      }
-      else {
+      } else {
         this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season } });
       }
 
@@ -54,19 +52,17 @@ export class SeasonPageComponent implements OnInit {
 
   ngOnInit() {
     this.setDefaultNavButtons(this.season);
-    this.getData(this.season.toString());    
+    this.getData(this.season.toString());
   }
 
   setDefaultNavButtons(season: number) {
     if (season == new Date().getFullYear()) {
       this.prevButtonDisabled = false;
       this.nextButtonDisabled = true;
-    }
-    else if (season == 1950) {
+    } else if (season == 1950) {
       this.prevButtonDisabled = true;
       this.nextButtonDisabled = false;
-    }
-    else {
+    } else {
       this.prevButtonDisabled = false;
       this.nextButtonDisabled = false;
     }
@@ -81,8 +77,7 @@ export class SeasonPageComponent implements OnInit {
       if (this.season == 1950) {
         this.prevButtonDisabled = true;
 
-      }
-      else {
+      } else {
         this.nextButtonDisabled = false;
         this.prevButtonDisabled = false;
       }
@@ -100,8 +95,7 @@ export class SeasonPageComponent implements OnInit {
 
       if (this.season == currentYear) {
         this.nextButtonDisabled = true;
-      }
-      else {
+      } else {
 
         this.nextButtonDisabled = false;
         this.prevButtonDisabled = false;
@@ -114,14 +108,14 @@ export class SeasonPageComponent implements OnInit {
 
   private getDriverResults(season: string) {
     this.driverResultsSubscription?.unsubscribe();
-    let pointResult: LineChartData[] = [];
+    const pointResult: LineChartData[] = [];
     this.isDriverPointsLoading = true;
     this.driverResultsSubscription = this.webService.getDriverResults(season).subscribe(res => {
 
-      //fill all drivers who participated in the season
-      for (let race of res) {
-        for (let result of race.Results) {
-          let lineChartData = pointResult.find(e => e.id == result.Driver.driverId);
+      // fill all drivers who participated in the season
+      for (const race of res) {
+        for (const result of race.Results) {
+          const lineChartData = pointResult.find(e => e.id == result.Driver.driverId);
           if (!lineChartData) {
             pointResult.push({
               id: result.Driver.driverId,
@@ -131,30 +125,27 @@ export class SeasonPageComponent implements OnInit {
           }
         }
       }
-      for (let race of res) {
-        for (let driver of pointResult) {
-          let result = race.Results.find(element => element.Driver.driverId == driver.id);
+      for (const race of res) {
+        for (const driver of pointResult) {
+          const result = race.Results.find(element => element.Driver.driverId == driver.id);
           if (result) {
 
-            let points: number = parseInt(result.points);
+            const points: number = parseInt(result.points);
             const getLastValueInMap = (map) => [...map][map.size - 1][1];
             if (driver.values.size > 0) {
-              let newPoints: number = points + getLastValueInMap(driver.values);
+              const newPoints: number = points + getLastValueInMap(driver.values);
               driver.values.set(race.raceName, newPoints);
-            }
-            else {
+            } else {
               driver.values.set(race.raceName, parseInt(result.points));
             }
 
-          }
-          else {
-            let points: number = 0;
+          } else {
+            const points = 0;
             const getLastValueInMap = (map) => [...map][map.size - 1][1];
             if (driver.values.size > 0) {
-              let newPoints: number = points + getLastValueInMap(driver.values);
+              const newPoints: number = points + getLastValueInMap(driver.values);
               driver.values.set(race.raceName, newPoints);
-            }
-            else {
+            } else {
               driver.values.set(race.raceName, 0);
             }
           }
@@ -170,41 +161,41 @@ export class SeasonPageComponent implements OnInit {
     this.circuitSubscription?.unsubscribe();
     this.circuits = [];
     this.isCircuitsLoading = true;
-    this.circuitSubscription=this.webService.getCircuits(season).subscribe(res => {
+    this.circuitSubscription = this.webService.getCircuits(season).subscribe(res => {
       this.isCircuitsLoading = false;
       this.circuits = res;
     });
   }
 
-  private getDriversStanding(season:string){
+  private getDriversStanding(season: string) {
     this.driverStandingSubscription?.unsubscribe();
     this.driverStanding = [];
     this.isDriverStandingLoading = true;
-    this.driverStandingSubscription=this.webService.getDriverStanding(season).subscribe(res => {
+    this.driverStandingSubscription = this.webService.getDriverStanding(season).subscribe(res => {
       this.isDriverStandingLoading = false;
       this.driverStanding = res;
     });
   }
 
-  private getTeamStanding(season:string) {  
+  private getTeamStanding(season: string) {
     this.teamStandingSubscription?.unsubscribe();
- 
+
     this.isTeamStandingLoading = true;
-    this.teamStandingSubscription=this.webService.getTeamStanding(season).subscribe(res => {
+    this.teamStandingSubscription = this.webService.getTeamStanding(season).subscribe(res => {
       this.isTeamStandingLoading = false;
       this.teamStanding = res;
     });
   }
 
-  private getData(season:string){
+  private getData(season: string) {
     this.getDriverResults(season);
     this.getCircuits(season);
     this.getDriversStanding(season);
     this.getTeamStanding(season);
   }
 
-  openGPDetails(round:number){
-    this.router.navigate(['gp'], { queryParams: { season: this.season, round: round } });
+  openGPDetails(round: number) {
+    this.router.navigate(['gp'], { queryParams: { season: this.season, round } });
   }
 
   ngOnDestroy() {

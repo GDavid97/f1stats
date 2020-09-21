@@ -15,16 +15,16 @@ import { Standing } from 'src/app/models/Standing.model';
 export class GrandPrixPageComponent implements OnInit, OnDestroy {
 
   season: number = new Date().getFullYear();
-  round: number = 1;
+  round = 1;
   circuitDetails: RaceEvent[];
   raceResult: RaceResult;
   driverStanding: Standing[];
   teamStanding: Standing[];
 
-  nextSeasonButtonDisabled: boolean = true;
-  prevSeasonButtonDisabled: boolean = true;
-  nextGPButtonDisabled: boolean = true;
-  prevGPButtonDisabled: boolean = true;
+  nextSeasonButtonDisabled = true;
+  prevSeasonButtonDisabled = true;
+  nextGPButtonDisabled = true;
+  prevGPButtonDisabled = true;
   maxRaces: number;
 
   circuitSubscripton: Subscription;
@@ -32,10 +32,10 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
   driverStandingSubscription: Subscription;
   teamStandingSubscription: Subscription;
 
-  isCurrentRaceLoading: boolean = true;
-  isRaceResultLoading: boolean = true;
-  isDriverStandingLoading: boolean = true;
-  isTeamStandingLoading: boolean = true;
+  isCurrentRaceLoading = true;
+  isRaceResultLoading = true;
+  isDriverStandingLoading = true;
+  isTeamStandingLoading = true;
 
   constructor(private webService: WebService, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
@@ -45,18 +45,15 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
           if (params.round && params.round >= 1) {
             this.round = params.round;
             this.getData(this.season.toString(), this.round.toString());
-          }
-          else {
+          } else {
             this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: this.round } });
           }
-        }
-        else {
+        } else {
           this.season = new Date().getFullYear();
           this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: this.round } });
         }
 
-      }
-      else {
+      } else {
         this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season, round: this.round } });
       }
       this.setDefaultGPNavButtons(this.round);
@@ -72,13 +69,13 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
     this.setDefaultSeasonNavButtons(this.season);
   }
 
-  private getGPsInSeason(season:number){
-    this.isCurrentRaceLoading=true;
+  private getGPsInSeason(season: number) {
+    this.isCurrentRaceLoading = true;
     this.circuitSubscripton = this.webService.getCircuits(season.toString()).subscribe(res => {
       this.maxRaces = res.length;
       this.circuitDetails = res;
       if (this.round > this.maxRaces) {
-        this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: season, round: 1 } });
+        this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season, round: 1 } });
       }
       this.setDefaultGPNavButtons(this.round);
       this.isCurrentRaceLoading = false;
@@ -89,12 +86,10 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
     if (season == new Date().getFullYear()) {
       this.prevSeasonButtonDisabled = false;
       this.nextSeasonButtonDisabled = true;
-    }
-    else if (season == 1950) {
+    } else if (season == 1950) {
       this.prevSeasonButtonDisabled = true;
       this.nextSeasonButtonDisabled = false;
-    }
-    else {
+    } else {
       this.prevSeasonButtonDisabled = false;
       this.nextSeasonButtonDisabled = false;
     }
@@ -104,12 +99,10 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
     if (round == this.maxRaces) {
       this.prevGPButtonDisabled = false;
       this.nextGPButtonDisabled = true;
-    }
-    else if (round == 1) {
+    } else if (round == 1) {
       this.prevGPButtonDisabled = true;
       this.nextGPButtonDisabled = false;
-    }
-    else {
+    } else {
       this.prevGPButtonDisabled = false;
       this.nextGPButtonDisabled = false;
     }
@@ -124,8 +117,7 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
       if (this.season == 1950) {
         this.prevSeasonButtonDisabled = true;
 
-      }
-      else {
+      } else {
         this.nextSeasonButtonDisabled = false;
         this.prevSeasonButtonDisabled = false;
       }
@@ -141,8 +133,7 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
 
       if (this.season == currentYear) {
         this.nextSeasonButtonDisabled = true;
-      }
-      else {
+      } else {
 
         this.nextSeasonButtonDisabled = false;
         this.prevSeasonButtonDisabled = false;
@@ -163,8 +154,7 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
       if (this.round == 1) {
         this.prevGPButtonDisabled = true;
 
-      }
-      else {
+      } else {
         this.nextGPButtonDisabled = false;
         this.prevGPButtonDisabled = false;
       }
@@ -178,8 +168,7 @@ export class GrandPrixPageComponent implements OnInit, OnDestroy {
 
       if (this.round == this.maxRaces) {
         this.nextGPButtonDisabled = true;
-      }
-      else {
+      } else {
 
         this.nextGPButtonDisabled = false;
         this.prevGPButtonDisabled = false;

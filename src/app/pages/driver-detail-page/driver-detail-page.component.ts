@@ -18,11 +18,11 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
 
   results: DriverResult[];
 
-  isLoading: boolean = true;
-  isChampionshipResultLoading: boolean = true;
+  isLoading = true;
+  isChampionshipResultLoading = true;
 
   racesCount: number;
-  points: number = 0;
+  points = 0;
   championshipsCount: number;
   winsCount: number;
   podiumsCount: number;
@@ -31,8 +31,8 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
   championshipResults: DriverPosition[] = [];
   racesForTeamsChartData: NameValue[] = [];
   positionsChartData: NameValue[] = [];
-  resultTableData:ResultsTableRow[]=[];
-  driverPhotoId="noimage";
+  resultTableData: ResultsTableRow[] = [];
+  driverPhotoId = 'noimage';
 
   championshipResultSubscription: Subscription;
   driverRaceResultSubscription: Subscription;
@@ -40,8 +40,8 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-     private webService: WebService,
-     private router:Router) {
+    private webService: WebService,
+    private router: Router) {
     this.route.queryParams.subscribe(params => {
       if (params.id) {
         this.getData(params.id);
@@ -53,56 +53,55 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  openRaceDetails(race:SeasonRound){
+  openRaceDetails(race: SeasonRound) {
     this.router.navigate(['gp'], { queryParams: { season: race.season, round: race.round } });
   }
 
-  openSeason(season:string){
-    this.router.navigate(['seasons'], { queryParams: { season: season} });
+  openSeason(season: string) {
+    this.router.navigate(['seasons'], { queryParams: { season} });
   }
 
   private getData(driverId: string) {
     this.isLoading = true;
-    this.driverPhotoId="noimage";
+    this.driverPhotoId = 'noimage';
 
     this.driverRaceResultSubscription?.unsubscribe();
     this.driverRaceResultSubscription = this.webService.getDriverRaceResults(driverId).subscribe(res => {
 
       this.results = res;
       this.racesCount = res.length;
-      this.winsCount = res.filter(e => e.position == "1").length;
-      this.podiumsCount = res.filter(e => (e.position == "1" || e.position == "2" || e.position == "3")).length;
-      this.polesCount = res.filter(e => e.grid == "1").length;
+      this.winsCount = res.filter(e => e.position == '1').length;
+      this.podiumsCount = res.filter(e => (e.position == '1' || e.position == '2' || e.position == '3')).length;
+      this.polesCount = res.filter(e => e.grid == '1').length;
       this.racesForTeamsChartData = this.fillRacesForTeamsData(res);
       this.positionsChartData = this.fillPositionsData(res);
-      this.testDriverImage(`assets/drivers/${this.results[0].driverId}.jpg`)
+      this.testDriverImage(`assets/drivers/${this.results[0].driverId}.jpg`);
 
       this.teams = [];
-      let currentTeamId, startSeason, currentTeamName, endSeason, tableData:ResultsTableRow[]=[];
+      let currentTeamId, startSeason, currentTeamName, endSeason, tableData: ResultsTableRow[] = [];
       res.forEach(e => {
         this.points += parseInt(e.points);
 
-        let resultRow=tableData.find(d=>d.season===e.season);
-        if(resultRow){
-          resultRow.points+=parseInt(e.points);
-          resultRow.team=e.team;
+        let resultRow = tableData.find(d => d.season === e.season);
+        if (resultRow) {
+          resultRow.points += parseInt(e.points);
+          resultRow.team = e.team;
           resultRow.results.push({
-            position:e.positionText,
-            points:parseInt(e.points),
-            raceName:e.raceName,
-            round:e.round
+            position: e.positionText,
+            points: parseInt(e.points),
+            raceName: e.raceName,
+            round: e.round
           });
-        }
-        else{
-          resultRow=new ResultsTableRow();
-          resultRow.points=parseInt(e.points);
-          resultRow.team=e.team;
-          resultRow.season=e.season;
-          resultRow.results=[{
-            position:e.positionText,
-            points:parseInt(e.points),
-            raceName:e.raceName,
-            round:e.round
+        } else {
+          resultRow = new ResultsTableRow();
+          resultRow.points = parseInt(e.points);
+          resultRow.team = e.team;
+          resultRow.season = e.season;
+          resultRow.results = [{
+            position: e.positionText,
+            points: parseInt(e.points),
+            raceName: e.raceName,
+            round: e.round
           }];
           tableData.push(resultRow);
         }
@@ -111,15 +110,14 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
           currentTeamId = e.teamId;
           currentTeamName = e.team;
           startSeason = e.season;
-        }
-        else if (e.teamId != currentTeamId) {
+        } else if (e.teamId != currentTeamId) {
           this.teams.push({
             constructorId: currentTeamId,
             name: currentTeamName,
-            startSeason: startSeason,
-            endSeason: endSeason,
+            startSeason,
+            endSeason,
             photo: `${endSeason}/${currentTeamId}`,
-          })
+          });
           currentTeamId = e.teamId;
           currentTeamName = e.team;
           startSeason = e.season;
@@ -127,13 +125,13 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
         endSeason = e.season;
       });
 
-      this.resultTableData=tableData;
+      this.resultTableData = tableData;
 
       this.teams.push({
         constructorId: currentTeamId,
         name: currentTeamName,
-        startSeason: startSeason,
-        endSeason: endSeason,
+        startSeason,
+        endSeason,
         photo: `${startSeason}/${currentTeamId}`,
       });
       this.driverTitlesSubscription?.unsubscribe();
@@ -143,7 +141,7 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
       });
     });
   }
-  
+
 
   private getDriverPositions(driverId: string) {
     this.isChampionshipResultLoading = true;
@@ -151,17 +149,16 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
     this.championshipResultSubscription = this.webService.getDriverChampionshipPositions(driverId).subscribe(res => {
       this.championshipResults = res;
       this.isChampionshipResultLoading = false;
-    })
+    });
   }
 
   private fillRacesForTeamsData(driverResult: DriverResult[]): NameValue[] {
-    let res: NameValue[] = [];
-    for (let result of driverResult) {
-      let item = res.find(e => e.name === result.team);
+    const res: NameValue[] = [];
+    for (const result of driverResult) {
+      const item = res.find(e => e.name === result.team);
       if (!item) {
         res.push({ name: result.team, value: 1 });
-      }
-      else {
+      } else {
         item.value = item.value + 1;
       }
     }
@@ -169,14 +166,13 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
   }
 
   private fillPositionsData(driverResult: DriverResult[]): NameValue[] {
-    let res: NameValue[] = [];
-    for (let result of driverResult) {
-      if (result.positionText!='R' && parseInt(result.positionText) <= 10) {
-        let item = res.find(e => e.name === result.positionText + '.');
+    const res: NameValue[] = [];
+    for (const result of driverResult) {
+      if (result.positionText != 'R' && parseInt(result.positionText) <= 10) {
+        const item = res.find(e => e.name === result.positionText + '.');
         if (!item) {
           res.push({ name: result.positionText + '.', value: 1 });
-        }
-        else {
+        } else {
           item.value = item.value + 1;
         }
       }
@@ -185,7 +181,7 @@ export class DriverDetailPageComponent implements OnInit, OnDestroy {
   }
 
   private testDriverImage(URL: string) {
-    var tester = new Image();
+    const tester = new Image();
     tester.onload = () => {
       this.driverPhotoId = `${this.results[0].driverId}`;
     };

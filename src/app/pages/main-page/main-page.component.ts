@@ -21,7 +21,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   driverStanding: Standing[];
   teamStanding: Standing[];
   lastRaceResult: RaceResult;
-  teamsAndDrivers:ZoomableCircleData;
+  teamsAndDrivers: ZoomableCircleData;
 
   areBubblesLoading = true;
   isNextRaceLoading = true;
@@ -49,7 +49,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   getWinnersForBubbleChart() {
-    let results: Map<string, number> = new Map<string, number>();
+    const results: Map<string, number> = new Map<string, number>();
 
     this.winnersForBubleChartSubscription?.unsubscribe();
     this.areBubblesLoading = true;
@@ -62,7 +62,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
         for (const [key, value] of results.entries()) {
           this.bubbleChartData.push({
             name: key,
-            value: value,
+            value,
             group: (Math.floor(value / 10) + 1).toString()
           });
         }
@@ -76,14 +76,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
 
   private fetchBubbleData(races: any[], results: Map<string, number>) {
-    for (let race of races) {
-      let driver = race.Results[0].Driver;
-      let name = driver.givenName[0] + '. ' + driver.familyName;
+    for (const race of races) {
+      const driver = race.Results[0].Driver;
+      const name = driver.givenName[0] + '. ' + driver.familyName;
 
       if (results.has(name)) {
         results.set(name, results.get(name) + 1);
-      }
-      else {
+      } else {
         results.set(name, 1);
       }
     }
@@ -122,9 +121,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   private getNextRace() {
     this.nextRaceSubscription?.unsubscribe();
-    let nextRaceData: NextRaceModel = new NextRaceModel();
+    const nextRaceData: NextRaceModel = new NextRaceModel();
     this.nextRaceSubscription = this.webService.getNextRace().subscribe(res => {
-      let data = res.MRData.RaceTable.Races[0];
+      const data = res.MRData.RaceTable.Races[0];
       nextRaceData.raceName = data.raceName;
       nextRaceData.date = data.date;
       nextRaceData.time = data.time;
@@ -141,8 +140,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['driverdetail'], { queryParams: { id: driverId } });
   }
 
-  scrolldown(){
-    window.scroll(0,window.innerHeight);
+  scrolldown() {
+    window.scroll(0, window.innerHeight);
   }
 
   ngOnDestroy() {

@@ -12,13 +12,13 @@ export class DriverTileComponent implements OnInit, OnChanges {
   driver: Driver;
 
   @Input()
-  backgroundColor: string = "white";
+  backgroundColor = 'white';
 
   @Input()
   fastestLap: boolean;
 
-  teamPhotoId = "noimage";
-  driverPhotoId = "noimage";
+  teamPhotoId = 'noimage';
+  driverPhotoId = 'noimage';
 
   constructor() { }
 
@@ -33,7 +33,7 @@ export class DriverTileComponent implements OnInit, OnChanges {
   }
 
   testDriverImage(URL: string) {
-    var tester = new Image();
+    const tester = new Image();
     tester.onload = () => {
       this.driverPhotoId = `${this.driver.driverId}`;
     };
@@ -42,7 +42,7 @@ export class DriverTileComponent implements OnInit, OnChanges {
   }
 
   testTeamImage(URL: string) {
-    var tester = new Image();
+    const tester = new Image();
     tester.onload = () => {
       this.teamPhotoId = `${this.driver.season}/${this.driver.teamId}`;
     };

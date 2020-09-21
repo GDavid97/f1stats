@@ -9,13 +9,13 @@ import { RaceEvent } from 'src/app/models/RaceEvent.model';
 export class CircuitComponent implements OnInit {
 
   @Input()
-  data:RaceEvent;
+  data: RaceEvent;
 
   @Input()
-  enableClick:boolean;
+  enableClick: boolean;
 
   @Output()
-  onClick:EventEmitter<void>=new EventEmitter<void>();
+  onClick: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() { }
 

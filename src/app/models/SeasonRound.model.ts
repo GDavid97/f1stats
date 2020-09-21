@@ -1,4 +1,4 @@
-export class SeasonRound{
-    season:string;
-    round:string;
+export class SeasonRound {
+    season: string;
+    round: string;
 }

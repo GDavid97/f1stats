@@ -8,18 +8,18 @@ import { Component, OnInit, Input } from '@angular/core';
 export class AccordionComponent implements OnInit {
 
   @Input()
-  isOpened:boolean=true;
+  isOpened = true;
 
   @Input()
-  title:string;
+  title: string;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  toggle(){
-    this.isOpened=!this.isOpened;
+  toggle() {
+    this.isOpened = !this.isOpened;
   }
 
 }

@@ -3,9 +3,9 @@ export class Team {
     url?: string;
     name: string;
     nationality?: string;
-    photo:string;    
+    photo: string;
 }
-export class DrivenInTeam extends Team{
-    startSeason:number;
-    endSeason:number;
+export class DrivenInTeam extends Team {
+    startSeason: number;
+    endSeason: number;
 }

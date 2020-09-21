@@ -8,8 +8,8 @@ import { Driver } from 'src/app/models/Driver.model';
 })
 export class DataService {
 
-  constructor(private webService:WebService) { }
+  constructor(private webService: WebService) { }
 
-    
+
 
 }

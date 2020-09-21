@@ -9,17 +9,17 @@ import { SearchBoxItem } from 'src/app/models/SearchboxItem.model';
 export class NavbarComponent implements OnInit {
 
   @Input()
-  isOpacityOnDefault:boolean;
+  isOpacityOnDefault: boolean;
 
   @Input()
-  searchboxData:SearchBoxItem[];
+  searchboxData: SearchBoxItem[];
 
   @Output()
-  onSearch:EventEmitter<SearchBoxItem>=new EventEmitter<SearchBoxItem>();
+  onSearch: EventEmitter<SearchBoxItem> = new EventEmitter<SearchBoxItem>();
 
-  scrolled: boolean = false;
+  scrolled = false;
 
-  isMobileMenuOpened:boolean; 
+  isMobileMenuOpened: boolean;
 
   constructor() { }
 
@@ -27,38 +27,36 @@ export class NavbarComponent implements OnInit {
   }
 
   @HostListener('window:scroll', [])
-  onWindowScroll() {  
+  onWindowScroll() {
     if (window.scrollY > 0) {
       this.scrolled = true;
-    }
-    else {
+    } else {
       this.scrolled = false;
     }
   }
 
-  toggleMobileMenu(){
-    if(this.isMobileMenuOpened){
+  toggleMobileMenu() {
+    if (this.isMobileMenuOpened) {
       this.closeMobileMenu();
-    }
-    else{
+    } else {
       this.openMobileMenu();
     }
   }
 
-  openMobileMenu(){
-    this.isMobileMenuOpened=true;
+  openMobileMenu() {
+    this.isMobileMenuOpened = true;
   }
 
-  closeMobileMenu(){
-    this.isMobileMenuOpened=false;
+  closeMobileMenu() {
+    this.isMobileMenuOpened = false;
   }
 
-  stopPropagation(e:Event){
+  stopPropagation(e: Event) {
     e.stopPropagation();
   }
 
-  removeFocus(){
-    (<HTMLElement>document.activeElement).blur();
+  removeFocus() {
+    (document.activeElement as HTMLElement).blur();
   }
 
 }

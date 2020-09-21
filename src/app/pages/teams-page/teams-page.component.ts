@@ -13,10 +13,10 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
 
   teams: Team[];
 
-  isTeamGridLoading: boolean = true;
+  isTeamGridLoading = true;
   season: number = new Date().getFullYear();
-  nextButtonDisabled: boolean = true;
-  prevButtonDisabled: boolean = true;
+  nextButtonDisabled = true;
+  prevButtonDisabled = true;
 
   private teamsSubscription: Subscription;
 
@@ -25,32 +25,28 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
       if (params && params.season) {
         if (params.season >= 1950 && params.season <= new Date().getFullYear()) {
           this.season = params.season;
-        }
-        else {
+        } else {
           this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: new Date().getFullYear() } });
         }
 
-      }
-      else {
+      } else {
         this.router.navigate(['.'], { relativeTo: this.route, queryParams: { season: this.season } });
       }
       this.getData(this.season.toString());
     });
   }
 
-  ngOnInit() {  
+  ngOnInit() {
     this.setDefaultNavButtons(this.season);
   }
   setDefaultNavButtons(season: number) {
     if (season == new Date().getFullYear()) {
       this.prevButtonDisabled = false;
       this.nextButtonDisabled = true;
-    }
-    else if (season == 1950) {
+    } else if (season == 1950) {
       this.prevButtonDisabled = true;
       this.nextButtonDisabled = false;
-    }
-    else {
+    } else {
       this.prevButtonDisabled = false;
       this.nextButtonDisabled = false;
     }
@@ -76,8 +72,7 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
       if (this.season == 1950) {
         this.prevButtonDisabled = true;
 
-      }
-      else {
+      } else {
         this.nextButtonDisabled = false;
         this.prevButtonDisabled = false;
       }
@@ -96,8 +91,7 @@ export class TeamsPageComponent implements OnInit, OnDestroy {
 
       if (this.season == currentYear) {
         this.nextButtonDisabled = true;
-      }
-      else {
+      } else {
 
         this.nextButtonDisabled = false;
         this.prevButtonDisabled = false;

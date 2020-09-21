@@ -1,9 +1,9 @@
-export class NextRaceModel{
+export class NextRaceModel {
     raceName: string;
     date: string;
-    time:string;
+    time: string;
     round: number;
     season: number;
-    country:string;
-    circuitName:string;
+    country: string;
+    circuitName: string;
 }

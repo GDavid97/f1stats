@@ -7,7 +7,7 @@ import { Team } from 'src/app/models/Team.model';
   styleUrls: ['./team-tile.component.scss']
 })
 export class TeamTileComponent implements OnInit {
-  
+
   @Input()
   team: Team;
 
