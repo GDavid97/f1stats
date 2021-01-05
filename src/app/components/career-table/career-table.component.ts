@@ -44,7 +44,6 @@ export class CareerTableComponent implements OnInit, OnChanges {
           this.maxCols = e.results.length;
         }
       });
-      console.log(this.maxCols);
     }
   }
 
@@ -52,7 +51,7 @@ export class CareerTableComponent implements OnInit, OnChanges {
     const result = Object.assign({}, row);
     result.results = [...row.results];
     const firstIndex = parseInt(result.results[0].round) - 1;
-    for (let i = 0; i < firstIndex - 1; i++) {
+    for (let i = 0; i < firstIndex; i++) {
       result.results.unshift({
         points: null,
         position: '',
@@ -60,21 +59,24 @@ export class CareerTableComponent implements OnInit, OnChanges {
         round: (i + 1).toString(),
       });
     }
-
-    for (let i = 1; i < result.results.length; i++) {
-      if (
-        parseInt(result.results[i].round) -
-          parseInt(result.results[i - 1].round) >
-        1
-      ) {
-        result.results.splice(i, 0, {
-          points: null,
-          position: '',
-          raceName: '',
-          round: (i + 1).toString(),
-        });
+    if(result.results.length<this.maxCols){
+      for (let i = 1; i < result.results.length; i++) {
+        if (
+          parseInt(result.results[i].round) -
+            parseInt(result.results[i - 1].round) >
+          1
+        ) {
+          result.results.splice(i, 0, {
+            points: null,
+            position: '',
+            raceName: '',
+            round: (i + 1).toString(),
+          });
+        }
       }
     }
+    
+    if(result.results.length<this.maxCols){    
     for (let i = result.results.length; i < this.maxCols; i++) {
       result.results.push({
         points: null,
@@ -83,6 +85,7 @@ export class CareerTableComponent implements OnInit, OnChanges {
         round: (i + 1).toString(),
       });
     }
+  }
     return result;
   }
 

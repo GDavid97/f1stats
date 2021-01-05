@@ -10,7 +10,7 @@ import { RaceEvent } from 'src/app/models/RaceEvent.model';
 import { DriverPosition } from 'src/app/models/DriverPosition.model';
 import { SearchBoxItem } from 'src/app/models/SearchboxItem.model';
 
-const proxy = 'https://cors-anywhere.herokuapp.com/'; // "https://cors-anywhere.herokuapp.com/"; //"https://thingproxy.freeboard.io/fetch/"
+const proxy = ''; // "https://cors-anywhere.herokuapp.com/"; //"https://thingproxy.freeboard.io/fetch/"
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
