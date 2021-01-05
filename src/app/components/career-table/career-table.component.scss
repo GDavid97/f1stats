@@ -5,7 +5,7 @@
   border-collapse: initial;
   margin: auto;
 
-  &__Container{
+  &__Container {
     border: 1px solid black;
     padding: 12px;
     width: fit-content;
@@ -14,12 +14,11 @@
     @media screen and (max-width: $M_MAX) {
       width: initial;
       overflow: auto;
-     
     }
   }
 
-  &__HeaderCell{
-    font-size: 18px;
+  &__HeaderCell {
+    font-size: 16px;
     align-items: center;
     text-align: center;
     border: 2px solid white;
@@ -31,27 +30,24 @@
 
   &__Cell {
     margin: 0px 3px;
-    font-size: 18px;
+    font-size: 16px;
     text-align: center;
     border: 2px solid white;
     align-items: center;
-  
   }
 
-  &__Season {
-    font-size: 20px;
+  &__Name {
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-
   }
 
   &__Team {
-    font-size: 20px;
-
+    font-size: 16px;
   }
 
   &__CellPosition {
-    padding: 4px 8px;
+    padding: 2px 3px;
     cursor: pointer;
   }
 
@@ -75,23 +71,23 @@
     background-color: rgb(163, 102, 212);
   }
 
-  &__Help{
-    display:flex;
+  &__Help {
+    display: flex;
     flex-wrap: wrap;
     margin-top: 18px;
 
-    &Item{
+    &Item {
       display: flex;
       margin-right: 18px;
     }
-    &Circle{
-      height:30px ;
+    &Circle {
+      height: 30px;
       width: 30px;
       border-radius: 15px;
       margin-right: 8px;
     }
 
-    &Text{
+    &Text {
       align-self: center;
     }
   }

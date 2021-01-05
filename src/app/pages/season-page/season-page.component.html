@@ -1,68 +1,119 @@
 <div class="page">
-    
-    <h1 class="Seasons__Title">Season</h1>
-    <div style="display: flex;" >
-        <div class="Seasons__ButtonContainer">
-            <input [disabled]="prevButtonDisabled" type="image" class="Seasons__NavigationIcon" 
-            (click)="prevSeason()" 
-            src="assets/icons/left-arrow.png" 
-            width="30" 
-            height="30"/>
-            <h1 class="Seasons__Season">{{season}}</h1>
-            <input [disabled]="nextButtonDisabled" type="image" class="Seasons__NavigationIcon" (click)="nextSeason()" src="assets/icons/right-arrow.png" width="30" height="30"/>
-        </div>
-    
+  <h1 class="Seasons__Title">Season</h1>
+  <div style="display: flex">
+    <div class="Seasons__ButtonContainer">
+      <input
+        [disabled]="prevButtonDisabled"
+        type="image"
+        class="Seasons__NavigationIcon"
+        (click)="prevSeason()"
+        src="assets/icons/left-arrow.png"
+        width="30"
+        height="30"
+      />
+      <h1 class="Seasons__Season">{{ season }}</h1>
+      <input
+        [disabled]="nextButtonDisabled"
+        type="image"
+        class="Seasons__NavigationIcon"
+        (click)="nextSeason()"
+        src="assets/icons/right-arrow.png"
+        width="30"
+        height="30"
+      />
     </div>
+  </div>
 
-    <section class="Seasons__Section hidden-s">
-        <accordion [title]="'Drivers points'">
-            <div *ngIf="isDriverPointsLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
-                <span class="sr-only">Loading...</span>
-              </div>
-            <multi-line-chart *ngIf="!isDriverPointsLoading" [data]="driversPointsForChart"></multi-line-chart>
-        </accordion>
-    </section>
+  <section class="Seasons__Section hidden-s">
+    <accordion [title]="'Drivers points'">
+      <div
+        *ngIf="isDriverPointsLoading"
+        style="margin: auto; display: block"
+        class="spinner-grow text-info"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+      <multi-line-chart
+        *ngIf="!isDriverPointsLoading"
+        [data]="driversPointsForChart"
+      ></multi-line-chart>
+    </accordion>
+  </section>
 
-    <section class="Seasons__Section">
-        <accordion [title]="'Driver & Team standing'">
-            <div class="Seasons__Standings">     
-                <div class="Seasons__DriverStandings" >
-                    <div class="Seasons__StandingsTitle">Drivers</div>
-                    <div *ngIf="isDriverStandingLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                    <standing *ngIf="!isDriverStandingLoading" [data]="driverStanding"></standing>
-                </div>
-                <div class="Seasons__TeamStandings">
-                    <div class="Seasons__StandingsTitle">Teams</div>
-                    <div *ngIf="isTeamStandingLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                    <standing *ngIf="!isTeamStandingLoading" [data]="teamStanding"></standing>
-                </div>
-            </div>
-       
-        </accordion>
-    </section>
-    
+  <section class="Seasons__Section">
+    <accordion [title]="'Race results'">
+      <div
+        *ngIf="isResultTableLoading"
+        style="margin: auto; display: block"
+        class="spinner-grow text-info"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+      <career-table
+        *ngIf="!isResultTableLoading"
+        [data]="resultTableData"
+        [firstRowHeader]="'Driver'"
+        (onOpenRaceDetails)="openGPDetails($event.round)"
+        (onRowTitleClick)="openDriver($event)"
+      ></career-table>
+    </accordion>
+  </section>
 
+  <section class="Seasons__Section">
+    <accordion [title]="'Driver & Team standing'">
+      <div class="Seasons__Standings">
+        <div class="Seasons__DriverStandings">
+          <div class="Seasons__StandingsTitle">Drivers</div>
+          <div
+            *ngIf="isDriverStandingLoading"
+            style="margin: auto; display: block"
+            class="spinner-grow text-info"
+            role="status"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+          <standing
+            *ngIf="!isDriverStandingLoading"
+            [data]="driverStanding"
+          ></standing>
+        </div>
+        <div class="Seasons__TeamStandings">
+          <div class="Seasons__StandingsTitle">Teams</div>
+          <div
+            *ngIf="isTeamStandingLoading"
+            style="margin: auto; display: block"
+            class="spinner-grow text-info"
+            role="status"
+          >
+            <span class="sr-only">Loading...</span>
+          </div>
+          <standing
+            *ngIf="!isTeamStandingLoading"
+            [data]="teamStanding"
+          ></standing>
+        </div>
+      </div>
+    </accordion>
+  </section>
 
-    <section class="Seasons__Section">
-        <accordion [title]="'Calendar'">
-            <div *ngIf="isCircuitsLoading" style="margin: auto; display: block;" class="spinner-grow text-info" role="status">
-                <span class="sr-only">Loading...</span>
-              </div>              
-                <circuit *ngFor="let circuit of circuits; let i=index" 
-                [data]="circuit"
-                [enableClick]="true"
-                (onClick)="openGPDetails(i+1)"
-                ></circuit>
-                          
-        </accordion>
-    </section>
-
-    
-   
-  
-
+  <section class="Seasons__Section">
+    <accordion [title]="'Calendar'">
+      <div
+        *ngIf="isCircuitsLoading"
+        style="margin: auto; display: block"
+        class="spinner-grow text-info"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+      <circuit
+        *ngFor="let circuit of circuits; let i = index"
+        [data]="circuit"
+        [enableClick]="true"
+        (onClick)="openGPDetails(i + 1)"
+      ></circuit>
+    </accordion>
+  </section>
 </div>

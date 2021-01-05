@@ -1,25 +1,38 @@
 <div class="page">
-  <div *ngIf="isLoading" style="margin: auto; margin-top:40px; display: block;" class="spinner-grow text-info"
-    role="status">
+  <div
+    *ngIf="isLoading"
+    style="margin: auto; margin-top: 40px; display: block"
+    class="spinner-grow text-info"
+    role="status"
+  >
     <span class="sr-only">Loading...</span>
   </div>
   <section class="DriverDetail__Section" *ngIf="!isLoading">
-    <div class="DriverDetail__Image" [style.background-image]="'url(assets/drivers/'+driverPhotoId+'.jpg)'">
+    <div
+      class="DriverDetail__Image"
+      [style.background-image]="'url(assets/drivers/' + driverPhotoId + '.jpg)'"
+    ></div>
+    <div class="DriverDetail__DriverName">
+      {{ results[0].givenName + " " + results[0].familyName }}
     </div>
-    <div class="DriverDetail__DriverName">{{results[0].givenName+' '+results[0].familyName}}</div>
     <div class="DriverDetail__Career">
       <div class="DriverDetail__CareerStart">
-        <div class="DriverDetail__CareerStartText">{{results[0].season}}</div>
+        <div class="DriverDetail__CareerStartText">{{ results[0].season }}</div>
         <div class="DriverDetail__CareerInfo">First race in</div>
       </div>
       <div class="DriverDetail__CareerEnd">
-        <div class="DriverDetail__CareerEndText">{{results[results.length-1].season}}</div>
+        <div class="DriverDetail__CareerEndText">
+          {{ results[results.length - 1].season }}
+        </div>
         <div class="DriverDetail__CareerInfo">Last race in</div>
       </div>
     </div>
     <div class="DriverDetail__Counters">
       <div class="DriverDetail__CounterContainer">
-        <counter [text]="'World championships'" [value]="championshipsCount"></counter>
+        <counter
+          [text]="'World championships'"
+          [value]="championshipsCount"
+        ></counter>
       </div>
       <div class="DriverDetail__CounterContainer">
         <counter [text]="'Races'" [value]="racesCount"></counter>
@@ -42,13 +55,20 @@
       <accordion [title]="'Teams'">
         <div class="DriverDetail__FlexContainer">
           <div class="DriverDetail__TeamTile" *ngFor="let team of teams">
-            <div class="DriverDetail__TeamImage" [style.background-image]="'url(assets/teams/'+team.photo+'.jpg)'">
-            </div>
-            <div class="DriverDetail__TeamName">{{team.name}}</div>
+            <div
+              class="DriverDetail__TeamImage"
+              [style.background-image]="
+                'url(assets/teams/' + team.photo + '.jpg)'
+              "
+            ></div>
+            <div class="DriverDetail__TeamName">{{ team.name }}</div>
             <div class="DriverDetail__TeamPeriod">
-              <ng-container *ngIf="team.startSeason==team.endSeason">{{team.startSeason}}</ng-container>
-              <ng-container *ngIf="team.startSeason!=team.endSeason">{{team.startSeason}} -
-                {{team.endSeason}}</ng-container>
+              <ng-container *ngIf="team.startSeason == team.endSeason">{{
+                team.startSeason
+              }}</ng-container>
+              <ng-container *ngIf="team.startSeason != team.endSeason"
+                >{{ team.startSeason }} - {{ team.endSeason }}</ng-container
+              >
             </div>
           </div>
         </div>
@@ -57,19 +77,41 @@
 
     <section class="DriverDetail__Section">
       <accordion [title]="'Championship results'">
-        <div *ngIf="isChampionshipResultLoading" style="margin: auto; margin-top:40px; display: block;"
-          class="spinner-grow text-info" role="status">
+        <div
+          *ngIf="isChampionshipResultLoading"
+          style="margin: auto; margin-top: 40px; display: block"
+          class="spinner-grow text-info"
+          role="status"
+        >
           <span class="sr-only">Loading...</span>
         </div>
-        <div *ngIf="!isChampionshipResultLoading" class="DriverDetail__FlexContainer">
-          <div class="DriverDetail__DriverResultTile" *ngFor="let driverResult of championshipResults">
-            <div class="DriverDetail__DriverResultPosition" [ngClass]="{
-                            'DriverDetail__DriverResultPositionFirst':driverResult.position==1,
-                            'DriverDetail__DriverResultPositionSecond':driverResult.position==2,
-                            'DriverDetail__DriverResultPositionThird':driverResult.position==3
-                        }">{{driverResult.position}}.</div>
-            <div class="DriverDetail__DriverResultSeason">Season: {{driverResult.season}}</div>
-            <div class="DriverDetail__DriverResultPoints" >Points: {{driverResult.points}}</div>
+        <div
+          *ngIf="!isChampionshipResultLoading"
+          class="DriverDetail__FlexContainer"
+        >
+          <div
+            class="DriverDetail__DriverResultTile"
+            *ngFor="let driverResult of championshipResults"
+          >
+            <div
+              class="DriverDetail__DriverResultPosition"
+              [ngClass]="{
+                DriverDetail__DriverResultPositionFirst:
+                  driverResult.position == 1,
+                DriverDetail__DriverResultPositionSecond:
+                  driverResult.position == 2,
+                DriverDetail__DriverResultPositionThird:
+                  driverResult.position == 3
+              }"
+            >
+              {{ driverResult.position }}.
+            </div>
+            <div class="DriverDetail__DriverResultSeason">
+              Season: {{ driverResult.season }}
+            </div>
+            <div class="DriverDetail__DriverResultPoints">
+              Points: {{ driverResult.points }}
+            </div>
           </div>
         </div>
       </accordion>
@@ -80,28 +122,31 @@
         <div class="DriverDetail__DonutCharts">
           <div class="DriverDetail__DonutChart">
             <h5>Number of races for each team</h5>
-            <donut-chart [data]="racesForTeamsChartData" [id]="'racesForTeams'"></donut-chart>
+            <donut-chart
+              [data]="racesForTeamsChartData"
+              [id]="'racesForTeams'"
+            ></donut-chart>
           </div>
           <div class="DriverDetail__DonutChart">
             <h5>Number of finishes under 10</h5>
-            <donut-chart [data]="positionsChartData" [id]="'positions'"></donut-chart>
+            <donut-chart
+              [data]="positionsChartData"
+              [id]="'positions'"
+            ></donut-chart>
           </div>
         </div>
-
       </accordion>
     </section>
 
     <section class="DriverDetail__Section">
       <accordion [title]="'Career'">
-        <career-table [data]="resultTableData" (onOpenRaceDetails)="openRaceDetails($event)"
-          (onOpenSeason)="openSeason($event)"></career-table>
+        <career-table
+          [data]="resultTableData"
+          [firstRowHeader]="'Season'"
+          (onOpenRaceDetails)="openRaceDetails($event)"
+          (onRowTitleClick)="openSeason($event)"
+        ></career-table>
       </accordion>
-
     </section>
-
-
-
-
-
   </section>
 </div>
