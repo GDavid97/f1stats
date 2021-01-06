@@ -1,24 +1,24 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Driver } from '../../models/Driver.model';
-import { Standing } from 'src/app/models/Standing.model';
-import { Team } from 'src/app/models/Team.model';
-import { RaceResult, DriverResult } from 'src/app/models/RaceResult.model';
-import { RaceEvent } from 'src/app/models/RaceEvent.model';
-import { DriverPosition } from 'src/app/models/DriverPosition.model';
-import { SearchBoxItem } from 'src/app/models/SearchboxItem.model';
+import { Injectable } from "@angular/core";
+import { Observable, Subject } from "rxjs";
+import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { map } from "rxjs/operators";
+import { Driver } from "../../models/Driver.model";
+import { Standing } from "src/app/models/Standing.model";
+import { Team } from "src/app/models/Team.model";
+import { RaceResult, DriverResult } from "src/app/models/RaceResult.model";
+import { RaceEvent } from "src/app/models/RaceEvent.model";
+import { DriverPosition } from "src/app/models/DriverPosition.model";
+import { SearchBoxItem } from "src/app/models/SearchboxItem.model";
 
-const proxy = ''; // "https://cors-anywhere.herokuapp.com/"; //"https://thingproxy.freeboard.io/fetch/"
+const proxy = "https://cors-anywhere.herokuapp.com/"; // "https://cors-anywhere.herokuapp.com/"; //"https://thingproxy.freeboard.io/fetch/"
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
   }),
 };
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class WebService {
   protected ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -77,8 +77,8 @@ export class WebService {
   }
 
   getDriverStanding(
-    season: string = 'current',
-    round: string = 'last',
+    season: string = "current",
+    round: string = "last",
     limit: number = 1000,
     offset: number = 0
   ): Observable<Standing[]> {
@@ -109,8 +109,8 @@ export class WebService {
   }
 
   getTeamStanding(
-    season: string = 'current',
-    round: string = 'last',
+    season: string = "current",
+    round: string = "last",
     limit: number = 1000,
     offset: number = 0
   ): Observable<Standing[]> {
@@ -123,7 +123,7 @@ export class WebService {
         map((res) => {
           const stArr: Standing[] = [];
           const year =
-            season == 'current' ? res.MRData.StandingsTable.season : season;
+            season == "current" ? res.MRData.StandingsTable.season : season;
           if (!res.MRData.StandingsTable.StandingsLists[0]) {
             return [];
           }
@@ -133,7 +133,7 @@ export class WebService {
               name: item.Constructor.name,
               photo: `teams/${year}/${item.Constructor.constructorId}.jpg`,
               points: item.points,
-              team: '',
+              team: "",
               id: item.Constructor.constructorId,
             });
           }
@@ -149,11 +149,11 @@ export class WebService {
   ): Observable<any> {
     return this.http.get<any>(
       proxy +
-        'http://ergast.com/api/f1/drivers/' +
+        "http://ergast.com/api/f1/drivers/" +
         driverId +
-        '/results/1.json?limit=' +
+        "/results/1.json?limit=" +
         limit +
-        '&offset=' +
+        "&offset=" +
         offset,
       httpOptions
     );
@@ -179,7 +179,7 @@ export class WebService {
             raceResult = {
               circuit: e.Circuit.circuitName,
               season: e.season,
-              date: `${e.date} ${e.time}`,
+              date: `${e.date} ${e.time ? e.time : ""}`,
               raceName: e.raceName,
               round: e.round,
               drivers: e.Results.map((driverResult) => {
@@ -233,9 +233,9 @@ export class WebService {
   getAllWins(limit: number = 1000, offset: number = 0): Observable<any> {
     return this.http.get<any>(
       proxy +
-        'http://ergast.com/api/f1/results/1.json?limit=' +
+        "http://ergast.com/api/f1/results/1.json?limit=" +
         limit +
-        '&offset=' +
+        "&offset=" +
         offset,
       httpOptions
     );
@@ -243,7 +243,7 @@ export class WebService {
 
   getNextRace(): Observable<any> {
     return this.http.get<any>(
-      proxy + 'http://ergast.com/api/f1/current/next.json',
+      proxy + "http://ergast.com/api/f1/current/next.json",
       httpOptions
     );
   }
@@ -299,7 +299,7 @@ export class WebService {
               position: race.Results[0].position,
               positionText: race.Results[0].positionText,
               status: race.Results[0].status,
-              fastestLap: race.Results[0].FastestLap?.rank == '1',
+              fastestLap: race.Results[0].FastestLap?.rank == "1",
               code: race.Results[0].Driver.code,
               dateOfBirth: new Date(race.Results[0].Driver.dateOfBirth),
               driverId: race.Results[0].Driver.driverId,
@@ -377,7 +377,7 @@ export class WebService {
             return {
               name: `${e.givenName} ${e.familyName}`,
               id: e.driverId,
-              type: 'driver',
+              type: "driver",
             };
           });
           return result;

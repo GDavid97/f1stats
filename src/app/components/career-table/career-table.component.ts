@@ -6,17 +6,17 @@ import {
   SimpleChanges,
   Output,
   EventEmitter,
-} from '@angular/core';
+} from "@angular/core";
 import {
   ResultsTableRow,
   ResultsTableColumn,
-} from 'src/app/models/ResultsTable.model';
-import { SeasonRound } from 'src/app/models/SeasonRound.model';
+} from "src/app/models/ResultsTable.model";
+import { SeasonRound } from "src/app/models/SeasonRound.model";
 
 @Component({
-  selector: 'career-table',
-  templateUrl: './career-table.component.html',
-  styleUrls: ['./career-table.component.scss'],
+  selector: "career-table",
+  templateUrl: "./career-table.component.html",
+  styleUrls: ["./career-table.component.scss"],
 })
 export class CareerTableComponent implements OnInit, OnChanges {
   @Input()
@@ -49,43 +49,59 @@ export class CareerTableComponent implements OnInit, OnChanges {
 
   getColumnData(row: ResultsTableRow): ResultsTableRow {
     const result = Object.assign({}, row);
-    result.results = [...row.results];
-    const firstIndex = parseInt(result.results[0].round) - 1;
-    for (let i = 0; i < firstIndex-1; i++) {
-      result.results.unshift({
-        points: null,
-        position: '',
-        raceName: '',
-        round: (i + 1).toString(),
-      });
-    }
-    if(result.results.length<this.maxCols){
-      for (let i = 1; i < result.results.length; i++) {
-        if (
-          parseInt(result.results[i].round) -
-            parseInt(result.results[i - 1].round) >
-          1
-        ) {
-          result.results.splice(i, 0, {
+    result.results = [];
+    let j = 0;
+    // for (let i = 0; i < this.maxCols; i++) {
+    //   if (row.results[j] && j + 1 === parseInt(row.results[j].round)) {
+    //     result.results.push(row.results[j]);
+    //     j++;
+    //   } else {
+    //     result.results.push({
+    //       points: null,
+    //       position: "",
+    //       raceName: "",
+    //       round: (i + 1).toString(),
+    //     });
+    //     j++;
+    //   }
+    // }
+
+    for (let i = 0; i < this.maxCols; i++) {
+      if (
+        row.results[i] &&
+        (parseInt(row.results[i].round) === i + 1 ||
+          (result.results.length > 0 &&
+            parseInt(row.results[i].round) - 1 ==
+              parseInt(result.results[result.results.length - 1].round)))
+      ) {
+        result.results.push(row.results[i]);
+      } else if (row.results[i]) {
+        let t = result.results[result.results.length - 1]
+          ? parseInt(result.results[result.results.length - 1].round)
+          : i;
+        let diff = parseInt(row.results[i].round) - t - 1;
+        for (let j = 0; j < diff; j++) {
+          result.results.push({
             points: null,
-            position: '',
-            raceName: '',
-            round: (i + 1).toString(),
+            position: "",
+            raceName: "",
+            round: (i + j + 1).toString(),
           });
         }
+        result.results.push(row.results[i]);
       }
     }
-    
-    if(result.results.length<this.maxCols){    
-    for (let i = result.results.length; i < this.maxCols; i++) {
+
+    let diff = this.maxCols - result.results.length;
+    for (let j = 0; j < diff; j++) {
       result.results.push({
         points: null,
-        position: '',
-        raceName: '',
-        round: (i + 1).toString(),
+        position: "",
+        raceName: "",
+        round: (this.maxCols - 1 - diff + j).toString(),
       });
     }
-  }
+
     return result;
   }
 

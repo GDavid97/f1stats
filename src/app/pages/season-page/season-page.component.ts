@@ -69,7 +69,6 @@ export class SeasonPageComponent implements OnInit {
 
   ngOnInit() {
     this.setDefaultNavButtons(this.season);
-    this.getData(this.season.toString());
   }
 
   setDefaultNavButtons(season: number) {
