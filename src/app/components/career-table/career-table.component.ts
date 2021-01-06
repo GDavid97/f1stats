@@ -51,7 +51,7 @@ export class CareerTableComponent implements OnInit, OnChanges {
     const result = Object.assign({}, row);
     result.results = [...row.results];
     const firstIndex = parseInt(result.results[0].round) - 1;
-    for (let i = 0; i < firstIndex; i++) {
+    for (let i = 0; i < firstIndex-1; i++) {
       result.results.unshift({
         points: null,
         position: '',

@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { WebService } from 'src/app/services/web/web.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LineChartData } from 'src/app/models/LineChartData.model';
-import { Subscription } from 'rxjs';
-import { RaceEvent } from 'src/app/models/RaceEvent.model';
-import { Standing } from 'src/app/models/Standing.model';
+import { Component, OnInit } from "@angular/core";
+import { WebService } from "src/app/services/web/web.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { LineChartData } from "src/app/models/LineChartData.model";
+import { Subscription } from "rxjs";
+import { RaceEvent } from "src/app/models/RaceEvent.model";
+import { Standing } from "src/app/models/Standing.model";
 import {
   ResultsTableColumn,
   ResultsTableRow,
-} from 'src/app/models/ResultsTable.model';
+} from "src/app/models/ResultsTable.model";
 
 @Component({
-  selector: 'app-season-page',
-  templateUrl: './season-page.component.html',
-  styleUrls: ['./season-page.component.scss'],
+  selector: "app-season-page",
+  templateUrl: "./season-page.component.html",
+  styleUrls: ["./season-page.component.scss"],
 })
 export class SeasonPageComponent implements OnInit {
   driversPointsForChart: LineChartData[];
@@ -50,14 +50,16 @@ export class SeasonPageComponent implements OnInit {
           params.season <= new Date().getFullYear()
         ) {
           this.season = params.season;
+          this.setDefaultNavButtons(this.season);
+          this.getData(this.season.toString());
         } else {
-          this.router.navigate(['.'], {
+          this.router.navigate(["."], {
             relativeTo: this.route,
             queryParams: { season: new Date().getFullYear() },
           });
         }
       } else {
-        this.router.navigate(['.'], {
+        this.router.navigate(["."], {
           relativeTo: this.route,
           queryParams: { season: this.season },
         });
@@ -97,7 +99,7 @@ export class SeasonPageComponent implements OnInit {
       }
     }
 
-    this.router.navigate(['.'], {
+    this.router.navigate(["."], {
       relativeTo: this.route,
       queryParams: { season: this.season },
     });
@@ -116,7 +118,7 @@ export class SeasonPageComponent implements OnInit {
         this.prevButtonDisabled = false;
       }
     }
-    this.router.navigate(['.'], {
+    this.router.navigate(["."], {
       relativeTo: this.route,
       queryParams: { season: this.season },
     });
@@ -271,13 +273,13 @@ export class SeasonPageComponent implements OnInit {
   }
 
   openGPDetails(round: number) {
-    this.router.navigate(['gp'], {
+    this.router.navigate(["gp"], {
       queryParams: { season: this.season, round },
     });
   }
   openDriver(driver: string) {
     const driverId = this.driverStanding.find((e) => e.name === driver).id;
-    this.router.navigate(['driverdetail'], {
+    this.router.navigate(["driverdetail"], {
       queryParams: { id: driverId },
     });
   }
